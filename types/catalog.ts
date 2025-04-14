@@ -12,6 +12,7 @@ export interface IManufacturersBlockItemProps {
 }
 
 export interface IQueryParams {
+  id: any
   offset: string
   firs: string
   boiler: string

@@ -224,7 +224,7 @@ const DashboardPage = () => {
                 <div className="props__title">Стоимость авто под ключ</div>
                 <div className="props__info">
                   <span className="props__num">
-                    <span>от</span> 2 500 000 <span>₽</span>
+                    <span>от</span> 1 000 000 <span>₽</span>
                   </span>
                 </div>
               </div>
@@ -232,7 +232,7 @@ const DashboardPage = () => {
                 <div className="props__title">Компания на рынке с</div>
                 <div className="props__info">
                   <span className="props__num">
-                    2013 <span>г</span>
+                    2019 <span>г</span>
                   </span>
                 </div>
               </div>
