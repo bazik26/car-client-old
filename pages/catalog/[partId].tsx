@@ -34,44 +34,29 @@ function CatalogPartPage({
   const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
 
   useEffect(() => {
+    loadBoilerPart()
+  }, [router.asPath])
+
+  useEffect(() => {
     if (lastCrumb) {
       lastCrumb.textContent = boilerPart.name
     }
   }, [lastCrumb, boilerPart])
 
-  const loadBoilerPart = useCallback(async () => {
+  const loadBoilerPart = async () => {
     try {
       const data = await getBoilerPartFx(`/boiler-parts/find/${query.partId}`)
 
       if (!data) {
-        setError(true) // Обработка ошибки
+        setError(true)
         return
       }
 
-      setBoilerPart(data) // Установка данных в состояние
+      setBoilerPart(data)
     } catch (error) {
-      toast.error((error as Error).message) // Отображение ошибки
+      toast.error((error as Error).message)
     }
-  }, [query.partId]) // Добавляем query.partId в зависимости
-
-  // const loadBoilerPart = async () => {
-  //   try {
-  //     const data = await getBoilerPartFx(`/boiler-parts/find/${query.partId}`)
-
-  //     if (!data) {
-  //       setError(true)
-  //       return
-  //     }
-
-  //     setBoilerPart(data)
-  //   } catch (error) {
-  //     toast.error((error as Error).message)
-  //   }
-  // }
-
-  useEffect(() => {
-    loadBoilerPart()
-  }, [loadBoilerPart, router.asPath])
+  }
 
   return (
     <>
@@ -105,7 +90,6 @@ function CatalogPartPage({
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content="https://importeurocar.ru/img/logo.png" />
       </Head>
-
       {error ? (
         <Custom404 />
       ) : (
@@ -129,18 +113,27 @@ function CatalogPartPage({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query as unknown as IQueryParams
 
-  // Пример: Получение boilerPart по query.id
-  const res = await fetch(`https://api.site.com/boiler-parts/${query.id}`)
-  const boilerPart = await res.json()
+  try {
+    const data = await getBoilerPartFx(`/boiler-parts/find/${query.partId}`)
 
-  return {
-    props: {
-      query,
-      metaTitle: `Import Euro Car | ${boilerPart.name}`,
-      metaDescription: boilerPart.description,
-    },
+    if (!data) {
+      return {
+        notFound: true,
+      }
+    }
+
+    return {
+      props: {
+        query,
+        metaTitle: `Import Euro Car | ${data.name}`,
+        metaDescription: `Купить ${data.name} по отличной цене. Подробности, характеристики и условия доставки на сайте Import Euro Car.`,
+      },
+    }
+  } catch (e) {
+    return {
+      notFound: true,
+    }
   }
 }
-
 
 export default CatalogPartPage

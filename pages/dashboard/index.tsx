@@ -3,7 +3,6 @@ import { GetServerSideProps } from 'next'
 import Layout from '@/components/layout/Layout'
 import DashboardPage from '@/components/templates/DashboardPage/DashboardPage'
 import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
-import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import YandexMap from '@/components/elements/YandexMap/YandexMap'
 
 function Dashboard({

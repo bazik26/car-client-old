@@ -29,8 +29,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Layout from '@/components/layout/Layout'
 import DashboardPage from '@/components/templates/DashboardPage/DashboardPage'
 import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
-import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
-import ScrollToTop from '@/components/elements/ScrollToTop/ScrollToTop'
 
 function Dashboard({
   metaTitle,
@@ -48,7 +46,6 @@ function Dashboard({
               getTextGenerator={() => ''}
             /> */}
             <DashboardPage />
-            <ScrollToTop/>
             <div className="overlay" />
           </main>
         </Layout>

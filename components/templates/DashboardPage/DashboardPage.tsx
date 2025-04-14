@@ -13,7 +13,6 @@ import { $shoppingCart } from '@/context/shopping-cart'
 import { AnimatePresence, motion } from 'framer-motion'
 import CartAlert from '@/components/modules/DashboardPage/CartAlert'
 import Image from 'next/image'
-import ScrollToTop from '@/components/elements/ScrollToTop/ScrollToTop'
 import '@/styles/dashboard/custom.css';
 import '@/styles/dashboard/styleconsalt.css';
 
@@ -446,7 +445,6 @@ const DashboardPage = () => {
           </p>
         </div> */}
       </div>
-      {/* <ScrollToTop/> */}
     </section>
   )
 }
