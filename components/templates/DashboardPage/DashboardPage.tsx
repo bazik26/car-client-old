@@ -12,6 +12,10 @@ import DashboardSlider from '@/components/modules/DashboardPage/DashboardSlider'
 import { $shoppingCart } from '@/context/shopping-cart'
 import { AnimatePresence, motion } from 'framer-motion'
 import CartAlert from '@/components/modules/DashboardPage/CartAlert'
+import Image from 'next/image'
+import ScrollToTop from '@/components/elements/ScrollToTop/ScrollToTop'
+import '@/styles/dashboard/custom.css';
+import '@/styles/dashboard/styleconsalt.css';
 
 const DashboardPage = () => {
   const [newParts, setNewParts] = useState<IBoilerParts>({} as IBoilerParts)
@@ -56,6 +60,122 @@ const DashboardPage = () => {
 
   const closeAlert = () => setShowAlert(false)
 
+  const advantages = [
+    {
+      title: "Отлаженная логистика",
+      description: "Доставляем автомобили с помощью своих автовозов и во все регионы России",
+    },
+    {
+      title: "Широкий выбор",
+      description: "Комплектации по вашим требованиям и эксклюзив под заказ. Есть автомобили в наличии",
+    },
+    {
+      title: "Фиксированная цена",
+      description: "Цена, указанная в договоре, является фиксированной и не может быть изменена.",
+    },
+    {
+      title: "Кредит, лизинг и trade-in",
+      description: "Готовы предложить различные финансовые инструменты при покупке автомобиля",
+    },
+    {
+      title: "Доставляем быстрее дилеров",
+      description: "Срок поставки в среднем занимает 25-45 дней. Иногда доходит до 55 дней, но больше не бывает",
+    },
+    {
+      title: "Надежное юрлицо",
+      description: "Многопрофильная компания с представительством в Европе, Китае и Корее",
+    },
+  ];
+
+  const stages = [
+    {
+      title: "Получаем вводные данные",
+      description: "Для начала подбора нужна марка, модель автомобиля и пожелания по комплектации"
+    },
+    {
+      title: "Подбираем варианты и отправляем клиенту",
+      description: "Проверяем все предложения поставщиков и выбираем от двух до четырех вариантов"
+    },
+    {
+      title: "Согласовываем вариант",
+      description: "Клиент выбирает один вариант, мы запрашиваем информацию о техническом состоянии автомобиля"
+    },
+    {
+      title: "Подписываем договор",
+      description: "В договоре фиксируем стоимость автомобиля, форму оплаты, техническое состояние и сроки поставки"
+    },
+    {
+      title: "Доставляем автомобиль",
+      description: "Привозим автомобиль, проходим растаможку, сертификацию. Выдаем клиенту автомобиль с ЭПТС"
+    }
+  ];
+
+  const recommendations = [
+    { title: "Менеджер Михаил", src: "/video/IMG_0461.MP4", url: "https://t.me/avto_prigon_europe" },
+    { title: "Менеджер Михаил", src: "/video/IMG_0705.MP4", url: "https://t.me/avto_prigon_europe" },
+    { title: "Менеджер Михаил", src: "/video/IMG_0586.MP4", url: "https://t.me/avto_prigon_europe" },
+    { title: "Менеджер Александр", src: "/video/IMG_0805.MP4", url: "https://t.me/Aleksandravtooo" },
+    { title: "Менеджер Александр", src: "/video/IMG_0845.MP4", url: "https://t.me/Aleksandravtooo" },
+    { title: "Менеджер Михаил", src: "/video/IMG_1472.MP4", url: "https://t.me/avto_prigon_europe" },
+  ];
+
+  const handleClick = () => {
+    // 1. Получаем значения из нужных инпутов по name
+    const brand = (document.querySelector('input[name="brand"]') as HTMLInputElement)?.value
+    const model = (document.querySelector('input[name="model"]') as HTMLInputElement)?.value
+    const generation = (document.querySelector('input[name="generation"]') as HTMLTextAreaElement)?.value
+  
+    // 2. Можно передать эти данные дальше или сохранить
+    console.log({ brand, model, generation }) // или сохранить в localStorage, state и т.д.
+    // localStorage.setItem('formData', JSON.stringify({ name, email, message }))
+  
+    // 3. Показываем форму (твоя логика)
+    const form = document.querySelector('.formbord') as HTMLElement
+  
+    if (form) {
+      if (window.innerWidth < 560) {
+        form.style.right = '0px'
+      } else {
+        form.style.display = 'flex'
+        form.style.right = '0px'
+      }
+    }
+  }
+
+  const [formData, setFormData] = useState({
+    brand: '',
+    model: '',
+    generation: ''
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth <= 560)
+    }
+
+    checkScreen()
+    window.addEventListener('resize', checkScreen)
+    return () => window.removeEventListener('resize', checkScreen)
+  }, [])
+
+  const [height, setHeight] = useState(260)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setHeight(window.innerWidth <= 560 ? 200 : 260)
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  
   return (
     <section className={styles.dashboard}>
       <div className={`container ${styles.dashboard__container}`}>
@@ -77,7 +197,225 @@ const DashboardPage = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className={styles.dashboard__brands}>
+        <Image
+          src={isMobile ? '/img/mobile_banner.jpg' : '/img/main_banner.jpg'}
+          alt="mainimg"
+          className={styles.dashboard__mainimg}
+          width={800}
+          height={600}
+        />
+        <section className="props">
+          <div className="container-new">
+            <div className="props__inner">
+              <div className="props__item">
+                <div className="props__title">Успешно поставляем</div>
+                <div className="props__info">
+                  <span className="props__num">&gt; 50</span>
+                  <span className="props__desc">авто в месяц</span>
+                </div>
+              </div>
+              <div className="props__item">
+                <div className="props__title">Довольных клиентов</div>
+                <div className="props__info">
+                  <span className="props__num">&gt; 1359</span>
+                </div>
+              </div>
+              <div className="props__item">
+                <div className="props__title">Стоимость авто под ключ</div>
+                <div className="props__info">
+                  <span className="props__num">
+                    <span>от</span> 2 500 000 <span>₽</span>
+                  </span>
+                </div>
+              </div>
+              <div className="props__item">
+                <div className="props__title">Компания на рынке с</div>
+                <div className="props__info">
+                  <span className="props__num">
+                    2013 <span>г</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="case">
+          <div className="container-new">
+            <div className="case__top">
+              <div className="case__title display2">Кейсы</div>
+              <div className="case__desc subtitle">Уже 1500 клиентов получили свой автомобиль</div>
+            </div>
+            <div className="case__slider">
+              <DashboardSlider items={bestsellers.rows || []} spinner={spinner} />
+            </div>
+          </div>
+        </section>
+        <section className="consult preload-ajax simpleform-container">
+          <img
+            src="/img/red-triangle.svg"
+            data-src="/img/red-triangle.svg"
+            alt=""
+            className="consult__triangle consult__triangle1 lazyloaded"
+          />
+          <div className="consult__left">
+            <div className="consult__container test" style={{ width: "759.72px" }}>
+              <div className="consult__content consult__content1">
+                <div className="consult__title display2">
+                  Узнайте, сколько будет стоить ваш автомобиль
+                </div>
+                <div className="consult__desc subtitle">Выберите комплектацию</div>
+                <form
+                  className="consult__form simpleform simpleform-reload"
+                  id="form1"
+                  action="#"
+                  encType="multipart/form-data"
+                >
+                  <input type="hidden" name="component" value="profitkit:form.simple" />
+                  <input type="hidden" name="component_path" value="/local/components/profitkit/form.simple" />
+                  <input type="hidden" name="template" value="service_detail_car" />
+                  <input type="hidden" name="IBLOCK_ID" value="59" />
+                  <input type="hidden" name="FROM_STEP_1" value="Y" />
+                  <input type="hidden" name="FROM_STEP_2" value="N" />
+                  <fieldset className="fg">
+                    <div id="name" className="fg__input">
+                      <input type="text" placeholder="Марка*" name="brand" value={formData.brand} onChange={handleChange}/>
+                      <span className="fg__error">Заполните обязательное поле</span>
+                    </div>
+                  </fieldset>
+                  <fieldset className="fg">
+                    <div id="name" className="fg__input">
+                      <input type="text" placeholder="Модель*" name="model" value={formData.model} onChange={handleChange} />
+                      <span className="fg__error">Заполните обязательное поле</span>
+                    </div>
+                  </fieldset>
+                  <fieldset className="fg">
+                    <div id="name" className="fg__input">
+                      <input type="text" placeholder="Поколение*" name="generation" value={formData.generation} onChange={handleChange} />
+                      <span className="fg__error">Заполните обязательное поле</span>
+                    </div>
+                  </fieldset>
+                  <button className="consult__btn mbtn mbtn-red" type="button" onClick={handleClick}>
+                    <span>далее</span>
+                    <svg width="21" height="29" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path opacity="0.3" d="M0 0L13.4129 14.5L0 29H7.58707L21 14.5L7.58707 0H0Z" fill="white" />
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="consult__right">
+            <img
+              src="/img/black-triangle.svg"
+              data-src="/img/black-triangle.svg"
+              alt=""
+              className="consult__triangle consult__triangle2 lazyloaded"
+            />
+            <div className="consult__img">
+              <img
+                className="lazyloaded"
+                src="/img/consult.webp"
+                data-src="/img/consult.webp"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+        <section className="advantages">
+          <div className="container-new">
+            <div className="advantages__top">
+              <div className="advantages__title display2">Наши преимущества</div>
+              <div className="advantages__desc subtitle">Почему клиенты предпочитают работать с нами</div>
+            </div>
+            <div className="advantages__items">
+              {advantages.map((advantage, index) => (
+                <div className="advantages__item" key={index}>
+                  <div className="advantages__item-title">{advantage.title}</div>
+                  <div className="advantages__item-desc body-text">{advantage.description}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="stage">
+          <div className="container-new">
+            <div className="stage__top">
+              <h2 className="stage__title display2">Этапы работы</h2>
+              <p className="stage__desc subtitle">Полностью открытые условия и ничего лишнего</p>
+            </div>
+            <ol className="stage__items">
+              {stages.map((stage, index) => (
+                <li key={index} className="stage__item skewBg">
+                  <div className="stage__item-in">
+                    <h3 className="stage__item-title display4">{stage.title}</h3>
+                    <p className="stage__item-desc body-text">{stage.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+        <section className="recommendation">
+          <div className="container-new">
+            <h2 className="recommendation__title display2">Нас рекомендуют</h2>
+            <div className="recommendation__items">
+              {recommendations.map((video, index) => (
+                <div className="recommendation__item" key={index}>
+                  <div className="recommendation__video">
+                  <video
+                    src={video.src}
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    style={{ width: '100%', height: `${height}px` }}
+                  />
+                  </div>
+                  <a href={video.url} target='_blank' className="recommendation__desc body-text">{video.title}<img src='/img/telegram.png' style={{ width: '20px', height: '20px', margin: '5px 0px 0px 10px' }}/></a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="consult contacts">
+          <div className="consult__left">
+            <div className="consult__container" style={{ width: '759.72px' }}>
+              <div className="consult__content">
+                <div className="consult__title display2">Контакты</div>
+                <div className="consult__desc subtitle">
+                  Приходите в гости, мы будем вам рады
+                </div>
+                <div className="contacts__items">
+                  <a href="tel:+79283347225" className="contacts__item contacts__phone">
+                    +7 (982) 334-72-25
+                  </a>
+                  <a href="https://yandex.ru/maps/-/CHafFJnl" target='_blank' className="contacts__item">
+                    Самарская обл. Тольятти. Южное шоссе, 24. 445004. Офис 202
+                  </a>
+                  <a href="mailto:importeurocar@yandex.com" className="contacts__item">
+                    importeurocar@yandex.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="consult__right">
+            <img
+              src="/img/black-triangle.svg"
+              data-src="/img/black-triangle.svg"
+              alt=""
+              className="consult__triangle consult__triangle2 lazyloaded"
+            />
+            <div className="consult__img">
+              <img
+                className="lazyloaded"
+                src="/img/rgndkd7k49kjc5zmv1lo6o56s7d30b1y.png"
+                data-src="/img/rgndkd7k49kjc5zmv1lo6o56s7d30b1y.png"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+        {/* <div className={styles.dashboard__brands}>
           <BrandsSlider />
         </div>
         <h2 className={`${styles.dashboard__title} ${darkModeClass}`}>
@@ -106,8 +444,9 @@ const DashboardPage = () => {
             США и Кореи. Мы подбираем, проверяем, доставляем и оформляем авто,
             снижая таможенные расходы для клиентов.
           </p>
-        </div>
+        </div> */}
       </div>
+      {/* <ScrollToTop/> */}
     </section>
   )
 }

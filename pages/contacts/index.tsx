@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 import Layout from '@/components/layout/Layout'
 import ContactsPage from '@/components/templates/ContactsPage/ContactsPage'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
+import YandexMapС from '@/components/elements/YandexMap/YandexMapС'
 
 function Contacts() {
   const getDefaultTextGenerator = useCallback(() => 'Контакты', [])
@@ -29,6 +30,7 @@ function Contacts() {
             getTextGenerator={getTextGenerator}
           />
           <ContactsPage />
+          <YandexMapС />
           <div className="overlay" />
         </main>
       </Layout>

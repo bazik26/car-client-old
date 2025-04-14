@@ -1,0 +1,33 @@
+.preload-ajax.preload-active {
+     position: relative;
+ }
+
+.preload-ajax.preload-active::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,.25);
+    z-index: 45;
+}
+
+.preload-ajax.preload-active::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 30px;
+    transform: translate(-50%, -50%);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg height='8' viewBox='0 0 120 30' xmlns='http://www.w3.org/2000/svg' fill='%23313D50'%3e%3ccircle cx='15' cy='15' r='15'%3e%3canimate attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite' /%3e%3canimate attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite' /%3e%3c/circle%3e%3ccircle cx='60' cy='15' r='9' fill-opacity='0.3'%3e%3canimate attributeName='r' from='9' to='9' begin='0s' dur='0.8s' values='9;15;9' calcMode='linear' repeatCount='indefinite' /%3e%3canimate attributeName='fill-opacity' from='0.5' to='0.5' begin='0s' dur='0.8s' values='.5;1;.5' calcMode='linear' repeatCount='indefinite' /%3e%3c/circle%3e%3ccircle cx='105' cy='15' r='15'%3e%3canimate attributeName='r' from='15' to='15' begin='0s' dur='0.8s' values='15;9;15' calcMode='linear' repeatCount='indefinite' /%3e%3canimate attributeName='fill-opacity' from='1' to='1' begin='0s' dur='0.8s' values='1;.5;1' calcMode='linear' repeatCount='indefinite' /%3e%3c/circle%3e%3c/svg%3e");
+    z-index: 50;
+}
+
+.consult__triangle {
+    z-index: 2;
+}

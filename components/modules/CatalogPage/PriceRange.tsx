@@ -4,9 +4,9 @@ import { Range, getTrackBackground } from 'react-range'
 import styles from '@/styles/catalog/index.module.scss'
 import { IPriceRangeProps } from '@/types/catalog'
 
-const STEP = 10000
-const MIN = 0
-const MAX = 5000000
+const STEP = 1000
+const MIN = 500000
+const MAX = 10000000
 
 const PriceRange = ({
   priceRange,
@@ -15,6 +15,14 @@ const PriceRange = ({
 }: IPriceRangeProps) => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
+
+  const clamp = (value: number, min: number, max: number) =>
+    Math.min(Math.max(value, min), max)
+
+  const safePriceRange = [
+    clamp(priceRange[0], MIN, MAX),
+    clamp(priceRange[1], MIN, MAX),
+  ]
 
   const handlePriceRangeChange = (values: number[]) => {
     setIsPriceRangeChanged(true)
@@ -26,20 +34,20 @@ const PriceRange = ({
       <div className={`${styles.filters__price__inputs} ${darkModeClass}`}>
         <input
           type="text"
-          value={Math.ceil(priceRange[0])}
+          value={Math.ceil(safePriceRange[0])}
           placeholder="от 0"
           readOnly
         />
         <span className={styles.filters__price__inputs__border} />
         <input
           type="text"
-          value={Math.ceil(priceRange[1])}
-          placeholder="до 5000000"
+          value={Math.ceil(safePriceRange[1])}
+          placeholder="до 5 000 000"
           readOnly
         />
       </div>
       <Range
-        values={priceRange}
+        values={safePriceRange}
         step={STEP}
         min={MIN}
         max={MAX}
@@ -63,8 +71,8 @@ const PriceRange = ({
                 width: '100%',
                 borderRadius: '4px',
                 background: getTrackBackground({
-                  values: priceRange,
-                  colors: ['#B1CEFA', '#247CC8', '#B1CEFA'],
+                  values: safePriceRange,
+                  colors: ['#fff', '#ff0000', '#fff'],
                   min: MIN,
                   max: MAX,
                 }),
@@ -88,7 +96,7 @@ const PriceRange = ({
                 width: '20px',
                 borderRadius: '50%',
                 background: '#FFFFFF',
-                border: '3px solid #1C629E',
+                border: '3px solid #ff0000',
                 boxShadow: '0px 12px 8px -6px rgba(174, 181, 239, 0.2)',
               }}
             />

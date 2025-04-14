@@ -46,15 +46,15 @@ const CityButton = () => {
         <LocationSvg />
       </span>
       <span className={`${styles.city__text} ${darkModeClass}`}>
-        {spinner ? (
+      {spinner ? (
           <span
             className={spinnerStyles.spinner}
-            style={{ top: '-10px', left: 10, width: 20, height: 20 }}
+            style={{ top: "-10px", left: 10, width: 20, height: 20 }}
           />
-        ) : city.length ? (
+        ) : city && city.length ? (  // Проверка на наличие города
           city
         ) : (
-          'Город'
+          "Город"
         )}
       </span>
     </button>

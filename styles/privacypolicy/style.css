@@ -1,0 +1,25 @@
+.main {
+    color: white !important;
+    padding: 100px 24px;
+}
+
+h1 {
+    font-family: EuropeExtBold, sans-serif;
+}
+
+p {
+    /* color: #ccc; */
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: #ccc;
+    transition: color 0.2s ease-in-out;
+}
+
+b {
+    font-family: Montserrat-Bold, sans-serif;
+}

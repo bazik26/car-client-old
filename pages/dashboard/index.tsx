@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout'
 import DashboardPage from '@/components/templates/DashboardPage/DashboardPage'
 import useRedirectByUserCheck from '@/hooks/useRedirectByUserCheck'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
+import YandexMap from '@/components/elements/YandexMap/YandexMap'
 
 function Dashboard({
   metaTitle,
@@ -21,7 +22,7 @@ function Dashboard({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://cars-euro.com/" />
+        <link rel="canonical" href="https://importeurocar.ru/" />
 
         {/* Favicon */}
         <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png" />
@@ -38,7 +39,7 @@ function Dashboard({
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
-        <meta name="apple-mobile-web-app-title" content="Cars Euro" />
+        <meta name="apple-mobile-web-app-title" content="Import Euro Car" />
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* SEO Meta Tags */}
@@ -47,7 +48,7 @@ function Dashboard({
           name="keywords"
           content="авто из Европы, купить авто, автомобили, продажа авто, автопригон"
         />
-        <meta name="author" content="Cars Euro" />
+        <meta name="author" content="Import Euro Car" />
         <meta name="robots" content="index, follow" />
 
         {/* Open Graph Meta Tags */}
@@ -55,11 +56,11 @@ function Dashboard({
         <meta property="og:description" content={metaDescription} />
         <meta
           property="og:image"
-          content="https://cars-euro.com/img/logo.png"
+          content="https://importeurocar.ru/img/logo.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://cars-euro.com/" />
+        <meta property="og:url" content="https://importeurocar.ru/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="ru_RU" />
 
@@ -69,18 +70,19 @@ function Dashboard({
         <meta name="twitter:description" content={metaDescription} />
         <meta
           name="twitter:image"
-          content="https://cars-euro.com/img/logo.png"
+          content="https://importeurocar.ru/img/logo.png"
         />
       </Head>
 
       {shouldLoadContent && (
         <Layout>
           <main>
-            <Breadcrumbs
+            {/* <Breadcrumbs
               getDefaultTextGenerator={() => ''}
               getTextGenerator={() => ''}
-            />
+            /> */}
             <DashboardPage />
+            <YandexMap />
             <div className="overlay" />
           </main>
         </Layout>
@@ -96,7 +98,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   console.log('🔍 getServerSideProps вызван на сервере!')
   return {
     props: {
-      metaTitle: 'Cars Euro – Купить авто из Европы под заказ',
+      metaTitle: 'Import Euro Car – Купить авто из Европы под заказ',
       metaDescription:
         'Ваш надёжный партнёр в мире автомобилей. Лучшие авто по низким ценам!',
     },

@@ -1,3 +1,7 @@
 User-agent: *
+Disallow: /order/
+Disallow: /wholesale-buyers/
+Disallow: /privacypolicy/
 Allow: /
-Sitemap: https://cars-euro.com/sitemap.xml
+
+Sitemap: https://importeurocar.ru/sitemap.xml

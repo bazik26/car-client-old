@@ -206,7 +206,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     <section className={styles.catalog}>
       <div className={`container ${styles.catalog__container}`}>
         <h2 className={`${styles.catalog__title} ${darkModeClass}`}>
-          Каталог товаров
+          Витрина автомобилей
         </h2>
         <div className={`${styles.catalog__top} ${darkModeClass}`}>
           <AnimatePresence>

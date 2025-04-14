@@ -14,11 +14,11 @@ function Catalog({ query }: { query: IQueryParams }) {
   return (
     <>
       <Head>
-        <title> Cars Euro | {shouldLoadContent ? 'Каталог' : ''}</title>
+        <title> Import Euro Car | {shouldLoadContent ? 'Каталог' : ''}</title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico" />
         <meta
           name="description"
           content="Ознакомьтесь с нашим каталогом автомобилей.

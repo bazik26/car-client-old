@@ -8,13 +8,13 @@
   background-color: transparent;
 
   &:hover &__text {
-    fill: #ffc540;
-    color: #ffc540;
+    fill: #8e8e8e;
+    color: #8e8e8e;
     transition: color 0.2s ease-in-out;
   }
 
   &:hover &__span > svg {
-    fill: #ffc540;
+    fill: #8e8e8e;
     transition: fill 0.2s ease-in-out;
   }
 
@@ -29,7 +29,7 @@
       transition: fill 0.2s ease-in-out;
 
       @media (max-width: 950px) {
-        fill: #2d2d2d;
+        // fill: #2d2d2d;
         width: 20px;
         height: 20px;
       }
@@ -42,17 +42,18 @@
 
   &__text {
     position: relative;
-    font-family: 'Roboto';
+    font-family: MontserratRegular,sans-serif;
     font-weight: 500;
     font-size: 16px;
     letter-spacing: 0.002em;
     text-decoration-line: underline;
     color: #fafbfc;
     transition: color 0.2s ease-in-out;
+    text-decoration: none;
 
     @media (max-width: 950px) {
       font-size: 22px;
-      color: #2d2d2d;
+      // color: #2d2d2d;
 
       &.dark_mode {
         color: #f2f2f2;

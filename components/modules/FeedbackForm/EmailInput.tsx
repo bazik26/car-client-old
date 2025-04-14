@@ -3,13 +3,13 @@ import styles from '@/styles/feedbackForm/index.module.scss'
 
 const EmailInput = ({ register, errors, darkModeClass }: IFeedbackInput) => (
   <label className={`${styles.feedback_form__form__label} ${darkModeClass}`}>
-    <span>Email *</span>
+    <h1>Почта:</h1>
     <input
       className={styles.feedback_form__form__input}
       type="email"
-      placeholder="ivan@gmail.com"
+      // placeholder="ivan@gmail.com"
       {...register('email', {
-        required: 'Введите Email!',
+        // required: 'Введите Email!',
         pattern: {
           value: /\S+@\S+\.\S+/,
           message: 'Неправильный Email!',

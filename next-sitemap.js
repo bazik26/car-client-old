@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://cars-euro.com', // Укажите ваш домен
+  siteUrl: 'https://importeurocar.ru', // Укажите ваш домен
   generateRobotsTxt: true,
   sitemapSize: 5000,
   trailingSlash: false, // Без слэша в конце URL
@@ -15,6 +15,6 @@ module.exports = {
         disallow: ['/admin'], // Исключаемые страницы
       },
     ],
-    additionalSitemaps: ['https://cars-euro.com/server-sitemap.xml'],
+    additionalSitemaps: ['https://importeurocar.ru/server-sitemap.xml'],
   },
 }

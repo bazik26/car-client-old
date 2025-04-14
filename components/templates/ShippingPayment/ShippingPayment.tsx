@@ -168,6 +168,29 @@ const ShippingPayment = () => {
           Расчет стоимости автомобиля для примера. Информация взята с сайта
           drom.ru.
         </p>
+        <h2 className={`${styles.shipping_payment__title} ${darkModeClass}`}>
+          Пример договора OOO &quot;ТЛТТРАНС&quot;
+        </h2>
+        <p className={`${styles.shipping_payment__text} ${darkModeClass}`}>
+          Ознакомьтесь c договором, который заключается с клиентами. Этот документ поможет вам
+          понять этапы работы, гарантии и обязанности сторон.
+        </p>
+        <div className={styles.shipping_payment__lockbtn}>
+          <Image
+            className={styles.shipping_payment__lockbtn__img}
+            src="/img/tltimg.jpg"
+            alt="tltimg"
+            width={500}
+            height={500}
+          />
+          <a
+            href="/files/ТЛТТРАНС.pdf"
+            download
+            className={styles.shipping_payment__lockbtn__btn}
+          >
+            Скачать PDF
+          </a>
+        </div>
       </div>
     </section>
   )

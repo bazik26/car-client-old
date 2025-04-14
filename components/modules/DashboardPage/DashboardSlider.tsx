@@ -32,7 +32,7 @@ IDashboardSlider) => {
       const list = item.querySelector('.slick-list') as HTMLElement
 
       // list.style.height = isMedia560 ? '276px' : '390px'
-      list.style.padding = '5px 5px'
+      list.style.padding = '10px 5px'
       list.style.marginRight = isMedia560 ? '-8px' : isMedia800 ? '-15px' : '0'
     })
   }, [isMedia560, isMedia800])
@@ -44,7 +44,7 @@ IDashboardSlider) => {
     autoplay: true,
     speed: 500,
     arrows: false,
-    slidesToScroll: isMedia768 ? 1 : 2,
+    // slidesToScroll: isMedia768 ? 1 : 2,
   }
 
   const width = {
@@ -67,23 +67,44 @@ IDashboardSlider) => {
         ))
       ) : items.length ? (
         items.map((item) => (
-          <Link href={`/catalog/${item.id}`} passHref legacyBehavior>
-            <div
-              className={`${styles.dashboard__slide} ${darkModeClass}`}
-              key={item.id}
-              style={width}
-            >
-              <img src={JSON.parse(item.images)[0]} alt={item.name} />
-              <div className={styles.dashboard__slide__inner}>
-                <h3 className={styles.dashboard__slide__title}>{item.name}</h3>
-                <span className={styles.dashboard__slide__code}>
-                  VIN: {item.vendor_code}
-                </span>
-                <span className={styles.dashboard__slide__price}>
-                  {formatPrice(item.price)} P
-                </span>
+          <Link href={`/catalog/${item.id}`}  passHref legacyBehavior>
+            <a target='_blank'>
+              <div
+                className={`${styles.dashboard__slide} ${darkModeClass}`}
+                key={item.id}
+                style={width}
+              >
+                <img src={JSON.parse(item.images)[0]} alt={item.name} />
+                <div className={styles.dashboard__slide__inner}>
+                  <h3 className={styles.dashboard__slide__title}>{item.name}</h3>
+                  {/* {item.Model !== null && <h4 className={styles.dashboard__slide__text}>Модель: {item.Model}</h4>} */}
+                  {item.Year !== null && <h4 className={styles.dashboard__slide__text}><span>Год: </span>{item.Year}</h4>}
+                  {item.Mileage !== null && <h4 className={styles.dashboard__slide__text}><span>Пробег: </span>{item.Mileage}</h4>}
+                  {item.Engine !== null && <h4 className={styles.dashboard__slide__text}><span>Двигатель: </span>{item.Engine}</h4>}
+                  {item.fuel !== null && <h4 className={styles.dashboard__slide__text}><span>Топливо: </span>{item.fuel}</h4>}
+                  {/* {item.Transmission !== null && <h4 className={styles.dashboard__slide__title}>Трансмиссия: {item.Transmission}</h4>} */}
+                  {/* {item.Drive !== null && <h4 className={styles.dashboard__slide__title}>Привод: {item.Drive}</h4>} */}
+                  {/* {item.vendor_code !== '???' && (
+                    <span className={styles.dashboard__slide__code}>
+                      VIN: {item.vendor_code}
+                    </span>
+                  )} */}
+                  {item.in_stock > 0 ? (
+                    <div className={styles.dashboard__slide__text__on}>
+                      В наличии
+                    </div>
+                  ) : (
+                    <div className={styles.dashboard__slide__text__off}>
+                      Продан
+                    </div>
+                  )}
+                  <br />
+                  <div className={styles.dashboard__slide__price}>
+                    {formatPrice(item.price)} P
+                  </div>
+                </div>
               </div>
-            </div>
+            </a>
           </Link>
         ))
       ) : (

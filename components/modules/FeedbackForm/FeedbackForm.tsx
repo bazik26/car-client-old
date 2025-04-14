@@ -12,7 +12,15 @@ import { MutableRefObject, useRef, useState } from 'react'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { toast } from 'react-toastify'
 
-const FeedbackForm = () => {
+type FeedbackFormProps = {
+  previousData: {
+    brand: string
+    model: string
+    generation: string
+  }
+}
+
+const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const {
@@ -27,10 +35,10 @@ const FeedbackForm = () => {
     setSpinner(true)
     emailjs
       .sendForm(
-        'service_4406d2p',
-        'template_88thtrg',
+        'service_p9wgb29',
+        'template_3mgzpeo',
         formRef.current,
-        'ARtfb1bp4SELm6yXa'
+        'iEjvhpUevYZ6nELPm'
       )
       .then((result) => {
         setSpinner(false)
@@ -44,11 +52,33 @@ const FeedbackForm = () => {
     formRef.current.reset()
   }
 
+  const handleClick = () => {
+    const form = document.querySelector('.formbord') as HTMLElement
+  
+    if (form) {
+      if (window.innerWidth < 560) {
+        form.style.right = '-400px'
+      } else {
+        form.style.display = 'none'
+      }
+    }
+  }
+  
   return (
     <div className={`${styles.feedback_form} ${darkModeClass}`}>
+      <span className="jqmClose top-close stroke-theme-hover" onClick={handleClick} title="Закрыть">
+        <i className="svg inline  svg-inline-" aria-hidden="true">
+          <svg width="21" height="21" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 1L1 13M1 1L13 13" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </i>
+      </span>
       <h3 className={`${styles.feedback_form__title} ${darkModeClass}`}>
         Форма обратной связи
       </h3>
+      <p>
+        Менеджеры компании с радостью ответят на ваши вопросы и произведут расчет стоимости услуг и подготовят индивидуальное коммерческое предложение.
+      </p>
       <form
         ref={formRef}
         className={styles.feedback_form__form}
@@ -74,15 +104,18 @@ const FeedbackForm = () => {
           errors={errors}
           darkModeClass={darkModeClass}
         />
+        <input type="hidden" name="brand" value={previousData?.brand || ''} />
+        <input type="hidden" name="model" value={previousData?.model || ''} />
+        <input type="hidden" name="generation" value={previousData?.generation || ''} />
         <div className={styles.feedback_form__form__btn}>
           <button>
             {spinner ? (
               <span
                 className={spinnerStyles.spinner}
-                style={{ top: '6px', left: '47%' }}
+                style={{ top: '3px', left: '43%' }}
               />
             ) : (
-              'Отправить сообщение'
+              'Отправить'
             )}
           </button>
         </div>

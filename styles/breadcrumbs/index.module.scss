@@ -2,10 +2,11 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-  margin-bottom: 25px;
-  padding-top: 15px;
+  // margin-bottom: 25px;
+  padding: 15px 24px;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   &__item {
     &:not(:last-child) {
@@ -18,7 +19,7 @@
       justify-content: center;
 
       svg {
-        fill: #4e4c4c;
+        fill: #e1e1e1;
       }
 
       &.dark_mode svg {
@@ -34,7 +35,7 @@
     &__text {
       font-weight: 500;
       font-size: 14px;
-      color: #4e4c4c;
+      color: #e1e1e1;
     }
 
     &.dark_mode &__text {

@@ -6,7 +6,7 @@ import styles from '@/styles/modeToggler/index.module.scss'
 
 const ModeToggler = () => {
   const { toggleTheme } = useTheme()
-  const mode = useStore($mode)
+  const mode = useStore($mode) || 'dark' // Устанавливаем темную тему по умолчанию
 
   const handleToggleMode = () => {
     toggleTheme()
@@ -14,7 +14,9 @@ const ModeToggler = () => {
   }
 
   useEffect(() => {
-    document.body.classList.add(mode === 'dark' ? 'dark_mode' : 'body')
+    // Удаляем все классы темы и добавляем нужный
+    document.body.classList.remove('light_mode', 'dark_mode')
+    document.body.classList.add(mode === 'dark' ? 'dark_mode' : 'light_mode')
   }, [mode])
 
   return (

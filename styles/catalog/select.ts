@@ -18,13 +18,13 @@ export const controlStyles = (
     borderColor: '#9E9E9E',
   },
   '& .css-1dimb5e-singleValue': {
-    color: theme === 'dark' ? '#f2f2f2' : '#222222',
+    color: theme === 'dark' ? '#fff' : '#fff',
   },
   '@media (max-width: 820px)': {
-    width: '200px',
+    width: '220px',
   },
   '@media (max-width: 560px)': {
-    width: '177px',
+    width: '220px',
   },
 })
 
@@ -51,7 +51,7 @@ export const selectStyles: StylesConfig<
   dropdownIndicator: (defaultStyles, state) => ({
     ...defaultStyles,
     transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : '',
-    color: '#1C629E',
+    color: 'red',
   }),
   menuList: (defaultStyles) => ({
     ...defaultStyles,

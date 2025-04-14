@@ -3,11 +3,11 @@ import styles from '@/styles/feedbackForm/index.module.scss'
 
 const NameInput = ({ register, errors, darkModeClass }: IFeedbackInput) => (
   <label className={`${styles.feedback_form__form__label} ${darkModeClass}`}>
-    <span>Имя *</span>
+    <h1>Ваше имя: <span>*</span></h1>
     <input
       className={styles.feedback_form__form__input}
       type="text"
-      placeholder="Иван"
+      // placeholder="Иван"
       {...register('name', {
         required: 'Введите Имя!',
         pattern: {

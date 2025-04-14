@@ -1,6 +1,14 @@
 import { ReactNode } from 'react'
 
 export interface IBoilerPart {
+  fuel: string
+  createdAt: null
+  Drive: string
+  Transmission: string
+  Engine: string
+  Mileage: string
+  Year: string
+  Model: string
   title: ReactNode
   id: number
   boiler_manufacturer: string

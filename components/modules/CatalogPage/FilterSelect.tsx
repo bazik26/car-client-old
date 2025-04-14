@@ -102,7 +102,7 @@ const FilterSelect = ({
         }),
         input: (defaultStyles) => ({
           ...defaultStyles,
-          color: mode === 'dark' ? '#f2f2f2' : '#222222',
+          color: mode === 'dark' ? '#ffffff' : '#ffffff',
         }),
         menu: (defaultStyles) => ({
           ...menuStyles(defaultStyles, mode),
