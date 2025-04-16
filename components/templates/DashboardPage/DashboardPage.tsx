@@ -110,12 +110,12 @@ const DashboardPage = () => {
   ];
 
   const recommendations = [
-    { title: "Менеджер Михаил", src: "/video/IMG_0461.MP4", url: "https://t.me/avto_prigon_europe" },
-    { title: "Менеджер Михаил", src: "/video/IMG_0705.MP4", url: "https://t.me/avto_prigon_europe" },
-    { title: "Менеджер Михаил", src: "/video/IMG_0586.MP4", url: "https://t.me/avto_prigon_europe" },
-    { title: "Менеджер Александр", src: "/video/IMG_0805.MP4", url: "https://t.me/Aleksandravtooo" },
-    { title: "Менеджер Александр", src: "/video/IMG_0845.MP4", url: "https://t.me/Aleksandravtooo" },
-    { title: "Менеджер Михаил", src: "/video/IMG_1472.MP4", url: "https://t.me/avto_prigon_europe" },
+    { title: "Менеджер Михаил", src: "/video/IMG_0461.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер Михаил", src: "/video/IMG_0705.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер Михаил", src: "/video/IMG_0586.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер Александр", src: "/video/IMG_0805.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
+    { title: "Менеджер Александр", src: "/video/IMG_0845.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
+    { title: "Менеджер Михаил", src: "/video/IMG_1472.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
   ];
 
   const handleClick = () => {
@@ -363,10 +363,11 @@ const DashboardPage = () => {
                   <div className="recommendation__video">
                   <video
                     src={video.src}
+                    poster={video.poster}
                     controls
                     controlsList="nodownload"
                     preload="metadata"
-                    style={{ width: '100%', height: `${height}px` }}
+                    style={{ width: '100%', height: `${height}px`, objectFit: 'cover' }}
                   />
                   </div>
                   <a href={video.url} target='_blank' className="recommendation__desc body-text">{video.title}<img src='/img/telegram.png' style={{ width: '20px', height: '20px', margin: '5px 0px 0px 10px' }}/></a>
