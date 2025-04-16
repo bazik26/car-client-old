@@ -367,7 +367,7 @@ const DashboardPage = () => {
                     controls
                     controlsList="nodownload"
                     preload="metadata"
-                    style={{ width: '100%', height: `${height}px`, objectFit: 'cover' }}
+                    style={{ width: '100%', height: `${height}px`, objectFit: 'contain' }}
                   />
                   </div>
                   <a href={video.url} target='_blank' className="recommendation__desc body-text">{video.title}<img src='/img/telegram.png' style={{ width: '20px', height: '20px', margin: '5px 0px 0px 10px' }}/></a>
