@@ -126,7 +126,7 @@ const HeaderTop = () => {
                   </li>
                   <li className={styles.header__nav__list__item}>
                     <a
-                      href="https://www.tiktok.com/@autodealerru?_t=ZM-8vA9UG0sR5K&_r=1&fbclid=PAZXh0bgNhZW0CMTEAAabcmkHAhyWn1Z7saI2fCthCXJe8jQ3Ak5ZFTOiWcnDv9qgrTaVs1T1Bkiw_aem_68QtVor1U9SR3nV4X6v8qQ"
+                      href="https://www.tiktok.com/@import_euro_car?_t=ZM-8vYPNyBb3ix&_r=1"
                       target="_blank"
                       className={styles.header__nav__list__item__tg}
                       >

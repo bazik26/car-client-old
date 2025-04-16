@@ -76,10 +76,6 @@ function Dashboard({
       {shouldLoadContent && (
         <Layout>
           <main>
-            {/* <Breadcrumbs
-              getDefaultTextGenerator={() => ''}
-              getTextGenerator={() => ''}
-            /> */}
             <DashboardPage />
             <YandexMap />
             <div className="overlay" />

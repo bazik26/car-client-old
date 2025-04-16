@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       query,
-      metaTitle: 'Import Euro Car | Каталог',
+      metaTitle: 'Import Euro Car – Каталог',
       metaDescription:
         'Ознакомьтесь с нашим каталогом автомобилей. Подробные описания, характеристики и выгодные предложения ждут вас на нашем сайте.',
     },

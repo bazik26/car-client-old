@@ -96,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   console.log('🔍 getServerSideProps вызван на сервере!')
   return {
     props: {
-      metaTitle: 'Import Euro Car | Контакты',
+      metaTitle: 'Import Euro Car – Контакты',
       metaDescription:
         'Свяжитесь с нами для консультаций и вопросов. Контактная информация Cars Euro — мы всегда рады помочь вам.',
     },
