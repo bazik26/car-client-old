@@ -224,7 +224,7 @@ const Footer = () => {
                           </svg>
                           </i>
                           </span>
-                          <a className="phones__phone-link phones__phone-first dark_link banner-light-text menu-light-text icon-block__name" href="tel:+79283347225">+7 (928) 334-72-25</a>
+                          <a className="phones__phone-link phones__phone-first dark_link banner-light-text menu-light-text icon-block__name" href="tel:+79823347225">+7 (982) 334-72-25</a>
                         </div>
                       </div>
                     </div>
