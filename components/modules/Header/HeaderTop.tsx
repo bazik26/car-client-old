@@ -164,10 +164,10 @@ const HeaderTop = () => {
           <>
             <div className={styles.header__phoneborder}></div>
             <a
-              href="tel:+79283347225"
+              href="tel:+79823347225"
               className={styles.header__phone}
             >
-              <span>+7 (928) 334-72-25</span>
+              <span>+7 (982) 334-72-25</span>
             </a>
             <Headerbutton />
           </>
