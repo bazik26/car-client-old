@@ -305,7 +305,7 @@ const Footer = () => {
                     <div className="footer__part-item">
                         <div className="footer__copy font_13 color_999">
                             <p>ООО «Тлттранс» Самарская обл. Тольятти. Южное шоссе, 24. 445004. Офис 202</p>
-                            <p>Тел.: +7 (928) 334-72-25</p>
+                            <p>Тел.: +7 (982) 334-72-25</p>
                             <p>ОГРН 1196313052858 ИНН 6320037339</p>
                               Import Euro Car © 2019
                           </div>

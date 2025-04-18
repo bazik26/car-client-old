@@ -109,7 +109,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                     <div className="contact-property__label font_13 color_999">Телефон</div>
                     <div className="">
                       <div className="contact-property__value" itemProp="telephone">
-                        <a href="tel:+79283347225">+7 (928) 334-72-25</a>
+                        <a href="tel:+79823347225">+7 (982) 334-72-25</a>
                       </div>
                     </div>
                   </div>
