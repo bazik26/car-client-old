@@ -385,7 +385,7 @@ const DashboardPage = () => {
                   Приходите в гости, мы будем вам рады
                 </div>
                 <div className="contacts__items">
-                  <a href="tel:+79283347225" className="contacts__item contacts__phone">
+                  <a href="tel:+79823347225" className="contacts__item contacts__phone">
                     +7 (982) 334-72-25
                   </a>
                   <a href="https://yandex.ru/maps/-/CHafFJnl" target='_blank' className="contacts__item">
