@@ -17,7 +17,7 @@ function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setMounted(true)
 
-    // Добавляем JivoChat динамически, если еще не загружен
+    // JivoChat
     if (!document.getElementById('jivo-chat')) {
       const script = document.createElement('script')
       script.src = '//code.jivosite.com/widget/gNbKuWhZqe'
@@ -29,7 +29,7 @@ function App({ Component, pageProps }: AppProps) {
     return () => {
       const jivoScript = document.getElementById('jivo-chat')
       if (jivoScript) {
-        jivoScript.remove() // Очистка при размонтировании (если нужно)
+        jivoScript.remove()
       }
     }
   }, [])
@@ -38,7 +38,7 @@ function App({ Component, pageProps }: AppProps) {
     mounted && (
       <>
         {/* Yandex.Metrika counter */}
-        <script type="text/javascript">
+        <Script id="yandex-metrika" strategy="afterInteractive">
           {`
             (function(m,e,t,r,i,k,a){
               m[i]=m[i]||function(){
@@ -59,13 +59,40 @@ function App({ Component, pageProps }: AppProps) {
               webvisor:true
             });
           `}
-        </script>
+        </Script>
         <noscript>
           <div>
             <img src="https://mc.yandex.ru/watch/101047105" style={{ position: 'absolute', left: '-9999px' }} alt="" />
           </div>
         </noscript>
         {/* /Yandex.Metrika counter */}
+
+        {/* Top.Mail.Ru counter */}
+        <Script id="topmailru-counter" strategy="afterInteractive">
+          {`
+            var _tmr = window._tmr || (window._tmr = []);
+            _tmr.push({id: "3638836", type: "pageView", start: (new Date()).getTime()});
+            (function (d, w, id) {
+              if (d.getElementById(id)) return;
+              var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+              ts.src = "https://top-fwz1.mail.ru/js/code.js";
+              var f = function () {
+                var s = d.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(ts, s);
+              };
+              if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+              } else { f(); }
+            })(document, window, "tmr-code");
+          `}
+        </Script>
+        <noscript>
+          <div>
+            <img src="https://top-fwz1.mail.ru/counter?id=3638836;js=na" style={{ position: 'absolute', left: '-9999px' }} alt="Top.Mail.Ru" />
+          </div>
+        </noscript>
+        {/* /Top.Mail.Ru counter */}
+
         <NextNProgress />
         <Component {...pageProps} />
         <ToastContainer
