@@ -71,13 +71,13 @@ function App({ Component, pageProps }: AppProps) {
         <Script id="topmailru-counter" strategy="afterInteractive">
           {`
             var _tmr = window._tmr || (window._tmr = []);
-            _tmr.push({id: "3640383", type: "pageView", start: (new Date()).getTime()});
+            _tmr.push({id: "3640387", type: "pageView", start: (new Date()).getTime()});
             (function (d, w, id) {
               if (d.getElementById(id)) return;
               var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
               ts.src = "https://top-fwz1.mail.ru/js/code.js";
               var f = function () {
-                var s = d.getElementsByTagName("script")[0]; 
+                var s = d.getElementsByTagName("script")[0];
                 s.parentNode.insertBefore(ts, s);
               };
               if (w.opera == "[object Opera]") {
@@ -88,7 +88,7 @@ function App({ Component, pageProps }: AppProps) {
         </Script>
         <noscript>
           <div>
-            <img src="https://top-fwz1.mail.ru/counter?id=3640383;js=na" style={{ position: 'absolute', left: '-9999px' }} alt="Top.Mail.Ru" />
+            <img src="https://top-fwz1.mail.ru/counter?id=3640387;js=na" style={{ position: 'absolute', left: '-9999px' }} alt="Top.Mail.Ru" />
           </div>
         </noscript>
         {/* /Top.Mail.Ru counter */}
