@@ -52,7 +52,7 @@ function App({ Component, pageProps }: AppProps) {
             })
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-            ym(101047105, "init", {
+            ym(101323297, "init", {
               clickmap:true,
               trackLinks:true,
               accurateTrackBounce:true,
@@ -62,7 +62,7 @@ function App({ Component, pageProps }: AppProps) {
         </Script>
         <noscript>
           <div>
-            <img src="https://mc.yandex.ru/watch/101047105" style={{ position: 'absolute', left: '-9999px' }} alt="" />
+            <img src="https://mc.yandex.ru/watch/101323297" style={{ position: 'absolute', left: '-9999px' }} alt="" />
           </div>
         </noscript>
         {/* /Yandex.Metrika counter */}
