@@ -71,7 +71,7 @@ function App({ Component, pageProps }: AppProps) {
         <Script id="topmailru-counter" strategy="afterInteractive">
           {`
             var _tmr = window._tmr || (window._tmr = []);
-            _tmr.push({id: "3638836", type: "pageView", start: (new Date()).getTime()});
+            _tmr.push({id: "3640383", type: "pageView", start: (new Date()).getTime()});
             (function (d, w, id) {
               if (d.getElementById(id)) return;
               var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
@@ -88,7 +88,7 @@ function App({ Component, pageProps }: AppProps) {
         </Script>
         <noscript>
           <div>
-            <img src="https://top-fwz1.mail.ru/counter?id=3638836;js=na" style={{ position: 'absolute', left: '-9999px' }} alt="Top.Mail.Ru" />
+            <img src="https://top-fwz1.mail.ru/counter?id=3640383;js=na" style={{ position: 'absolute', left: '-9999px' }} alt="Top.Mail.Ru" />
           </div>
         </noscript>
         {/* /Top.Mail.Ru counter */}
