@@ -31,6 +31,18 @@ const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
   const [spinner, setSpinner] = useState(false)
   const formRef = useRef() as MutableRefObject<HTMLFormElement>
 
+  const handleClick = () => {
+    const form = document.querySelector('.formbord') as HTMLElement
+  
+    if (form) {
+      if (window.innerWidth < 560) {
+        form.style.right = '-400px'
+      } else {
+        form.style.display = 'none'
+      }
+    }
+  }
+
   const submitForm = () => {
     setSpinner(true)
     emailjs
@@ -43,6 +55,7 @@ const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
       .then((result) => {
         setSpinner(false)
         toast.success(`Сообщение отправлено! ${result.text}`)
+        handleClick()
       })
       .catch((error) => {
         setSpinner(false)
@@ -52,18 +65,6 @@ const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
     formRef.current.reset()
   }
 
-  const handleClick = () => {
-    const form = document.querySelector('.formbord') as HTMLElement
-  
-    if (form) {
-      if (window.innerWidth < 560) {
-        form.style.right = '-400px'
-      } else {
-        form.style.display = 'none'
-      }
-    }
-  }
-  
   return (
     <div className={`${styles.feedback_form} ${darkModeClass}`}>
       <span className="jqmClose top-close stroke-theme-hover" onClick={handleClick} title="Закрыть">
