@@ -46,11 +46,15 @@ body::-webkit-scrollbar-thumb:hover {
   margin: 0 auto;
 }
 
-a {
-  /* color: #999 !important; */
+/* a {
+  color: #999 !important;
   text-decoration: none;
 }
 
+a:hover {
+  color: #ffffff !important;
+  transition: color 0.2s ease-in-out;
+} */
 /* font-family: Roboto, sans-serif; */
 /* font-family: Raleway-Bold, sans-serif; */
 /* font-family: Roboto-Medium, sans-serif; */
