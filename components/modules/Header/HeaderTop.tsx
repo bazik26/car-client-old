@@ -10,6 +10,7 @@ import styles from '@/styles/header/index.module.scss'
 import PhoneSvg from '@/components/elements/PhoneSvg/PhoneSvg'
 import Headerbutton from '@/components/elements/Header/Headerbutton'
 import FeedbackForm from '../FeedbackForm/FeedbackForm'
+import Num from '@/components/elements/Num/Num'
 
 const HeaderTop = () => {
   const isMedia950 = useMediaQuery(950)
@@ -105,12 +106,9 @@ const HeaderTop = () => {
             )} */}
             {isMedia950 && (
               <>
-                <a
-                  href="tel:+79823347225"
-                  className={styles.header__phone}
-                >
-                  <span>+7 (982) 334-72-25</span>
-                </a>
+              <div className={styles.header__phone}>
+                <Num/>
+              </div>
                 <Headerbutton />
                 <div className={styles.header__nav__list__itembr}/>
                 <li className={styles.header__nav__list__item}>Мы в сети:</li>
@@ -163,12 +161,9 @@ const HeaderTop = () => {
         {!isMedia950 && 
           <>
             <div className={styles.header__phoneborder}></div>
-            <a
-              href="tel:+79823347225"
-              className={styles.header__phone}
-            >
-              <span>+7 (982) 334-72-25</span>
-            </a>
+            <div className={styles.header__phone}>
+              <Num/>
+            </div>
             <Headerbutton />
           </>
         }

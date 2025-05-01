@@ -20,6 +20,7 @@ import '@/styles/responsive.css';
 // import '@/styles/styles.css';
 import '@/styles/footer/width-2.css';
 import Link from 'next/link';
+import Num from '@/components/elements/Num/Num';
 
 const Footer = () => {
   const isMedia750 = useMediaQuery(750)
@@ -224,7 +225,7 @@ const Footer = () => {
                           </svg>
                           </i>
                           </span>
-                          <a className="phones__phone-link phones__phone-first dark_link banner-light-text menu-light-text icon-block__name" href="tel:+79823347225">+7 (982) 334-72-25</a>
+                          <div className="phones__phone-link phones__phone-first dark_link banner-light-text menu-light-text icon-block__name"><Num/></div>
                         </div>
                       </div>
                     </div>
@@ -305,7 +306,7 @@ const Footer = () => {
                     <div className="footer__part-item">
                         <div className="footer__copy font_13 color_999">
                             <p>ООО «Тлттранс» Самарская обл. Тольятти. Южное шоссе, 24. 445004. Офис 202</p>
-                            <p>Тел.: +7 (982) 334-72-25</p>
+                            <p>Тел.: <Num/></p>
                             <p>ОГРН 1196313052858 ИНН 6320037339</p>
                               Import Euro Car © 2019
                           </div>

@@ -201,7 +201,7 @@
   margin-left: 2px;
 }
 .footer__phone .phones .phones__inner > .phones__phone-link {
-  color: #fff;
+  color: #fff !important;
 }
 .footer__phone .phones .more-arrow svg * {
   fill: #fff;

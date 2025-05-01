@@ -15,6 +15,7 @@ import CartAlert from '@/components/modules/DashboardPage/CartAlert'
 import Image from 'next/image'
 import '@/styles/dashboard/custom.css';
 import '@/styles/dashboard/styleconsalt.css';
+import Num from '@/components/elements/Num/Num'
 
 const DashboardPage = () => {
   const [newParts, setNewParts] = useState<IBoilerParts>({} as IBoilerParts)
@@ -385,9 +386,9 @@ const DashboardPage = () => {
                   Приходите в гости, мы будем вам рады
                 </div>
                 <div className="contacts__items">
-                  <a href="tel:+79823347225" className="contacts__item contacts__phone">
-                    +7 (982) 334-72-25
-                  </a>
+                  <div className="contacts__item contacts__phone">
+                    <Num />
+                  </div>
                   <a href="https://yandex.ru/maps/-/CHafFJnl" target='_blank' className="contacts__item">
                     Самарская обл. Тольятти. Южное шоссе, 24. 445004. Офис 202
                   </a>

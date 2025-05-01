@@ -11,16 +11,20 @@
 
   &__phone {
     font-family: MontserratNormal,sans-serif;
-    color: white;
     min-width: 170px;
+    cursor: pointer;
+    
+    a {
+      color: white;
+
+      &:hover {
+        color: #8e8e8e;
+        transition: color 0.2s ease-in-out;
+      }
+    }
 
     @media (max-width: 950px) {
       padding: 0 0 30px 0;
-    }
-
-    &:hover {
-      color: #8e8e8e;
-      transition: color 0.2s ease-in-out;
     }
   }
 

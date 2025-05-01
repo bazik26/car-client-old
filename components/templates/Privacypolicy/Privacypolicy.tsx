@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import '@/styles/privacypolicy/style.css'
+import Num from '@/components/elements/Num/Num'
 
 const Privacypolicy = () => (
   <main className="main banner-auto">
@@ -25,9 +26,8 @@ const Privacypolicy = () => (
             акциях, опросах, новостях. Согласие предоставляется ООО &quot;ТЛТТРАНС&quot; (ИНН 
             6320037339) бессрочно. Я проинформирован о праве на отзыв по почте (445043, Самарская 
             область, г. Тольятти, Южное ш., д. 24, офис 202), по e-mail importeurocar@yandex.ru, по 
-            телефону +7 (928) 334-72-25.»
+            телефону <Num/>.»
           </p>
-
           <h2>
             <b>Текст соглашения на обработку данных:</b>
           </h2>

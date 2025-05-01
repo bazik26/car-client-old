@@ -8,6 +8,7 @@ import MailSvg from '@/components/elements/MailSvg/MailSvg'
 import '@/styles/contacts/contacts.css';
 import '@/styles/contacts/buttons.css';
 import '@/styles/contacts/buttons2.css';
+import Num from '@/components/elements/Num/Num'
 
 const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
   const mode = useStore($mode)
@@ -109,7 +110,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                     <div className="contact-property__label font_13 color_999">Телефон</div>
                     <div className="">
                       <div className="contact-property__value" itemProp="telephone">
-                        <a href="tel:+79823347225">+7 (982) 334-72-25</a>
+                        <Num/>
                       </div>
                     </div>
                   </div>
