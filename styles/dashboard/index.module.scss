@@ -442,14 +442,18 @@
       align-items: center;
       position: relative;
       height: 150px;
+      padding: 50px 89px;
+      margin: 50px 0px;
 
       @media (max-width: 800px) {
         height: 140px;
+        padding: 0px;
+        margin: 0px;
       }
 
       &__arrow {
-        background-color: #ffffff;
-        border: none;
+        // background-color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, .5);
         border-radius: 50%;
         margin: 0;
         padding: 0;
@@ -457,7 +461,7 @@
         width: 50px;
         height: 50px;
         position: absolute;
-        top: 17px;
+        // top: 17px;
         z-index: 5;
         transition: background-color 0.2s ease-in-out;
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
@@ -467,7 +471,7 @@
         }
 
         &:hover {
-          background-color: #ffcf62;
+          background-color: #ff0000;
           transition: background-color 0.2s ease-in-out;
         }
 
@@ -478,7 +482,7 @@
           position: relative;
 
           svg {
-            fill: #4e4c4c;
+            fill:rgba(255, 255, 255, .5);
             position: absolute;
             top: 16px;
             left: 16px;
@@ -527,8 +531,9 @@
       border-radius: 4px;
       overflow: hidden;
       user-select: none;
-      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+      // box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
       padding: 12px;
+      // border: 1px solid white;
 
       @media (max-width: 800px) {
         height: 148px;

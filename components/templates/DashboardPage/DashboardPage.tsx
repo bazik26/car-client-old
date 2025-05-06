@@ -321,6 +321,7 @@ const DashboardPage = () => {
             </div>
           </div>
         </section>
+        <BrandsSlider/>
         <section className="advantages">
           <div className="container-new">
             <div className="advantages__top">

@@ -112,9 +112,9 @@ const BrandsSlider = () => {
 
     const list = slider?.querySelector('.slick-list') as HTMLElement
 
-    if (list) {
-      list.style.height = isMedia768 ? '160px' : '220px'
-    }
+    // if (list) {
+    //   list.style.height = isMedia768 ? '160px' : '220px'
+    // }
   }, [isMedia768])
 
   const settings = {
