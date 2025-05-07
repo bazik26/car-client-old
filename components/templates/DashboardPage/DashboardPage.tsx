@@ -295,7 +295,7 @@ const DashboardPage = () => {
                     </div>
                   </fieldset>
                   <button className="consult__btn mbtn mbtn-red" type="button" onClick={handleClick}>
-                    <span>далее</span>
+                    <span>Обратная связь</span>
                     <svg width="21" height="29" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path opacity="0.3" d="M0 0L13.4129 14.5L0 29H7.58707L21 14.5L7.58707 0H0Z" fill="white" />
                     </svg>

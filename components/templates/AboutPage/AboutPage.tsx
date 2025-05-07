@@ -83,8 +83,9 @@ const AboutPage: React.FC = () => {
                     <div className="more-yt-videos">
                       <div className="more-yt-videos__video">
                         <video
-                          src="/video/IMG_0846111.MP4"
+                          src="/video/IMG_1650.MOV"
                           controls
+                          poster="/img/logo16.9.png"
                           controlsList="nodownload"
                           preload="metadata"
                           style={{ width: '100%', height: '400px', margin: '20px 0px' }}
@@ -94,6 +95,7 @@ const AboutPage: React.FC = () => {
                         <video
                           src="/video/IMG_3980111.MOV"
                           controls
+                          poster="/img/logo16.9.png"
                           controlsList="nodownload"
                           preload="metadata"
                           style={{ width: '100%', height: '400px', margin: '20px 0px' }}
