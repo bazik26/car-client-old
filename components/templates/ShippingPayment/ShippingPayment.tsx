@@ -7,7 +7,7 @@ import {
   tab1Text,
   tab2Text,
   tab3Text,
-  tab4Text,
+  // tab4Text,
 } from '@/utils/shipping-payment'
 import styles from '@/styles/shippingPayment/index.module.scss'
 
@@ -82,7 +82,7 @@ const ShippingPayment = () => {
                 Сколько стоит пригон автомобиля?
               </button>
             </li>
-            <li
+            {/* <li
               className={`${styles.shipping_payment__tabs__controls__item} ${
                 tab4 ? styles.active : ''
               } ${darkModeClass}`}
@@ -90,7 +90,7 @@ const ShippingPayment = () => {
               <button className={darkModeClass} onClick={handleTab4}>
                 Какие риски существуют и как их избежать?
               </button>
-            </li>
+            </li> */}
           </ul>
           <div
             className={`${styles.shipping_payment__tabs__content} ${darkModeClass}`}
@@ -125,7 +125,7 @@ const ShippingPayment = () => {
                 {tab3Text}
               </motion.p>
             )}
-            {tab4 && (
+            {/* {tab4 && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -134,7 +134,7 @@ const ShippingPayment = () => {
               >
                 {tab4Text}
               </motion.p>
-            )}
+            )} */}
           </div>
         </div>
         <h2 className={`${styles.shipping_payment__title} ${darkModeClass}`}>
