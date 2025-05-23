@@ -168,7 +168,7 @@ const ShippingPayment = () => {
           Расчет стоимости автомобиля для примера. Информация взята с сайта
           drom.ru.
         </p>
-        <h2 className={`${styles.shipping_payment__title} ${darkModeClass}`}>
+        {/* <h2 className={`${styles.shipping_payment__title} ${darkModeClass}`}>
           Пример договора OOO &quot;ТЛТТРАНС&quot;
         </h2>
         <p className={`${styles.shipping_payment__text} ${darkModeClass}`}>
@@ -190,7 +190,7 @@ const ShippingPayment = () => {
           >
             Скачать PDF
           </a>
-        </div>
+        </div> */}
       </div>
     </section>
   )

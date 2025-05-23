@@ -79,7 +79,7 @@ const AboutPage: React.FC = () => {
                   <div className="sticky-block flexbox--mb20-t991">
                     <div className="index-block__subtitle index-block__subtitle--margined-f992">О компании</div>
                     <h3 className="index-block__title switcher-title">Надежный поставщик автомобилей из Европы</h3>
-                    <div className="company-item__text  index-block__preview">Компания Grand Auto специализируется на поставке автомобилей среднего и премиум-класса из Европы. Работаем под заказ. Для тех, кто не хочет ждать, всегда есть автомобили в наличии.</div>
+                    <div className="company-item__text  index-block__preview">Компания Import Euro Car специализируется на поставке автомобилей среднего и премиум-класса из Европы. Работаем под заказ. Для тех, кто не хочет ждать, всегда есть автомобили в наличии.</div>
                     <div className="more-yt-videos">
                       <div className="more-yt-videos__video">
                         <video

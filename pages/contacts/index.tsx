@@ -81,7 +81,7 @@ function Contacts({
             getTextGenerator={getTextGenerator}
           />
           <ContactsPage />
-          <YandexMapС />
+          {/* <YandexMapС /> */}
           <div className="overlay" />
         </main>
       </Layout>

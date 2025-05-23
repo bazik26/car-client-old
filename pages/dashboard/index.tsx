@@ -77,7 +77,7 @@ function Dashboard({
         <Layout>
           <main>
             <DashboardPage />
-            <YandexMap />
+            {/* <YandexMap /> */}
             <div className="overlay" />
           </main>
         </Layout>

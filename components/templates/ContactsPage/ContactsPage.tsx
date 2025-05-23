@@ -33,7 +33,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
         <h2 className={`${styles.contacts__title} ${darkModeClass}`}>
           {isWholesaleBuyersPage ? 'Оптовым покупателям' : 'Контакты'}
         </h2>
-        <div className={styles.contacts__inner}>
+        {/* <div className={styles.contacts__inner}>
           <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
@@ -84,7 +84,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                 <span>5190067377</span>
               </li>
           </ul>
-        </div>
+        </div> */}
         <div className="contacts__sticky-panel sticky-block rounded-4 contacts__sticky-panel--without-image">
             <div className="contacts__sticky-panel__info">
               <div className="contacts__sticky-panel__desc contacts__desc" itemProp="description">
@@ -98,12 +98,12 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
               </div>
               <div className="contacts__sticky-panel__properties">
                 {/* start_frame_cache_header-allcaddr-block1 */}
-                <div className="contact-property__value">
+                {/* <div className="contact-property__value">
                   <div className="contact-property__label font_13 color_999">Центральный офис</div>
                   <a href="https://yandex.ru/maps/-/CHbaBQZt" target='_blank' itemProp="address" className="contact-property__value">
                     445043, Самарская область, г. Тольятти, Южное ш., д. 24, офис 202
                   </a>
-                </div>
+                </div> */}
                 <div className="contacts__sticky-panel__property">
                   {/* start_frame_cache_header-allcphones-block1 */}
                   <div className="contact-property contact-property--phones">
