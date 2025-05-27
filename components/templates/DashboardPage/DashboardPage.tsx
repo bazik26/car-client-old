@@ -232,7 +232,7 @@ const DashboardPage = () => {
                 <div className="props__title">Компания на рынке с</div>
                 <div className="props__info">
                   <span className="props__num">
-                    2019 <span>г</span>
+                    2018 <span>г</span>
                   </span>
                 </div>
               </div>
