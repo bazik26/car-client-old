@@ -33,33 +33,34 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
         <h2 className={`${styles.contacts__title} ${darkModeClass}`}>
           {isWholesaleBuyersPage ? 'Оптовым покупателям' : 'Контакты'}
         </h2>
-        {/* <div className={styles.contacts__inner}>
-          <ul className={`${styles.contacts__list} ${darkModeClass}`}>
+        <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
-                  ООО "ТЛТТРАНС"
+                  ООО "Велес Авто"
                 </h3>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Офис: </span>
                 <span>
-                  445043, Самарская область, г. Тольятти, Южное ш., д. 24, офис 202 
+                  460507, Оренбургская область, поселок Пригородный, пр-д Новоселов, д. 9
                 </span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>График работы: </span>
-                <span> Пн-Вс с 8:30 до 19:00</span>
+                <span> Пн-Сб с 8:30 до 19:00</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>ОГРН: </span>
-                <span>1196313052858</span>
+                <span>1185658012869</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>ИНН: </span>
-                <span>6320037339</span>
+                <span>ИНН/КПП </span>
+                <span>5638074027 / 563801001</span>
               </li>
           </ul>
-          <ul className={`${styles.contacts__list} ${darkModeClass}`}>
+        <div className={styles.contacts__inner}>
+          
+          {/* <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
                   ООО "АВТО-С"
@@ -83,8 +84,8 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                 <span>ИНН: </span>
                 <span>5190067377</span>
               </li>
-          </ul>
-        </div> */}
+          </ul> */}
+        </div>
         <div className="contacts__sticky-panel sticky-block rounded-4 contacts__sticky-panel--without-image">
             <div className="contacts__sticky-panel__info">
               <div className="contacts__sticky-panel__desc contacts__desc" itemProp="description">

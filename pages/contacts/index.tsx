@@ -3,8 +3,8 @@ import { useCallback } from 'react'
 import Layout from '@/components/layout/Layout'
 import ContactsPage from '@/components/templates/ContactsPage/ContactsPage'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
-import YandexMapС from '@/components/elements/YandexMap/YandexMapС'
 import { GetServerSideProps } from 'next'
+import YandexMap from '@/components/elements/YandexMap/YandexMap'
 
 function Contacts({
   metaTitle,
@@ -81,7 +81,7 @@ function Contacts({
             getTextGenerator={getTextGenerator}
           />
           <ContactsPage />
-          {/* <YandexMapС /> */}
+          <YandexMap />
           <div className="overlay" />
         </main>
       </Layout>
