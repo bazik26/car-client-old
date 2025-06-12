@@ -96,12 +96,12 @@ const PartPage = () => {
                 )}
                 {boilerPart.Transmission !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Трансмиссия: </span>{boilerPart.Transmission}
+                    <span>Привод: </span>{boilerPart.Transmission}
                   </h4>
                 )}
                 {boilerPart.Drive !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Привод: </span>{boilerPart.Drive}
+                    <span>Трансмиссия: </span>{boilerPart.Drive}
                   </h4>
                 )}
                 {boilerPart.vendor_code !== '???' && (
