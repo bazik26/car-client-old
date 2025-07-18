@@ -225,7 +225,7 @@ const Footer = () => {
                           </svg>
                           </i>
                           </span>
-                          <div className="phones__phone-link phones__phone-first dark_link banner-light-text menu-light-text icon-block__name"><Num/></div>
+                          <div className="phones__phone-link phones__phone-first dark_link banner-light-text menu-light-text icon-block__name qwe"><Num/></div>
                         </div>
                       </div>
                     </div>
@@ -240,7 +240,7 @@ const Footer = () => {
           </svg>
           </i>										<div>
                                 <div>
-                        <a className="dark_link" href="mailto:importeurocar@yandex.com">importeurocar@yandex.com</a>
+                        <a className="dark_link qwe" href="mailto:importeurocar@yandex.com">importeurocar@yandex.com</a>
                       </div>
                               </div>
                   </div>
@@ -275,7 +275,7 @@ const Footer = () => {
           <div className="footer__socials">
                 <ul className="footer__socials-list">
                     <li className="footer__socials-item">
-                        <a href="https://t.me/+LCUHJvj1n2swZDgy" className="footer__socials-link">
+                        <a href="https://t.me/+LCUHJvj1n2swZDgy" target='_blank' className="footer__socials-link">
                           <img src='/img/telegram.png' style={{ width: '20px' }} alt="Instagram"></img>
                           <span>мы в Telegram</span>
                         </a>

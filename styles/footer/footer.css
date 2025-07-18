@@ -11,6 +11,14 @@
 }
 /**/
 
+.qwe a {
+  color: white !important;
+}
+
+.qwe a:hover {
+  color: #999 !important;
+}
+
 a {
   color: #999;
   text-decoration: none;

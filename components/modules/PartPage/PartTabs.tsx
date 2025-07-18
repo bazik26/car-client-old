@@ -26,18 +26,18 @@ const PartTabs = () => {
   return (
     <div className={styles.part__tabs}>
       <div className={`${styles.part__tabs__controls} ${darkModeClass}`}>
-        <button
+        <p
           className={showDescription ? styles.active : ''}
           onClick={handleShowDescription}
         >
           Характеристики
-        </button>
-        <button
+        </p>
+        {/* <button
           className={showCompatibility ? styles.active : ''}
           onClick={handleShowCompatibility}
         >
           Описание
-        </button>
+        </button> */}
       </div>
       {showDescription && (
         <motion.div
@@ -52,11 +52,11 @@ const PartTabs = () => {
             {boilerPart.name}
           </h3>
           <p className={`${styles.part__tabs__content__text} ${darkModeClass}`}>
-            {boilerPart.description}
+            {boilerPart.compatibility}
           </p>
         </motion.div>
       )}
-      {showCompatibility && (
+      {/* {showCompatibility && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -64,10 +64,10 @@ const PartTabs = () => {
           className={styles.part__tabs__content}
         >
           <p className={`${styles.part__tabs__content__text} ${darkModeClass}`}>
-            {boilerPart.compatibility}
+            {boilerPart.description}
           </p>
         </motion.div>
-      )}
+      )} */}
     </div>
   )
 }

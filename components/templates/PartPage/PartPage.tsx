@@ -140,22 +140,22 @@ const PartPage = () => {
                     <p
                       className={`${styles.part__tabs__content__text} ${darkModeClass}`}
                     >
-                      {boilerPart.description}
+                      {boilerPart.compatibility}
                     </p>
                   </div>
                 </PartAccordion>
               </div>
-              <PartAccordion title="Описание">
+              {/* <PartAccordion title="Описание">
                 <div
                   className={`${styles.part__accordion__content} ${darkModeClass}`}
                 >
                   <p
                     className={`${styles.part__tabs__content__text} ${darkModeClass}`}
                   >
-                    {boilerPart.compatibility}
+                    {boilerPart.description}
                   </p>
                 </div>
-              </PartAccordion>
+              </PartAccordion> */}
             </div>
           )}
           <div className={styles.part__bottom}>
