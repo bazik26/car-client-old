@@ -33,7 +33,8 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
         <h2 className={`${styles.contacts__title} ${darkModeClass}`}>
           {isWholesaleBuyersPage ? 'Оптовым покупателям' : 'Контакты'}
         </h2>
-        <ul className={`${styles.contacts__list} ${darkModeClass}`}>
+        <div className={styles.contacts__inner}>
+          <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
                   ООО "Велес Авто"
@@ -58,18 +59,16 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                 <span>5638074027 / 563801001</span>
               </li>
           </ul>
-        <div className={styles.contacts__inner}>
-          
-          {/* <ul className={`${styles.contacts__list} ${darkModeClass}`}>
+          <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
-                  ООО "АВТО-С"
+                  ООО "Ива Авто"
                 </h3>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Офис: </span>
                 <span>
-                  183039, Мурманская область, г. Мурманск, ул. Академика Книповича, д. 23, офис 119 
+                  620146, Свердловская область, г Екатеринбург, Московская ул, д. 194, кв. 162
                 </span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
@@ -78,13 +77,13 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>ОГРН: </span>
-                <span>1175190000358</span>
+                <span>1226600043251</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>ИНН: </span>
-                <span>5190067377</span>
+                <span>6678121684</span>
               </li>
-          </ul> */}
+          </ul>
         </div>
         <div className="contacts__sticky-panel sticky-block rounded-4 contacts__sticky-panel--without-image">
             <div className="contacts__sticky-panel__info">
