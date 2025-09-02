@@ -390,8 +390,8 @@ const DashboardPage = () => {
                   <div className="contacts__item contacts__phone">
                     <Num />
                   </div>
-                  <a href="https://yandex.ru/maps/-/CHGs4M8V" target='_blank' className="contacts__item">
-                    460507, Оренбургская область, поселок Пригородный, пр-д Новоселов, д. 9
+                  <a href="https://yandex.ru/maps/-/CLEzf63V" target='_blank' className="contacts__item">
+                    620146, Свердловская область, г Екатеринбург, Московская ул, д. 194
                   </a>
                   <a href="mailto:importeurocar@yandex.com" className="contacts__item">
                     importeurocar@yandex.com

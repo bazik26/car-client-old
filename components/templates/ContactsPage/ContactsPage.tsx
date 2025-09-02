@@ -37,43 +37,20 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
           <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
-                  ООО "Велес Авто"
-                </h3>
-              </li>
-              <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>Офис: </span>
-                <span>
-                  460507, Оренбургская область, поселок Пригородный, пр-д Новоселов, д. 9
-                </span>
-              </li>
-              <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>График работы: </span>
-                <span> Пн-Сб с 8:30 до 19:00</span>
-              </li>
-              <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>ОГРН: </span>
-                <span>1185658012869</span>
-              </li>
-              <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
-                <span>ИНН/КПП </span>
-                <span>5638074027 / 563801001</span>
-              </li>
-          </ul>
-          <ul className={`${styles.contacts__list} ${darkModeClass}`}>
-              <li className={styles.contacts__list__title}>
-                <h3 className={darkModeClass}>
                   ООО "Ива Авто"
                 </h3>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Офис: </span>
                 <span>
-                  620146, Свердловская область, г Екатеринбург, Московская ул, д. 194, кв. 162
+                  620146, Свердловская область, г Екатеринбург, Московская ул, д. 194
                 </span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>График работы офиса: </span>
-                <span> Пн-Сб с 8:00 до 20:00</span>
+                <span> Пн-Пт с 9:00 до 19:00.</span>
+                <span> Суббота до 16:00.</span>
+                <span> Воскресенье выходной</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>ОГРН: </span>
