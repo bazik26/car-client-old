@@ -22,7 +22,7 @@ function About({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://importeurocar.ru/" />
+        <link rel="canonical" href="https://import-euro-car.ru/" />
 
         {/* Favicon */}
         <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png" />
@@ -56,11 +56,11 @@ function About({
         <meta property="og:description" content={metaDescription} />
         <meta
           property="og:image"
-          content="https://importeurocar.ru/img/logo.png"
+          content="https://import-euro-car.ru/img/logo.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://importeurocar.ru/" />
+        <meta property="og:url" content="https://import-euro-car.ru/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="ru_RU" />
 
@@ -70,7 +70,7 @@ function About({
         <meta name="twitter:description" content={metaDescription} />
         <meta
           name="twitter:image"
-          content="https://importeurocar.ru/img/logo.png"
+          content="https://import-euro-car.ru/img/logo.png"
         />
       </Head>
       <Layout>

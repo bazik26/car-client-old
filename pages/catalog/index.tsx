@@ -27,7 +27,7 @@ function Catalog({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://importeurocar.ru/" />
+        <link rel="canonical" href="https://import-euro-car.ru/" />
         <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png" />
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -41,16 +41,16 @@ function Catalog({
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content="https://importeurocar.ru/img/logo.png" />
+        <meta property="og:image" content="https://import-euro-car.ru/img/logo.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://importeurocar.ru/" />
+        <meta property="og:url" content="https://import-euro-car.ru/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="ru_RU" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content="https://importeurocar.ru/img/logo.png" />
+        <meta name="twitter:image" content="https://import-euro-car.ru/img/logo.png" />
       </Head>
 
       {shouldLoadContent && (
