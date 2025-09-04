@@ -272,16 +272,16 @@ const Footer = () => {
             <div className="footer__info--part-right line-block__item flex-100-1200">
 			      </div>
           </div>
-          {/* <div className="footer__socials">
+          <div className="footer__socials">
                 <ul className="footer__socials-list">
                     <li className="footer__socials-item">
-                        <a href="https://t.me/+LCUHJvj1n2swZDgy" target='_blank' className="footer__socials-link">
+                        <a href="https://t.me/+8tXb1bnEPe04MDhi" target='_blank' className="footer__socials-link">
                           <img src='/img/telegram.png' style={{ width: '20px' }} alt="Instagram"></img>
                           <span>мы в Telegram</span>
                         </a>
                     </li>
 
-                    <li className="footer__socials-item">
+                    {/* <li className="footer__socials-item">
                         <a href="https://www.instagram.com/import_euro_car?igsh=dWhvcm15aW8zazVk&utm_source=qr" target='_blank' className="footer__socials-link">
                             <img src='/img/instagram-1-svgrepo-com.svg' style={{ width: '20px' }} alt="Instagram"></img>
                             <span>мы в Instagram</span>
@@ -293,9 +293,9 @@ const Footer = () => {
                           <img src='/img/tiktok-svgrepo-com.svg' style={{ width: '20px' }} alt="Instagram"></img>
                           <span>мы в TikTok</span>
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
-          </div> */}
+          </div>
         </div>
       </div>
 
