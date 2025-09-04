@@ -111,12 +111,12 @@ const DashboardPage = () => {
   ];
 
   const recommendations = [
-    { title: "Менеджер Михаил", src: "/video/IMG_0461.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
-    { title: "Менеджер Михаил", src: "/video/IMG_0705.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
-    { title: "Менеджер Михаил", src: "/video/IMG_0586.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
-    { title: "Менеджер Александр", src: "/video/IMG_0805.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
-    { title: "Менеджер Александр", src: "/video/IMG_0845.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
-    { title: "Менеджер Михаил", src: "/video/IMG_1472.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0461.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0705.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0586.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0805.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0845.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_1472.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
   ];
 
   const handleClick = () => {
@@ -232,7 +232,7 @@ const DashboardPage = () => {
                 <div className="props__title">Компания на рынке с</div>
                 <div className="props__info">
                   <span className="props__num">
-                    2018 <span>г</span>
+                    2022 <span>г</span>
                   </span>
                 </div>
               </div>
@@ -387,9 +387,9 @@ const DashboardPage = () => {
                   Приходите в гости, мы будем вам рады
                 </div>
                 <div className="contacts__items">
-                  <div className="contacts__item contacts__phone">
+                  {/* <div className="contacts__item contacts__phone">
                     <Num />
-                  </div>
+                  </div> */}
                   <a href="https://yandex.ru/maps/-/CLEzf63V" target='_blank' className="contacts__item">
                     620146, Свердловская область, г Екатеринбург, Московская ул, д. 194
                   </a>
