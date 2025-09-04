@@ -111,12 +111,12 @@ const DashboardPage = () => {
   ];
 
   const recommendations = [
-    { title: "Менеджер ", src: "/video/IMG_0461.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0705.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0586.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0805.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0845.MP4", url: "https://t.me/Aleksandravtooo", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_1472.MP4", url: "https://t.me/avto_prigon_europe", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0461.MP4", url: "https://t.me/prodam_avt0", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0705.MP4", url: "https://t.me/prodam_avt0", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0586.MP4", url: "https://t.me/prodam_avt0", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0805.MP4", url: "https://t.me/prodam_avt0", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0845.MP4", url: "https://t.me/prodam_avt0", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_1472.MP4", url: "https://t.me/prodam_avt0", poster: "/img/logo16.9.png" },
   ];
 
   const handleClick = () => {
