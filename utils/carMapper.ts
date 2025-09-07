@@ -70,7 +70,7 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     title: `${car.brand} ${car.model}`,
     boiler_manufacturer: car.brand,
     parts_manufacturer: car.brand,
-    vendor_code: car.vin,
+    vendor_code: car.vin || '', // Если vin null, используем пустую строку
     name: `${car.brand} ${car.model}`,
     images: JSON.stringify(images),
     in_stock: car.deletedAt ? 0 : 1, // Если удален, то не в наличии
