@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { getBestsellersOrNewPartsFx } from '@/app/api/boilerParts'
+import { getBestsellersOrNewPartsFx, getSoldCarsFx } from '@/app/api/boilerParts'
 import BrandsSlider from '@/components/modules/DashboardPage/BrandsSlider'
 import { IBoilerParts } from '@/types/boilerparts'
 import styles from '@/styles/dashboard/index.module.scss'
 import { useStore } from 'effector-react'
 import { $mode } from '@/context/mode'
 import DashboardSlider from '@/components/modules/DashboardPage/DashboardSlider'
+import SoldCarsSlider from '@/components/modules/DashboardPage/SoldCarsSlider'
 import { $shoppingCart } from '@/context/shopping-cart'
 import { AnimatePresence, motion } from 'framer-motion'
 import CartAlert from '@/components/modules/DashboardPage/CartAlert'
@@ -22,6 +23,7 @@ const DashboardPage = () => {
   const [bestsellers, setBestsellers] = useState<IBoilerParts>(
     {} as IBoilerParts
   )
+  const [soldCars, setSoldCars] = useState<any[]>([])
   const [spinner, setSpinner] = useState(false)
   const shoppingCart = useStore($shoppingCart)
   const [showAlert, setShowAlert] = useState(!!shoppingCart.length)
@@ -48,9 +50,11 @@ const DashboardPage = () => {
         '/cars'
       )
       const newParts = await getBestsellersOrNewPartsFx('/cars')
+      const soldCarsData = await getSoldCarsFx('/cars/sold?limit=15')
 
       setBestsellers(bestsellers)
       setNewParts(newParts)
+      setSoldCars(soldCarsData)
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
@@ -427,7 +431,7 @@ const DashboardPage = () => {
           <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>
             Проданные автомобили
           </h3>
-          <DashboardSlider items={bestsellers.rows || []} spinner={spinner} />
+          <SoldCarsSlider items={soldCars} spinner={spinner} />
         </div>
         <div className={styles.dashboard__parts}>
           <h3 className={`${styles.dashboard__parts__title} ${darkModeClass}`}>

@@ -832,10 +832,26 @@
         }
       }
 
+      &__main_info {
+        margin-bottom: 8px;
+      }
+
+      &__additional_info {
+        margin-bottom: 12px;
+        opacity: 0.8;
+      }
+
+      &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+      }
+
       &__stock {
         font-size: 14px;
         display: block;
-        margin-bottom: 24px;
+        margin-bottom: 0;
 
         &__success {
           color: #04b19e;
@@ -843,6 +859,15 @@
 
         &__not {
           color: #e0595d;
+        }
+
+        &__sold {
+          color: #ff6b35;
+          font-weight: bold;
+          background: rgba(255, 107, 53, 0.1);
+          padding: 4px 8px;
+          border-radius: 4px;
+          display: inline-block;
         }
       }
 

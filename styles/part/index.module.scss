@@ -98,6 +98,15 @@
       &__not {
         color: #e0595d;
       }
+
+      &__sold {
+        color: #ff6b35;
+        font-weight: bold;
+        background: rgba(255, 107, 53, 0.1);
+        padding: 6px 12px;
+        border-radius: 6px;
+        display: inline-block;
+      }
     }
 
     &__code {

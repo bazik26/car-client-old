@@ -24,32 +24,43 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
         </div>
         <div className={styles.catalog__list__item__inner}>
             <h3 className={styles.catalog__list__item__title}>{item.name}</h3>
-            {/* {item.Model !== null && <h4 className={styles.catalog__list__item__info}>Модель: {item.Model}</h4>} */}
-            {item.Year !== null && <h4 className={styles.catalog__list__item__info}><span>Год: </span>{item.Year}</h4>}
-            {item.Mileage !== null && <h4 className={styles.catalog__list__item__info}><span>Пробег: </span>{item.Mileage}</h4>}
-            {item.Engine !== null && <h4 className={styles.catalog__list__item__info}><span>Двигатель: </span>{item.Engine}</h4>}
-            {/* {item.Transmission !== null && <h4 className={styles.catalog__list__item__info}>Трансмиссия: {item.Transmission}</h4>} */}
-            {/* {item.Drive !== null && <h4 className={styles.catalog__list__item__info}>Привод: {item.Drive}</h4>} */}
-            {item.fuel !== null && <h4 className={styles.catalog__list__item__info}><span>Топливо: </span>{item.fuel}</h4>}
-            {/* {item.vendor_code !== '???' && (
-            <span className={styles.catalog__list__item__code}>
-              VIN: {item.vendor_code}
-            </span>
-            )} */}
-            <span className={styles.catalog__list__item__stock}>
-              {item.in_stock > 0 ? (
-                <span className={styles.catalog__list__item__stock__success}>
-                  В наличии
-                </span>
-              ) : (
-                <span className={styles.catalog__list__item__stock__not}>
-                  Продана
-                </span>
-              )}
-            </span>
-            <span className={styles.catalog__list__item__price}>
-              {formatPrice(item.price)} P
-            </span>
+            
+            {/* Основная информация */}
+            <div className={styles.catalog__list__item__main_info}>
+              {item.Year !== null && <h4 className={styles.catalog__list__item__info}><span>Год: </span>{item.Year}</h4>}
+              {item.Mileage !== null && <h4 className={styles.catalog__list__item__info}><span>Пробег: </span>{item.Mileage} км</h4>}
+              {item.Engine !== null && <h4 className={styles.catalog__list__item__info}><span>Двигатель: </span>{item.Engine} л</h4>}
+              {item.fuel !== null && <h4 className={styles.catalog__list__item__info}><span>Топливо: </span>{item.fuel}</h4>}
+            </div>
+
+            {/* Дополнительная информация */}
+            <div className={styles.catalog__list__item__additional_info}>
+              {item.gearbox && <h4 className={styles.catalog__list__item__info}><span>КПП: </span>{item.gearbox}</h4>}
+              {item.drive && <h4 className={styles.catalog__list__item__info}><span>Привод: </span>{item.drive}</h4>}
+              {item.powerValue && <h4 className={styles.catalog__list__item__info}><span>Мощность: </span>{item.powerValue} {item.powerType}</h4>}
+            </div>
+
+            {/* Статус и цена */}
+            <div className={styles.catalog__list__item__footer}>
+              <span className={styles.catalog__list__item__stock}>
+                {item.sale ? (
+                  <span className={styles.catalog__list__item__stock__sold}>
+                    ПРОДАНО
+                  </span>
+                ) : item.in_stock > 0 ? (
+                  <span className={styles.catalog__list__item__stock__success}>
+                    В наличии
+                  </span>
+                ) : (
+                  <span className={styles.catalog__list__item__stock__not}>
+                    Нет в наличии
+                  </span>
+                )}
+              </span>
+              <span className={styles.catalog__list__item__price}>
+                {formatPrice(item.price)} ₽
+              </span>
+            </div>
         </div>
         {/* <button
           className={`${styles.catalog__list__item__cart} ${

@@ -33,6 +33,7 @@ export interface ICar {
   engine: string
   drive: string
   price: number
+  sale: boolean
   description: string
   conditionerType: string | null
   windowLifter: string | null
@@ -76,6 +77,7 @@ export interface IBoilerPart {
   id: number
   boiler_manufacturer: string
   price: number
+  sale: boolean
   parts_manufacturer: string
   vendor_code: string
   name: string

@@ -31,6 +31,7 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     price: car.price,
     parts_manufacturer: car.brand,
     vendor_code: car.vin || '', // Если vin null, используем пустую строку
+    sale: car.sale,
     name: `${car.brand} ${car.model}`,
     description: car.description,
     images: JSON.stringify(images),

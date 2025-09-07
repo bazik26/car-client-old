@@ -637,6 +637,15 @@
       &__off {
         color: red;
       }
+
+      &__sold {
+        color: #ff6b35;
+        font-weight: bold;
+        background: rgba(255, 107, 53, 0.1);
+        padding: 4px 8px;
+        border-radius: 4px;
+        display: inline-block;
+      }
     }
 
     &__inner {

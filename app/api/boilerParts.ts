@@ -15,6 +15,23 @@ export const getBestsellersOrNewPartsFx = createEffect(async (url: string) => {
   return data
 })
 
+export const getSoldCarsFx = createEffect(async (url: string) => {
+  try {
+    const { data } = await api.get(url)
+    
+    // Если данные приходят в новом формате (массив ICar), преобразуем их
+    if (Array.isArray(data)) {
+      return data.map(mapCarToBoilerPart)
+    }
+    
+    return data
+  } catch (error) {
+    console.error('Error in getSoldCarsFx:', error)
+    toast.error('Ошибка при загрузке проданных автомобилей')
+    return []
+  }
+})
+
 export const getBoilerPartsFx = createEffect(async (url: string) => {
   const { data } = await api.get(url)
   

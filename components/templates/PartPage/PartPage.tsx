@@ -61,12 +61,16 @@ const PartPage = () => {
                   {formatPrice(boilerPart.price || 0)} P
                 </span>
                 <span className={styles.part__info__stock}>
-                  {boilerPart.in_stock > 0 ? (
+                  {boilerPart.sale ? (
+                    <span className={styles.part__info__stock__sold}>
+                      ПРОДАНО
+                    </span>
+                  ) : boilerPart.in_stock > 0 ? (
                     <span className={styles.part__info__stock__success}>
                       В наличии
                     </span>
                   ) : (
-                    <span className={styles.part__info__stock__not}>Продана</span>
+                    <span className={styles.part__info__stock__not}>Нет в наличии</span>
                   )}
                 </span>
                 {boilerPart.Model !== null && (
@@ -94,9 +98,24 @@ const PartPage = () => {
                     <span>Топливо: </span>{boilerPart.fuel}
                   </h4>
                 )}
-                {boilerPart.Transmission !== null && (
+                {boilerPart.gearbox && (
                   <h4 className={styles.part__info__text}>
-                    <span>Привод: </span>{boilerPart.Transmission}
+                    <span>КПП: </span>{boilerPart.gearbox}
+                  </h4>
+                )}
+                {boilerPart.drive && (
+                  <h4 className={styles.part__info__text}>
+                    <span>Привод: </span>{boilerPart.drive}
+                  </h4>
+                )}
+                {boilerPart.powerValue && (
+                  <h4 className={styles.part__info__text}>
+                    <span>Мощность: </span>{boilerPart.powerValue} {boilerPart.powerType}
+                  </h4>
+                )}
+                {boilerPart.vin && (
+                  <h4 className={styles.part__info__text}>
+                    <span>VIN: </span>{boilerPart.vin}
                   </h4>
                 )}
                 {boilerPart.Drive !== null && (
