@@ -45,9 +45,9 @@ const DashboardPage = () => {
     try {
       setSpinner(true)
       const bestsellers = await getBestsellersOrNewPartsFx(
-        '/boiler-parts/bestsellers'
+        '/cars'
       )
-      const newParts = await getBestsellersOrNewPartsFx('/boiler-parts/new')
+      const newParts = await getBestsellersOrNewPartsFx('/cars')
 
       setBestsellers(bestsellers)
       setNewParts(newParts)

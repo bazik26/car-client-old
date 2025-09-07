@@ -95,7 +95,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
 
       const queryString = filterParams.toString()
       const result = await getBoilerPartsFx(
-        `/boiler-parts?limit=20&offset=${offset}${
+        `/cars?limit=20&offset=${offset}${
           queryString ? `&${queryString}` : ''
         }`
       )
@@ -123,7 +123,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const handlePageChange = async ({ selected }: { selected: number }) => {
     try {
       setSpinner(true)
-      const data = await getBoilerPartsFx('/boiler-parts?limit=20&offset=0')
+      const data = await getBoilerPartsFx('/cars?limit=20&offset=0')
 
       if (selected > pagesCount) {
         resetPagination(isFilterInQuery ? filteredBoilerParts : data)
@@ -139,7 +139,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         checkQueryParams(router)
 
       const result = await getBoilerPartsFx(
-        `/boiler-parts?limit=20&offset=${selected}${
+        `/cars?limit=20&offset=${selected}${
           isFilterInQuery && isValidBoilerQuery
             ? `&boiler=${router.query.boiler}`
             : ''
@@ -177,7 +177,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const resetFilters = async () => {
     try {
       setSpinner(true)
-      const data = await getBoilerPartsFx('/boiler-parts?limit=20&offset=0')
+      const data = await getBoilerPartsFx('/cars?limit=20&offset=0')
       router.push(
         {
           query: { offset: 1 },

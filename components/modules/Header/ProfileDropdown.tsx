@@ -21,7 +21,7 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentProps>(
     const toggleProfileDropDown = () => setOpen(!open)
 
     const handleLogout = async () => {
-      await logoutFx('/users/logout')
+      await logoutFx('/auth/signout')
       router.push('/')
     }
 

@@ -27,8 +27,8 @@ const SignInForm = () => {
     try {
       setSpinner(true)
       await singInFx({
-        url: '/users/login',
-        username: data.name,
+        url: '/auth/signin',
+        email: data.name,
         password: data.password,
       })
 

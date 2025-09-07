@@ -87,7 +87,7 @@ export const updateParamsAndFiltersFromQuery = async (
 ) => {
   callback()
 
-  const data = await getBoilerPartsFx(`/boiler-parts?limit=20&offset=${path}`)
+  const data = await getBoilerPartsFx(`/cars?limit=20&offset=${path}`)
 
   setFilteredBoilerParts(data)
 }
@@ -115,7 +115,7 @@ export async function updateParamsAndFilters<T>(
     { shallow: true }
   )
 
-  const data = await getBoilerPartsFx(`/boiler-parts?limit=20&offset=${path}`)
+  const data = await getBoilerPartsFx(`/cars?limit=20&offset=${path}`)
 
   setFilteredBoilerParts(data)
 }

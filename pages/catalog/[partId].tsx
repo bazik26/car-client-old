@@ -45,7 +45,7 @@ function CatalogPartPage({
 
   const loadBoilerPart = async () => {
     try {
-      const data = await getBoilerPartFx(`/boiler-parts/find/${query.partId}`)
+      const data = await getBoilerPartFx(`/cars/car/${query.partId}`)
 
       if (!data) {
         setError(true)
@@ -114,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const query = context.query as unknown as IQueryParams
 
   try {
-    const data = await getBoilerPartFx(`/boiler-parts/find/${query.partId}`)
+    const data = await getBoilerPartFx(`/cars/car/${query.partId}`)
 
     if (!data) {
       return {

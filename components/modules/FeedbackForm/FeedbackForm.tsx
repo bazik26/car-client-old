@@ -70,7 +70,7 @@ const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
       <span className="jqmClose top-close stroke-theme-hover" onClick={handleClick} title="Закрыть">
         <i className="svg inline  svg-inline-" aria-hidden="true">
           <svg width="21" height="21" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 1L1 13M1 1L13 13" stroke="#f2f2f2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M13 1L1 13M1 1L13 13" stroke="#f2f2f2" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
           </svg>
         </i>
       </span>

@@ -38,7 +38,7 @@ const useRedirectByUserCheck = (isAuthPage = false) => {
   // }
 
   const checkUser = async () => {
-    const user = await checkUserAuthFx('/users/login-check')
+    const user = await checkUserAuthFx('/auth/')
 
     if (user?.guest) {
       setShouldLoadContent(true) // ✅ Разрешаем загрузку каталога без входа

@@ -35,7 +35,7 @@ const PartPage = () => {
 
   const loadBoilerPart = async () => {
     try {
-      const data = await getBoilerPartsFx('/boiler-parts?limit=20&offset=0')
+      const data = await getBoilerPartsFx('/cars?limit=20&offset=0')
 
       setBoilerParts(data)
       setBoilerPartsByPopularity()

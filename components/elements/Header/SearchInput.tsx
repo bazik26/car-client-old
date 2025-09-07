@@ -75,7 +75,7 @@ const SearchInput = () => {
     try {
       setInputValue(search)
       const data = await searchPartsFx({
-        url: '/boiler-parts/search',
+        url: '/cars/search',
         search,
       })
 
@@ -91,7 +91,7 @@ const SearchInput = () => {
 
   const getPartAndRedirect = async (name: string) => {
     const part = await getPartByNameFx({
-      url: '/boiler-parts/name',
+      url: '/cars/search',
       name,
     })
 
