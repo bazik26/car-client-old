@@ -22,7 +22,7 @@ export const singUpFx = createEffect(
 
 export const singInFx = createEffect(
   async ({ url, username, password }: ISignInFx) => {
-    const { data } = await api.post(url, { username, password })
+    const { data } = await api.post(url, { email: username, password })
 
     toast.success('Вход выполнен!')
 
