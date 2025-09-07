@@ -96,6 +96,8 @@ export interface IBoilerPart {
   powerValue?: number
   powerType?: string
   drive?: string
+  updatedAt?: string
+  deletedAt?: string | null
   conditionerType?: string | null
   windowLifter?: string | null
   interiorMaterials?: string | null

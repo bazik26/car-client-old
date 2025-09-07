@@ -31,7 +31,7 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     drive: car.drive,
     price: car.price,
     description: car.description,
-    createdAt: car.createdAt,
+    createdAt: null, // Старое поле должно быть null
     updatedAt: car.updatedAt,
     deletedAt: car.deletedAt,
     files: car.files,
