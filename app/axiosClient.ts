@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const instance = axios.create({
   withCredentials: true,
-  baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}`,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app',
 })
 
 export default instance
