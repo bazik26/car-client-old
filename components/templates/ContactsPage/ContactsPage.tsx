@@ -37,13 +37,13 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
           <ul className={`${styles.contacts__list} ${darkModeClass}`}>
               <li className={styles.contacts__list__title}>
                 <h3 className={darkModeClass}>
-                  ООО "Ива Авто"
+                  ООО "Авто-с"
                 </h3>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>Офис: </span>
                 <span>
-                  620146, Свердловская область, г Екатеринбург, Московская ул, д. 194
+                  183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119
                 </span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
@@ -54,11 +54,11 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>ОГРН: </span>
-                <span>1226600043251</span>
+                <span>1175190000358</span>
               </li>
               <li className={`${styles.contacts__list__item} ${darkModeClass}`}>
                 <span>ИНН: </span>
-                <span>6678121684</span>
+                <span>5190067377</span>
               </li>
           </ul>
         </div>

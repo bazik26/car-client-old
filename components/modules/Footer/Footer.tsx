@@ -260,7 +260,7 @@ const Footer = () => {
           </svg>
           </i>						</span>
                               <div className="address__text font_15  ">
-                              620146, Свердловская область, г Екатеринбург, Московская ул, д. 194</div>
+                              183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119</div>
                   </div>
                   </div>
                       
@@ -305,10 +305,10 @@ const Footer = () => {
                 <div className="footer__bottom-part-items-wrapper">
                     <div className="footer__part-item">
                         <div className="footer__copy font_13 color_999">
-                            <p>ООО "Ива Авто" 620146, Свердловская область, г Екатеринбург, Московская ул, д. 194</p>
+                            <p>ООО "Авто-с" 183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119</p>
                             <p>Тел.: <Num/></p>
-                            <p>ОГРН 1226600043251 / ИНН 6678121684 / КПП 667101001</p>
-                              Import Euro Car © 2022
+                            <p>ОГРН 1175190000358 / ИНН 5190067377 / КПП 519001001</p>
+                              Import Euro Car © 2017
                           </div>
                     </div>
                     <div className="footer__part-item">

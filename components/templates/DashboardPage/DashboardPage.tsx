@@ -242,7 +242,7 @@ const DashboardPage = () => {
                 <div className="props__title">Компания на рынке с</div>
                 <div className="props__info">
                   <span className="props__num">
-                    2022 <span>г</span>
+                    2017 <span>г</span>
                   </span>
                 </div>
               </div>
@@ -401,7 +401,7 @@ const DashboardPage = () => {
                     <Num />
                   </div>
                   <a href="https://yandex.ru/maps/-/CLEzf63V" target='_blank' className="contacts__item">
-                    620146, Свердловская область, г Екатеринбург, Московская ул, д. 194
+                    183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119
                   </a>
                   <a href="mailto:importeurocar@yandex.com" className="contacts__item">
                     importeurocar@yandex.com
