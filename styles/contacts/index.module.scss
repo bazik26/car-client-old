@@ -143,14 +143,14 @@
       span:first-child {
         font-size: 18px;
         line-height: 150.19%;
-        color: #999;
+        color: #999 !important;
 
         @media (max-width: 560px) {
           display: block;
         }
       }
 
-      span:last-child {
+      span {
         font-weight: 500;
         font-size: 18px;
         color: #ffffff !important;
