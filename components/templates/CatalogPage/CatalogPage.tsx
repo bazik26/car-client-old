@@ -8,6 +8,7 @@ import {
   $partsManufacturers,
   setBoilerManufacturers,
   setBoilerParts,
+  setFilteredBoilerParts,
   setPartsManufacturers,
   updateBoilerManufacturer,
   updatePartsManufacturer,
@@ -40,19 +41,29 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const [isFilterInQuery, setIsFilterInQuery] = useState(false)
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
   const itemsPerPage = 20
-  const pagesCount = Math.ceil(boilerParts.count / itemsPerPage)
+  
+  // Используем правильные данные для подсчета страниц
+  const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
+  const pagesCount = Math.ceil(dataToUse.count / itemsPerPage)
   
   // Получаем автомобили для текущей страницы
   const getCurrentPageItems = () => {
-    if (!boilerParts?.rows) {
-      console.log('❌ No boilerParts.rows available')
+    // Используем filteredBoilerParts если есть фильтры, иначе boilerParts
+    const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
+    
+    if (!dataToUse?.rows) {
+      console.log('❌ No data available for pagination')
       return []
     }
+    
     const startIndex = currentPage * itemsPerPage
     const endIndex = startIndex + itemsPerPage
-    const pageItems = boilerParts.rows.slice(startIndex, endIndex)
-    console.log(`📄 Page ${currentPage + 1}: showing items ${startIndex}-${endIndex} of ${boilerParts.rows.length} total`)
+    const pageItems = dataToUse.rows.slice(startIndex, endIndex)
+    
+    console.log(`📄 Page ${currentPage + 1}: showing items ${startIndex}-${endIndex} of ${dataToUse.rows.length} total`)
     console.log('📋 Page items:', pageItems.length)
+    console.log('🔍 Using data:', filteredBoilerParts?.rows?.length > 0 ? 'filtered' : 'all')
+    
     return pageItems
   }
   const isValidOffset =
@@ -187,6 +198,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         partsManufacturers.map((item) => ({ ...item, checked: false }))
       )
       setBoilerParts(data)
+      setFilteredBoilerParts({ count: 0, rows: [] }) // Очищаем фильтры
       setPriceRange([1000, 9000])
       setIsPriceRangeChanged(false)
       setIsFilterInQuery(false)
