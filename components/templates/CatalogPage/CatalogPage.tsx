@@ -1,4 +1,4 @@
-import { getBoilerPartsFx } from '@/app/api/boilerParts'
+import { getBoilerPartsFx, getFilteredCarsFx } from '@/app/api/boilerParts'
 import FilterSelect from '@/components/modules/CatalogPage/FilterSelect'
 import ManufacturersBlock from '@/components/modules/CatalogPage/ManufacturersBlock'
 import {
@@ -104,34 +104,75 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
 
     try {
       const offset = isValidOffset ? +query.offset - 1 : 0
-      const filterParams = new URLSearchParams()
+      
+      // Проверяем есть ли фильтры в URL
+      const hasFilters = router.query.boiler || router.query.parts || router.query.priceFrom || router.query.priceTo
+      
+      if (hasFilters) {
+        console.log('🔍 Found filters in URL, applying them...')
+        
+        // Создаем параметры для API фильтрации
+        const searchParams: any = {
+          limit: 100,
+          page: 1
+        }
 
-      if (isFilterInQuery) {
+        // Добавляем фильтр по бренду
         if (router.query.boiler) {
-          filterParams.append('boiler', String(router.query.boiler))
+          try {
+            const boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
+            if (boilerArray.length > 0) {
+              searchParams.brand = boilerArray[0]
+              console.log('🏷️ Filtering by brand:', searchParams.brand)
+            }
+          } catch (e) {
+            console.error('Error parsing boiler filter:', e)
+          }
         }
-        if (router.query.parts) {
-          filterParams.append('parts', String(router.query.parts))
-        }
+
+        // Добавляем фильтр по цене
         if (router.query.priceFrom && router.query.priceTo) {
-          filterParams.append('priceFrom', String(router.query.priceFrom))
-          filterParams.append('priceTo', String(router.query.priceTo))
+          searchParams.priceStart = Number(router.query.priceFrom)
+          searchParams.priceEnd = Number(router.query.priceTo)
+          console.log('💰 Filtering by price:', searchParams.priceStart, '-', searchParams.priceEnd)
         }
+
+        // Используем getFilteredCarsFx для фильтрации
+        const result = await getFilteredCarsFx(searchParams)
+        console.log('📊 Filtered result:', result)
+        setFilteredBoilerParts(result)
+        setBoilerParts(result) // Также обновляем основное состояние
+        
+        // Обновляем состояние фильтров в UI
+        if (router.query.boiler) {
+          try {
+            const boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
+            setBoilerManufacturers(
+              boilerManufacturers.map(item => ({
+                ...item,
+                checked: boilerArray.includes(item.title)
+              }))
+            )
+          } catch (e) {
+            console.error('Error updating boiler manufacturers:', e)
+          }
+        }
+        
+        if (router.query.priceFrom && router.query.priceTo) {
+          setPriceRange([Number(router.query.priceFrom), Number(router.query.priceTo)])
+          setIsPriceRangeChanged(true)
+        }
+        
+        setIsFilterInQuery(true)
+      } else {
+        // Загружаем все автомобили без фильтров
+        const result = await getBoilerPartsFx('/cars/search?limit=100')
+        console.log('📋 All cars result:', result)
+        setBoilerParts(result)
+        setFilteredBoilerParts({ count: 0, rows: [] }) // Очищаем фильтры
       }
 
-      const queryString = filterParams.toString()
-      // Загружаем больше автомобилей за раз, так как API не поддерживает offset
-      const result = await getBoilerPartsFx(
-        `/cars/search?limit=100${
-          queryString ? `&${queryString}` : ''
-        }`
-      )
-
-      console.log('📋 CatalogPage loadBoilerParts result:', result)
-      console.log('📊 Result count:', result.count, 'rows:', result.rows?.length)
-
       setCurrentPage(offset)
-      setBoilerParts(result) // Обновляем состояние каталога
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
