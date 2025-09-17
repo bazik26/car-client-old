@@ -22,6 +22,7 @@ export const getBestsellersOrNewPartsFx = createEffect(async (url: string) => {
 
 export const getSoldCarsFx = createEffect(async (url: string) => {
   try {
+    console.log('🚨🚨🚨 GET SOLD CARS FX CALLED 🚨🚨🚨')
     console.log('🔍 getSoldCarsFx called with URL:', url)
     
     // Используем поиск для получения всех автомобилей, затем фильтруем проданные

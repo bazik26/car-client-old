@@ -52,9 +52,11 @@ const DashboardPage = () => {
       const newParts = await getBestsellersOrNewPartsFx('/cars')
       const soldCarsData = await getSoldCarsFx('/cars/sold?limit=15')
 
+      console.log('🚨🚨🚨 DASHBOARD PAGE LOADED 🚨🚨🚨')
       console.log('📋 DashboardPage soldCarsData:', soldCarsData)
       console.log('📊 DashboardPage soldCarsData length:', soldCarsData.length)
       console.log('🔍 DashboardPage soldCarsData details:', soldCarsData.map(car => `${car.name} (sale: ${car.sale})`))
+      console.log('🚨🚨🚨 END DASHBOARD PAGE 🚨🚨🚨')
 
       setBestsellers(bestsellers)
       setNewParts(newParts)
