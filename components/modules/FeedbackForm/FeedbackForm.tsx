@@ -1,7 +1,6 @@
 import { $mode } from '@/context/mode'
 import styles from '@/styles/feedbackForm/index.module.scss'
 import { useStore } from 'effector-react'
-import emailjs from '@emailjs/browser'
 import NameInput from './NameInput'
 import { useForm } from 'react-hook-form'
 import { FeedbackInputs } from '@/types/feedbackForm'
@@ -11,6 +10,7 @@ import MessageInput from './MessageInput'
 import { MutableRefObject, useRef, useState } from 'react'
 import spinnerStyles from '@/styles/spinner/index.module.scss'
 import { toast } from 'react-toastify'
+import { sendFeedbackForm } from '@/utils/telegram'
 
 type FeedbackFormProps = {
   previousData: {
@@ -43,26 +43,35 @@ const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
     }
   }
 
-  const submitForm = () => {
+  const submitForm = async (data: FeedbackInputs) => {
     setSpinner(true)
-    emailjs
-      .sendForm(
-        'service_p9wgb29',
-        'template_3mgzpeo',
-        formRef.current,
-        'iEjvhpUevYZ6nELPm'
-      )
-      .then((result) => {
-        setSpinner(false)
-        toast.success(`Сообщение отправлено! ${result.text}`)
-        handleClick()
-      })
-      .catch((error) => {
-        setSpinner(false)
-        toast.error(`Что-то пошло не так! ${error.text}`)
+    
+    try {
+      const carInfo = previousData 
+        ? `${previousData.brand} ${previousData.model} ${previousData.generation}`.trim()
+        : 'Не указан'
+
+      const success = await sendFeedbackForm({
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        message: data.message,
+        carInfo: carInfo
       })
 
-    formRef.current.reset()
+      if (success) {
+        toast.success('Сообщение отправлено в Telegram!')
+        handleClick()
+        formRef.current.reset()
+      } else {
+        throw new Error('Ошибка отправки')
+      }
+    } catch (error) {
+      console.error('Ошибка отправки в Telegram:', error)
+      toast.error('Ошибка отправки сообщения')
+    } finally {
+      setSpinner(false)
+    }
   }
 
   return (

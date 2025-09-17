@@ -6,6 +6,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PartImagesItem from './PartImagesItem'
 import PartSlider from './PartSlider'
 import styles from '@/styles/part/index.module.scss'
+import CarImage from '@/components/elements/CarImage/CarImage'
 
 const PartImagesList = () => {
   const boilerPart = useStore($boilerPart)
@@ -22,7 +23,11 @@ const PartImagesList = () => {
       ) : (
         <>
           <div className={styles.part__images__main}>
-            <img src={currentImgSrc || images[0]} alt={boilerPart.name} />
+            <CarImage 
+              src={currentImgSrc || images[0]} 
+              alt={boilerPart.name}
+              className={styles.part__images__main__img}
+            />
           </div>
           <ul className={styles.part__images__list}>
             {images.map((item, i) => (

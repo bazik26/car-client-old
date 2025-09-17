@@ -5,6 +5,7 @@ import { $mode } from '@/context/mode'
 import { IBoilerPart } from '@/types/boilerparts'
 import { formatPrice } from '@/utils/common'
 import styles from '@/styles/catalog/index.module.scss'
+import CarImage from '@/components/elements/CarImage/CarImage'
 
 const CatalogItem = ({ item }: { item: IBoilerPart }) => {
   const mode = useStore($mode)
@@ -29,13 +30,14 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
         className={`${styles.catalog__list__item} ${darkModeClass}`}
       >
         <div className={styles.catalog__list__item__imghold}>
-          <img 
+          <CarImage 
             src={
               item.images && item.images !== '[]' && item.images !== 'null'
                 ? JSON.parse(item.images)[0]
-                : '/img/placeholder.png'
+                : undefined
             } 
-            alt={item.name} 
+            alt={item.name}
+            className={styles.catalog__list__item__img}
           />
         </div>
         <div className={styles.catalog__list__item__inner}>

@@ -12,6 +12,7 @@ import { IDashboardSlider } from '@/types/dashboard'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
 import { formatPrice } from '@/utils/common'
 import styles from '@/styles/dashboard/index.module.scss'
+import CarImage from '@/components/elements/CarImage/CarImage'
 
 const SoldCarsSlider = ({
   items,
@@ -77,13 +78,14 @@ const SoldCarsSlider = ({
                 className={`${styles.dashboard__slide} ${darkModeClass}`}
                 style={width}
               >
-                <img 
+                <CarImage 
                   src={
                     item.images && item.images !== '[]' && item.images !== 'null'
                       ? JSON.parse(item.images)[0]
-                      : '/img/placeholder.png'
+                      : undefined
                   } 
-                  alt={item.name} 
+                  alt={item.name}
+                  className={styles.dashboard__slide__img}
                 />
                 <div className={styles.dashboard__slide__inner}>
                   <h3 className={styles.dashboard__slide__title}>{item.name}</h3>
