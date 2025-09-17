@@ -43,7 +43,7 @@ export const getSoldCarsFx = createEffect(async (url: string) => {
         return isSold
       })
       console.log('🚗 Found sold cars:', soldCars.length)
-      console.log('🚗 Sold cars details:', soldCars.map(car => `${car.brand} ${car.model} (sale: ${car.sale}, isSold: ${car.isSold})`))
+      console.log('🚗 Sold cars details:', soldCars.map((car: ICar) => `${car.brand} ${car.model} (sale: ${car.sale}, isSold: ${car.isSold})`))
       
       const mappedSoldCars = soldCars.map(mapCarToBoilerPart)
       console.log('🔄 Mapped sold cars:', mappedSoldCars.length)

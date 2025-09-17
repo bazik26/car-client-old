@@ -9,7 +9,7 @@ export const setBoilerParts = boilerParts.createEvent<IBoilerParts>()
 export const setBoilerPartsCheapFirst = boilerParts.createEvent()
 export const setBoilerPartsExpensiveFirst = boilerParts.createEvent()
 export const setBoilerPartsByPopularity = boilerParts.createEvent()
-export const setFilteredBoilerParts = boilerParts.createEvent()
+export const setFilteredBoilerParts = boilerParts.createEvent<IBoilerParts>()
 export const setBoilerManufacturers =
   boilerParts.createEvent<IFilterCheckboxItem[]>()
 export const updateBoilerManufacturer =

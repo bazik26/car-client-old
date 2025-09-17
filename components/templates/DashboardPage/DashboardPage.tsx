@@ -55,7 +55,7 @@ const DashboardPage = () => {
       console.log('🚨🚨🚨 DASHBOARD PAGE LOADED 🚨🚨🚨')
       console.log('📋 DashboardPage soldCarsData:', soldCarsData)
       console.log('📊 DashboardPage soldCarsData length:', soldCarsData.length)
-      console.log('🔍 DashboardPage soldCarsData details:', soldCarsData.map(car => `${car.name} (sale: ${car.sale})`))
+      console.log('🔍 DashboardPage soldCarsData details:', soldCarsData.map((car: any) => `${car.name} (sale: ${car.sale})`))
       console.log('🚨🚨🚨 END DASHBOARD PAGE 🚨🚨🚨')
 
       setBestsellers(bestsellers)

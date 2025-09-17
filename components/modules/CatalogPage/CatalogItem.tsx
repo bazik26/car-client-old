@@ -55,10 +55,10 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
                 {(item.mileage || item.Mileage).toLocaleString()} км
               </h4>
             )}
-            {(item.engine || item.Engine) && (
+            {item.Engine && (
               <h4 className={styles.catalog__list__item__info}>
                 <span>Двигатель: </span>
-                {item.engine || item.Engine} л
+                {item.Engine} л
               </h4>
             )}
             {item.fuel && (
