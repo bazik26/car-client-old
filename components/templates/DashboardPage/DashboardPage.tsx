@@ -400,7 +400,7 @@ const DashboardPage = () => {
                   <div className="contacts__item contacts__phone">
                     <Num />
                   </div>
-                  <a href="https://yandex.ru/maps/-/CLEzf63V" target='_blank' className="contacts__item">
+                  <a href="https://yandex.ru/maps/-/CLa~bVi2" target='_blank' className="contacts__item">
                     183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119
                   </a>
                   <a href="mailto:importeurocar@yandex.com" className="contacts__item">
