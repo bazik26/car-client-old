@@ -52,6 +52,10 @@ const DashboardPage = () => {
       const newParts = await getBestsellersOrNewPartsFx('/cars')
       const soldCarsData = await getSoldCarsFx('/cars/sold?limit=15')
 
+      console.log('📋 DashboardPage soldCarsData:', soldCarsData)
+      console.log('📊 DashboardPage soldCarsData length:', soldCarsData.length)
+      console.log('🔍 DashboardPage soldCarsData details:', soldCarsData.map(car => `${car.name} (sale: ${car.sale})`))
+
       setBestsellers(bestsellers)
       setNewParts(newParts)
       setSoldCars(soldCarsData)
@@ -250,7 +254,7 @@ const DashboardPage = () => {
               <div className="case__desc subtitle">Уже 1500 клиентов получили свой автомобиль</div>
             </div>
             <div className="case__slider">
-              <DashboardSlider items={bestsellers.rows || []} spinner={spinner} />
+              <SoldCarsSlider items={soldCars} spinner={spinner} />
             </div>
           </div>
         </section>

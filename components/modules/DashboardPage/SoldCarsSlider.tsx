@@ -24,6 +24,10 @@ const SoldCarsSlider = ({
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
+  console.log('🎠 SoldCarsSlider received items:', items)
+  console.log('🎠 SoldCarsSlider items length:', items.length)
+  console.log('🎠 SoldCarsSlider items details:', items.map(item => `${item.name} (sale: ${item.sale})`))
+
   useEffect(() => {
     const slider = document.querySelectorAll(`.${styles.dashboard__slider}`)
     slider.forEach((item) => {

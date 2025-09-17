@@ -22,21 +22,34 @@ export const getBestsellersOrNewPartsFx = createEffect(async (url: string) => {
 
 export const getSoldCarsFx = createEffect(async (url: string) => {
   try {
+    console.log('🔍 getSoldCarsFx called with URL:', url)
+    
     // Используем поиск для получения всех автомобилей, затем фильтруем проданные
     const searchParams = {
       limit: 100
     }
     
     const { data } = await api.post('/cars/search', searchParams)
+    console.log('📡 API Response for sold cars:', data)
+    console.log('📊 Total cars from API:', data.cars ? data.cars.length : 'No cars field')
 
     // Если данные приходят в новом формате (массив ICar), фильтруем проданные
     if (data.cars && Array.isArray(data.cars)) {
-      // Фильтруем только проданные автомобили (sale: true или isSold: true)
-      const soldCars = data.cars.filter((car: ICar) => car.sale === true || car.isSold === true)
+      // Фильтруем только проданные автомобили (только isSold: true)
+      const soldCars = data.cars.filter((car: ICar) => {
+        const isSold = car.isSold === true
+        console.log(`🚗 Car ${car.brand} ${car.model}: sale=${car.sale}, isSold=${car.isSold}, isSold=${isSold}`)
+        return isSold
+      })
       console.log('🚗 Found sold cars:', soldCars.length)
-      return soldCars.map(mapCarToBoilerPart)
+      console.log('🚗 Sold cars details:', soldCars.map(car => `${car.brand} ${car.model} (sale: ${car.sale}, isSold: ${car.isSold})`))
+      
+      const mappedSoldCars = soldCars.map(mapCarToBoilerPart)
+      console.log('🔄 Mapped sold cars:', mappedSoldCars.length)
+      return mappedSoldCars
     }
 
+    console.log('⚠️ No cars field found, returning empty array')
     return []
   } catch (error) {
     console.error('Error in getSoldCarsFx:', error)
