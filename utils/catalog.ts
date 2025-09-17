@@ -1,6 +1,6 @@
 import { NextRouter } from 'next/router'
 import { getQueryParamOnFirstRender, idGenerator } from './common'
-import { getBoilerPartsFx } from '@/app/api/boilerParts'
+import { getBoilerPartsFx, getFilteredCarsFx } from '@/app/api/boilerParts'
 import { setFilteredBoilerParts } from '@/context/boilerParts'
 
 const createManufacturerCheckboxObj = (title: string) => ({
@@ -115,7 +115,15 @@ export async function updateParamsAndFilters<T>(
     { shallow: true }
   )
 
-  const data = await getBoilerPartsFx(`/cars?limit=20&offset=${path}`)
+  // Используем новый API для фильтрации
+  const searchParams = {
+    limit: 20,
+    page: 1,
+    // Добавляем фильтры из параметров
+    ...(updatedParams as any)
+  }
+
+  const data = await getFilteredCarsFx(searchParams)
 
   setFilteredBoilerParts(data)
 }

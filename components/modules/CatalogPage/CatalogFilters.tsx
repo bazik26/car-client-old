@@ -18,6 +18,8 @@ import {
   updateParamsAndFilters,
   updateParamsAndFiltersFromQuery,
 } from '@/utils/catalog'
+import { getFilteredCarsFx } from '@/app/api/boilerParts'
+import { setFilteredBoilerParts } from '@/context/boilerParts'
 
 const CatalogFilters = ({
   priceRange,
@@ -138,123 +140,73 @@ const CatalogFilters = ({
       setSpinner(true)
       const priceFrom = Math.ceil(priceRange[0])
       const priceTo = Math.ceil(priceRange[1])
-      const priceQuery = isPriceRangeChanged
-        ? `&priceFrom=${priceFrom}&priceTo=${priceTo}`
-        : ''
+      
       const boilers = boilerManufacturers
         .filter((item) => item.checked)
         .map((item) => item.title)
       const parts = partsManufacturers
         .filter((item) => item.checked)
         .map((item) => item.title)
+      
+      // Создаем параметры для нового API
+      const searchParams: any = {
+        limit: 20,
+        page: 1
+      }
+
+      // Добавляем фильтры по бренду (boilers -> brand)
+      if (boilers.length > 0) {
+        searchParams.brand = boilers[0] // Берем первый выбранный бренд
+      }
+
+      // Добавляем фильтры по цене
+      if (isPriceRangeChanged) {
+        searchParams.priceStart = priceFrom
+        searchParams.priceEnd = priceTo
+      }
+
+      // Обновляем URL параметры для совместимости
       const encodedBoilerQuery = encodeURIComponent(JSON.stringify(boilers))
       const encodedPartsQuery = encodeURIComponent(JSON.stringify(parts))
-      const boilerQuery = `&boiler=${encodedBoilerQuery}`
-      const partsQuery = `&parts=${encodedPartsQuery}`
-      const initialPage = currentPage > 0 ? 0 : currentPage
-
-      if (boilers.length && parts.length && isPriceRangeChanged) {
-        updateParamsAndFilters(
-          {
-            boiler: encodedBoilerQuery,
-            parts: encodedPartsQuery,
-            priceFrom,
-            priceTo,
-            offset: initialPage + 1,
-          },
-          `${initialPage}${priceQuery}${boilerQuery}${partsQuery}`,
-          router
-        )
-        return
+      
+      const urlParams = {
+        boiler: encodedBoilerQuery,
+        parts: encodedPartsQuery,
+        priceFrom: isPriceRangeChanged ? priceFrom : undefined,
+        priceTo: isPriceRangeChanged ? priceTo : undefined,
+        offset: 1,
       }
 
-      if (isPriceRangeChanged) {
-        updateParamsAndFilters(
-          {
-            priceFrom,
-            priceTo,
-            offset: initialPage + 1,
+      // Обновляем URL
+      router.push(
+        {
+          query: {
+            ...router.query,
+            ...urlParams,
           },
-          `${initialPage}${priceQuery}`,
-          router
-        )
-      }
+        },
+        undefined,
+        { shallow: true }
+      )
 
-      if (boilers.length && parts.length) {
-        updateParamsAndFilters(
-          {
-            boiler: encodedBoilerQuery,
-            parts: encodedPartsQuery,
-            offset: initialPage + 1,
-          },
-          `${initialPage}${boilerQuery}${partsQuery}`,
-          router
-        )
-        return
-      }
-
-      if (boilers.length) {
-        updateParamsAndFilters(
-          {
-            boiler: encodedBoilerQuery,
-            offset: initialPage + 1,
-          },
-          `${initialPage}${boilerQuery}`,
-          router
-        )
-      }
-
-      if (parts.length) {
-        updateParamsAndFilters(
-          {
-            parts: encodedPartsQuery,
-            offset: initialPage + 1,
-          },
-          `${initialPage}${partsQuery}`,
-          router
-        )
-      }
-
-      if (boilers.length && isPriceRangeChanged) {
-        updateParamsAndFilters(
-          {
-            boiler: encodedBoilerQuery,
-            priceFrom,
-            priceTo,
-            offset: initialPage + 1,
-          },
-          `${initialPage}${boilerQuery}${priceQuery}`,
-          router
-        )
-      }
-
-      if (parts.length && isPriceRangeChanged) {
-        updateParamsAndFilters(
-          {
-            parts: encodedPartsQuery,
-            priceFrom,
-            priceTo,
-            offset: initialPage + 1,
-          },
-          `${initialPage}${partsQuery}${priceQuery}`,
-          router
-        )
-      }
+      // Используем новый API для фильтрации
+      const data = await getFilteredCarsFx(searchParams)
+      setFilteredBoilerParts(data)
+      
     } catch (error) {
-      toast.error((error as Error).message)
+      console.error('Error applying filters:', error)
+      toast.error('Ошибка при применении фильтров')
     } finally {
       setSpinner(false)
     }
   }, [
-    setIsFilterInQuery,
-    setSpinner,
     priceRange,
     isPriceRangeChanged,
     boilerManufacturers,
     partsManufacturers,
     currentPage,
-    // updateParamsAndFilters,
     router,
+    setIsFilterInQuery
   ])
 
   return (

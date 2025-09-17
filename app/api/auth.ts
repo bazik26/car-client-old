@@ -39,12 +39,15 @@ export const checkUserAuthFx = createEffect(async (url: string) => {
     const axiosError = error as AxiosError
 
     if (axiosError.response) {
-      if (axiosError.response.status === HTTPStatus.FORBIDDEN) {
+      if (axiosError.response.status === HTTPStatus.FORBIDDEN || 
+          axiosError.response.status === HTTPStatus.UNAUTHORIZED) {
         return false
       }
     }
 
-    toast.error((error as Error).message)
+    // Не показываем ошибку в toast, просто возвращаем false
+    console.log('Auth check failed:', (error as Error).message)
+    return false
   }
 })
 
@@ -52,6 +55,7 @@ export const logoutFx = createEffect(async (url: string) => {
   try {
     await api.get(url)
   } catch (error) {
-    toast.error((error as Error).message)
+    // Не показываем ошибку в toast для logout
+    console.log('Logout error:', (error as Error).message)
   }
 })

@@ -34,6 +34,7 @@ export interface ICar {
   drive: string
   price: number
   sale: boolean
+  isSold?: boolean // Новое поле для статуса продажи
   description: string
   conditionerType: string | null
   windowLifter: string | null

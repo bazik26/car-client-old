@@ -841,6 +841,17 @@
         opacity: 0.8;
       }
 
+      &__description {
+        margin-bottom: 12px;
+        font-size: 13px;
+        line-height: 1.4;
+        color: rgba(255, 255, 255, 0.7);
+        
+        p {
+          margin: 0;
+        }
+      }
+
       &__footer {
         display: flex;
         justify-content: space-between;

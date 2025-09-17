@@ -7,12 +7,14 @@ import { ICar, IBoilerPart } from '@/types/boilerparts'
 export function mapCarToBoilerPart(car: ICar): IBoilerPart {
   // Создаем массив изображений из файлов
   const images = car.files?.map(file => {
-    // Если путь уже содержит полный URL, используем его как есть
-    if (file.path.startsWith('http')) {
+    // В новом API изображения хранятся в БД, используем base64 данные
+    // Если есть path, используем его, иначе создаем URL для получения изображения
+    if (file.path) {
       return file.path
     }
-    // Иначе добавляем префикс для локальных файлов
-    return `/images/${file.path}`
+    // Если изображение хранится в БД, создаем URL для API
+    const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
+    return `${baseUrl}/images/${file.filename}`
   }) || []
   
   return {
@@ -31,7 +33,7 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     price: car.price,
     parts_manufacturer: car.brand,
     vendor_code: car.vin || '', // Если vin null, используем пустую строку
-    sale: car.sale,
+    sale: car.sale || car.isSold || false, // Учитываем как старое поле sale, так и новое isSold
     name: `${car.brand} ${car.model}`,
     description: car.description,
     images: JSON.stringify(images),

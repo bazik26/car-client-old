@@ -39,7 +39,22 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const [priceRange, setPriceRange] = useState([1000, 9000])
   const [isFilterInQuery, setIsFilterInQuery] = useState(false)
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
-  const pagesCount = Math.ceil(boilerParts.count / 20)
+  const itemsPerPage = 20
+  const pagesCount = Math.ceil(boilerParts.count / itemsPerPage)
+  
+  // Получаем автомобили для текущей страницы
+  const getCurrentPageItems = () => {
+    if (!boilerParts?.rows) {
+      console.log('❌ No boilerParts.rows available')
+      return []
+    }
+    const startIndex = currentPage * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    const pageItems = boilerParts.rows.slice(startIndex, endIndex)
+    console.log(`📄 Page ${currentPage + 1}: showing items ${startIndex}-${endIndex} of ${boilerParts.rows.length} total`)
+    console.log('📋 Page items:', pageItems.length)
+    return pageItems
+  }
   const isValidOffset =
     query.offset && !isNaN(+query.offset) && +query.offset > 0
   const [currentPage, setCurrentPage] = useState(
@@ -94,11 +109,15 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       }
 
       const queryString = filterParams.toString()
+      // Загружаем больше автомобилей за раз, так как API не поддерживает offset
       const result = await getBoilerPartsFx(
-        `/cars?limit=20&offset=${offset}${
+        `/cars?limit=100${
           queryString ? `&${queryString}` : ''
         }`
       )
+
+      console.log('📋 CatalogPage loadBoilerParts result:', result)
+      console.log('📊 Result count:', result.count, 'rows:', result.rows?.length)
 
       setCurrentPage(offset)
       setBoilerParts(result) // Обновляем состояние каталога
@@ -123,37 +142,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const handlePageChange = async ({ selected }: { selected: number }) => {
     try {
       setSpinner(true)
-      const data = await getBoilerPartsFx('/cars?limit=20&offset=0')
-
-      if (selected > pagesCount) {
-        resetPagination(isFilterInQuery ? filteredBoilerParts : data)
-        return
-      }
-
-      if (isValidOffset && +query.offset > Math.ceil(data.count / 2)) {
-        resetPagination(isFilterInQuery ? filteredBoilerParts : data)
-        return
-      }
-
-      const { isValidBoilerQuery, isValidPartsQuery, isValidPriceQuery } =
-        checkQueryParams(router)
-
-      const result = await getBoilerPartsFx(
-        `/cars?limit=20&offset=${selected}${
-          isFilterInQuery && isValidBoilerQuery
-            ? `&boiler=${router.query.boiler}`
-            : ''
-        }${
-          isFilterInQuery && isValidPartsQuery
-            ? `&parts=${router.query.parts}`
-            : ''
-        }${
-          isFilterInQuery && isValidPriceQuery
-            ? `&priceFrom=${router.query.priceFrom}&priceTo=${router.query.priceTo}`
-            : ''
-        }`
-      )
-
+      
+      // Обновляем URL с новой страницей
       router.push(
         {
           query: {
@@ -166,7 +156,10 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       )
 
       setCurrentPage(selected)
-      setBoilerParts(result)
+      
+      // Пагинация теперь происходит на клиенте
+      // Данные уже загружены в boilerParts, просто обновляем отображение
+      
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
@@ -177,7 +170,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const resetFilters = async () => {
     try {
       setSpinner(true)
-      const data = await getBoilerPartsFx('/cars?limit=20&offset=0')
+      const data = await getBoilerPartsFx('/cars?limit=100')
       router.push(
         {
           query: { offset: 1 },
@@ -278,8 +271,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               </ul>
             ) : (
               <ul className={styles.catalog__list}>
-                {boilerParts?.rows && boilerParts.rows.length > 0 ? (
-                  boilerParts.rows
+                {getCurrentPageItems().length > 0 ? (
+                  getCurrentPageItems()
                     .filter((item) => Number(item.bestseller) !== 1) // Приводим к числу
                     .map((item) => <CatalogItem item={item} key={item.id} />)
                 ) : (

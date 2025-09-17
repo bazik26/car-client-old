@@ -14,53 +14,115 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
   // const spinner = useStore(removeFromCartFx.pending)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
+  // Debug: проверим, какие данные приходят
+  console.log('CatalogItem data:', item)
+  console.log('Item year:', item.year, 'Item Year:', item.Year)
+  console.log('Item mileage:', item.mileage, 'Item Mileage:', item.Mileage)
+  console.log('Item description:', item.description)
+
   // const toggleToCart = () => toggleCartItem(user.username, item.id, isInCart)
 
   return (
-    <Link href={`/catalog/${item.id}`} target='_blank' passHref legacyBehavior>
-      <a target='_blank' className={`${styles.catalog__list__item} ${darkModeClass}`}>
+    <Link href={`/catalog/${item.id}`} target="_blank" passHref legacyBehavior>
+      <a
+        target="_blank"
+        className={`${styles.catalog__list__item} ${darkModeClass}`}
+      >
         <div className={styles.catalog__list__item__imghold}>
-          <img src={JSON.parse(item.images)[0]} alt={item.name} />
+          <img 
+            src={
+              item.images && item.images !== '[]' && item.images !== 'null'
+                ? JSON.parse(item.images)[0]
+                : '/img/placeholder.png'
+            } 
+            alt={item.name} 
+          />
         </div>
         <div className={styles.catalog__list__item__inner}>
-            <h3 className={styles.catalog__list__item__title}>{item.name}</h3>
-            
-            {/* Основная информация */}
-            <div className={styles.catalog__list__item__main_info}>
-              {item.Year !== null && <h4 className={styles.catalog__list__item__info}><span>Год: </span>{item.Year}</h4>}
-              {item.Mileage !== null && <h4 className={styles.catalog__list__item__info}><span>Пробег: </span>{item.Mileage} км</h4>}
-              {item.Engine !== null && <h4 className={styles.catalog__list__item__info}><span>Двигатель: </span>{item.Engine} л</h4>}
-              {item.fuel !== null && <h4 className={styles.catalog__list__item__info}><span>Топливо: </span>{item.fuel}</h4>}
-            </div>
+          <h3 className={styles.catalog__list__item__title}>{item.name}</h3>
 
-            {/* Дополнительная информация */}
-            <div className={styles.catalog__list__item__additional_info}>
-              {item.gearbox && <h4 className={styles.catalog__list__item__info}><span>КПП: </span>{item.gearbox}</h4>}
-              {item.drive && <h4 className={styles.catalog__list__item__info}><span>Привод: </span>{item.drive}</h4>}
-              {item.powerValue && <h4 className={styles.catalog__list__item__info}><span>Мощность: </span>{item.powerValue} {item.powerType}</h4>}
-            </div>
+          {/* Основная информация */}
+          <div className={styles.catalog__list__item__main_info}>
+            {(item.year || item.Year) && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>Год: </span>
+                {item.year || item.Year}
+              </h4>
+            )}
+            {(item.mileage || item.Mileage) && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>Пробег: </span>
+                {(item.mileage || item.Mileage).toLocaleString()} км
+              </h4>
+            )}
+            {(item.engine || item.Engine) && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>Двигатель: </span>
+                {item.engine || item.Engine} л
+              </h4>
+            )}
+            {item.fuel && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>Топливо: </span>
+                {item.fuel}
+              </h4>
+            )}
+          </div>
 
-            {/* Статус и цена */}
-            <div className={styles.catalog__list__item__footer}>
-              <span className={styles.catalog__list__item__stock}>
-                {item.sale ? (
-                  <span className={styles.catalog__list__item__stock__sold}>
-                    ПРОДАНО
-                  </span>
-                ) : item.in_stock > 0 ? (
-                  <span className={styles.catalog__list__item__stock__success}>
-                    В наличии
-                  </span>
-                ) : (
-                  <span className={styles.catalog__list__item__stock__not}>
-                    Нет в наличии
-                  </span>
-                )}
-              </span>
-              <span className={styles.catalog__list__item__price}>
-                {formatPrice(item.price)} ₽
-              </span>
+          {/* Дополнительная информация */}
+          <div className={styles.catalog__list__item__additional_info}>
+            {(item.gearbox || item.Transmission) && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>КПП: </span>
+                {item.gearbox || item.Transmission}
+              </h4>
+            )}
+            {(item.drive || item.Drive) && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>Привод: </span>
+                {item.drive || item.Drive}
+              </h4>
+            )}
+            {item.powerValue && (
+              <h4 className={styles.catalog__list__item__info}>
+                <span>Мощность: </span>
+                {item.powerValue} {item.powerType}
+              </h4>
+            )}
+          </div>
+
+          {/* Описание */}
+          {item.description && (
+            <div className={styles.catalog__list__item__description}>
+              <p>
+                {item.description.length > 100
+                  ? `${item.description.substring(0, 100)}...`
+                  : item.description}
+              </p>
             </div>
+          )}
+
+          {/* Статус и цена */}
+          <div className={styles.catalog__list__item__footer}>
+            <span className={styles.catalog__list__item__stock}>
+              {item.sale ? (
+                <span className={styles.catalog__list__item__stock__sold}>
+                  ПРОДАНО
+                </span>
+              ) : item.in_stock > 0 ? (
+                <span className={styles.catalog__list__item__stock__success}>
+                  В наличии
+                </span>
+              ) : (
+                <span className={styles.catalog__list__item__stock__not}>
+                  Нет в наличии
+                </span>
+              )}
+            </span>
+            <span className={styles.catalog__list__item__price}>
+              {formatPrice(item.price)} ₽
+            </span>
+          </div>
         </div>
         {/* <button
           className={`${styles.catalog__list__item__cart} ${
