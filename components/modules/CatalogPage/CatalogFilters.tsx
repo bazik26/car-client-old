@@ -190,7 +190,9 @@ const CatalogFilters = ({
       )
 
       // Используем новый API для фильтрации
+      console.log('🔍 Applying filters with searchParams:', searchParams)
       const data = await getFilteredCarsFx(searchParams)
+      console.log('📊 Filtered data received:', data)
       setFilteredBoilerParts(data)
       
     } catch (error) {

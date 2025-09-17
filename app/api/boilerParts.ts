@@ -151,13 +151,18 @@ export const getPartByNameFx = createEffect(
 export const getFilteredCarsFx = createEffect(
   async (searchParams: any) => {
     try {
+      console.log('🚀 getFilteredCarsFx called with:', searchParams)
       const { data } = await api.post('/cars/search', searchParams)
+      console.log('📡 API response:', data)
 
       // Если данные приходят в новом формате (массив ICar), преобразуем их
       if (data.cars && Array.isArray(data.cars)) {
-        return createBoilerPartsFromCars(data.cars as ICar[])
+        const result = createBoilerPartsFromCars(data.cars as ICar[])
+        console.log('🔄 Mapped result:', result)
+        return result
       }
 
+      console.log('⚠️ No cars found in response')
       return { count: 0, rows: [] }
     } catch (error) {
       console.error('Error in getFilteredCarsFx:', error)

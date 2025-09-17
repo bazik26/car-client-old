@@ -111,7 +111,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       const queryString = filterParams.toString()
       // Загружаем больше автомобилей за раз, так как API не поддерживает offset
       const result = await getBoilerPartsFx(
-        `/cars?limit=100${
+        `/cars/search?limit=100${
           queryString ? `&${queryString}` : ''
         }`
       )
@@ -170,7 +170,9 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const resetFilters = async () => {
     try {
       setSpinner(true)
-      const data = await getBoilerPartsFx('/cars?limit=100')
+      console.log('🔄 Resetting filters...')
+      const data = await getBoilerPartsFx('/cars/search?limit=100')
+      console.log('📊 Reset data received:', data)
       router.push(
         {
           query: { offset: 1 },
