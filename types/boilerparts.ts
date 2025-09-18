@@ -33,8 +33,8 @@ export interface ICar {
   engine: string
   drive: string
   price: number
-  sale: boolean
-  isSold?: boolean // Новое поле для статуса продажи
+  isSold: boolean
+  promo: boolean | null
   description: string
   conditionerType: string | null
   windowLifter: string | null
@@ -79,6 +79,7 @@ export interface IBoilerPart {
   boiler_manufacturer: string
   price: number
   sale: boolean
+  promo: boolean | null
   parts_manufacturer: string
   vendor_code: string
   name: string
