@@ -13,7 +13,9 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     if (file.path && file.path.includes('shop-ytb-client.onrender.com')) {
       // Извлекаем относительный путь после домена
       const relativePath = file.path.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
-      return `${baseUrl}${relativePath}`
+      // Убеждаемся, что путь начинается со слэша
+      const normalizedPath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
+      return `${baseUrl}${normalizedPath}`
     }
     // Если path - это полный URL (начинается с http), используем его как есть
     if (file.path && (file.path.startsWith('http://') || file.path.startsWith('https://'))) {
@@ -21,7 +23,9 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     }
     // Если path существует, но это относительный путь, добавляем baseUrl
     if (file.path) {
-      return `${baseUrl}${file.path}`
+      // Убеждаемся, что путь начинается со слэша
+      const normalizedPath = file.path.startsWith('/') ? file.path : `/${file.path}`
+      return `${baseUrl}${normalizedPath}`
     }
     // Если только filename, создаем URL для API
     return `${baseUrl}/images/${file.filename}`
