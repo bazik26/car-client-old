@@ -122,8 +122,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           try {
             const boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
             if (boilerArray.length > 0) {
-              searchParams.brand = boilerArray[0]
-              console.log('🏷️ Filtering by brand:', searchParams.brand)
+              searchParams.brand = boilerArray // Отправляем все выбранные бренды
+              console.log('🏷️ Filtering by brands:', searchParams.brand)
             }
           } catch (e) {
             console.error('Error parsing boiler filter:', e)

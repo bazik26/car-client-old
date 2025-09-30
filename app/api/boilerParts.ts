@@ -39,11 +39,11 @@ export const getSoldCarsFx = createEffect(async (url: string) => {
       // Фильтруем только проданные автомобили (только isSold: true)
       const soldCars = data.cars.filter((car: ICar) => {
         const isSold = car.isSold === true
-        console.log(`🚗 Car ${car.brand} ${car.model}: isSold=${car.isSold}`)
+        console.log(`🚗 Car ${car.brand} ${car.model}: sale=${car.sale}, isSold=${car.isSold}, isSold=${isSold}`)
         return isSold
       })
       console.log('🚗 Found sold cars:', soldCars.length)
-      console.log('🚗 Sold cars details:', soldCars.map((car: ICar) => `${car.brand} ${car.model} (isSold: ${car.isSold})`))
+      console.log('🚗 Sold cars details:', soldCars.map((car: ICar) => `${car.brand} ${car.model} (sale: ${car.sale}, isSold: ${car.isSold})`))
       
       const mappedSoldCars = soldCars.map(mapCarToBoilerPart)
       console.log('🔄 Mapped sold cars:', mappedSoldCars.length)
@@ -151,18 +151,13 @@ export const getPartByNameFx = createEffect(
 export const getFilteredCarsFx = createEffect(
   async (searchParams: any) => {
     try {
-      console.log('🚀 getFilteredCarsFx called with:', searchParams)
       const { data } = await api.post('/cars/search', searchParams)
-      console.log('📡 API response:', data)
 
       // Если данные приходят в новом формате (массив ICar), преобразуем их
       if (data.cars && Array.isArray(data.cars)) {
-        const result = createBoilerPartsFromCars(data.cars as ICar[])
-        console.log('🔄 Mapped result:', result)
-        return result
+        return createBoilerPartsFromCars(data.cars as ICar[])
       }
 
-      console.log('⚠️ No cars found in response')
       return { count: 0, rows: [] }
     } catch (error) {
       console.error('Error in getFilteredCarsFx:', error)

@@ -52,7 +52,7 @@ const PartTabs = () => {
             {boilerPart.name}
           </h3>
           <p className={`${styles.part__tabs__content__text} ${darkModeClass}`}>
-            {boilerPart.compatibility}
+            {boilerPart.description}
           </p>
         </motion.div>
       )}

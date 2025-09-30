@@ -6,14 +6,18 @@ import { ICar, IBoilerPart } from '@/types/boilerparts'
  */
 export function mapCarToBoilerPart(car: ICar): IBoilerPart {
   // Создаем массив изображений из файлов
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
+  
   const images = car.files?.map(file => {
-    // В новом API изображения хранятся в БД, используем base64 данные
-    // Если есть path, используем его, иначе создаем URL для получения изображения
-    if (file.path) {
+    // Если path - это полный URL (начинается с http), используем его
+    if (file.path && (file.path.startsWith('http://') || file.path.startsWith('https://'))) {
       return file.path
     }
-    // Если изображение хранится в БД, создаем URL для API
-    const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
+    // Если path существует, но это относительный путь, добавляем baseUrl
+    if (file.path) {
+      return `${baseUrl}${file.path}`
+    }
+    // Если только filename, создаем URL для API
     return `${baseUrl}/images/${file.filename}`
   }) || []
   
@@ -42,7 +46,7 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     bestseller: false, // Пока не реализовано в новой структуре
     new: false, // Пока не реализовано в новой структуре
     popularity: 0, // Пока не реализовано в новой структуре
-    compatibility: '', // Пока не реализовано в новой структуре
+    compatibility: car.description || '', // Используем description для совместимости
     
     // Опциональные поля из ICar (добавляем только те, что есть в IBoilerPart)
     brand: car.brand,

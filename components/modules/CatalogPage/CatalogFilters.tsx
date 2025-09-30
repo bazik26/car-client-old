@@ -150,13 +150,14 @@ const CatalogFilters = ({
       
       // Создаем параметры для нового API
       const searchParams: any = {
-        limit: 20,
+        limit: 100,
         page: 1
       }
 
       // Добавляем фильтры по бренду (boilers -> brand)
+      // Теперь поддерживаем множественный выбор брендов
       if (boilers.length > 0) {
-        searchParams.brand = boilers[0] // Берем первый выбранный бренд
+        searchParams.brand = boilers // Отправляем все выбранные бренды
       }
 
       // Добавляем фильтры по цене
