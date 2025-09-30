@@ -39,11 +39,11 @@ export const getSoldCarsFx = createEffect(async (url: string) => {
       // Фильтруем только проданные автомобили (только isSold: true)
       const soldCars = data.cars.filter((car: ICar) => {
         const isSold = car.isSold === true
-        console.log(`🚗 Car ${car.brand} ${car.model}: sale=${car.sale}, isSold=${car.isSold}, isSold=${isSold}`)
+        console.log(`🚗 Car ${car.brand} ${car.model}: isSold=${car.isSold}`)
         return isSold
       })
       console.log('🚗 Found sold cars:', soldCars.length)
-      console.log('🚗 Sold cars details:', soldCars.map((car: ICar) => `${car.brand} ${car.model} (sale: ${car.sale}, isSold: ${car.isSold})`))
+      console.log('🚗 Sold cars details:', soldCars.map((car: ICar) => `${car.brand} ${car.model} (isSold: ${car.isSold})`))
       
       const mappedSoldCars = soldCars.map(mapCarToBoilerPart)
       console.log('🔄 Mapped sold cars:', mappedSoldCars.length)

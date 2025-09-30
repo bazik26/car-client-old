@@ -159,12 +159,12 @@ const PartPage = () => {
                     <p
                       className={`${styles.part__tabs__content__text} ${darkModeClass}`}
                     >
-                      {boilerPart.compatibility}
+                      {boilerPart.description}
                     </p>
                   </div>
                 </PartAccordion>
               </div>
-              {/* <PartAccordion title="Описание">
+              <PartAccordion title="Описание">
                 <div
                   className={`${styles.part__accordion__content} ${darkModeClass}`}
                 >
@@ -174,7 +174,7 @@ const PartPage = () => {
                     {boilerPart.description}
                   </p>
                 </div>
-              </PartAccordion> */}
+              </PartAccordion>
             </div>
           )}
           <div className={styles.part__bottom}>

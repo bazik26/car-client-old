@@ -9,7 +9,13 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
   
   const images = car.files?.map(file => {
-    // Если path - это полный URL (начинается с http), используем его
+    // Если path содержит старый домен shop-ytb-client, заменяем на наш API
+    if (file.path && file.path.includes('shop-ytb-client.onrender.com')) {
+      // Извлекаем относительный путь после домена
+      const relativePath = file.path.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
+      return `${baseUrl}${relativePath}`
+    }
+    // Если path - это полный URL (начинается с http), используем его как есть
     if (file.path && (file.path.startsWith('http://') || file.path.startsWith('https://'))) {
       return file.path
     }
