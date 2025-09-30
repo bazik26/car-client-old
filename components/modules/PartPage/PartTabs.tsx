@@ -30,14 +30,8 @@ const PartTabs = () => {
           className={showDescription ? styles.active : ''}
           onClick={handleShowDescription}
         >
-          Характеристики
-        </p>
-        {/* <button
-          className={showCompatibility ? styles.active : ''}
-          onClick={handleShowCompatibility}
-        >
           Описание
-        </button> */}
+        </p>
       </div>
       {showDescription && (
         <motion.div
@@ -46,11 +40,6 @@ const PartTabs = () => {
           exit={{ opacity: 0 }}
           className={styles.part__tabs__content}
         >
-          <h3
-            className={`${styles.part__tabs__content__title} ${darkModeClass}`}
-          >
-            {boilerPart.name}
-          </h3>
           <p className={`${styles.part__tabs__content__text} ${darkModeClass}`}>
             {boilerPart.description}
           </p>

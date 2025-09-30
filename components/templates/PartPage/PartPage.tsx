@@ -113,19 +113,14 @@ const PartPage = () => {
                     <span>Мощность: </span>{boilerPart.powerValue} {boilerPart.powerType}
                   </h4>
                 )}
-                {boilerPart.vin && (
+                {(boilerPart.vin || boilerPart.vendor_code) && boilerPart.vendor_code !== '???' && (
                   <h4 className={styles.part__info__text}>
-                    <span>VIN: </span>{boilerPart.vin}
+                    <span>VIN: </span>{'*'.repeat(17)}
                   </h4>
                 )}
                 {boilerPart.Drive !== null && (
                   <h4 className={styles.part__info__text}>
                     <span>Трансмиссия: </span>{boilerPart.Drive}
-                  </h4>
-                )}
-                {boilerPart.vendor_code !== '???' && (
-                  <h4 className={styles.part__info__text}>
-                    <span>VIN: </span>{boilerPart.vendor_code}
                   </h4>
                 )}
                 {boilerPart.createdAt !== null && (
@@ -147,15 +142,10 @@ const PartPage = () => {
           {isMobile && (
             <div className={styles.part__accordion}>
               <div className={styles.part__accordion__inner}>
-                <PartAccordion title="Характеристики">
+                <PartAccordion title="Описание">
                   <div
                     className={`${styles.part__accordion__content} ${darkModeClass}`}
                   >
-                    <h3
-                      className={`${styles.part__tabs__content__title} ${darkModeClass}`}
-                    >
-                      {boilerPart.name}
-                    </h3>
                     <p
                       className={`${styles.part__tabs__content__text} ${darkModeClass}`}
                     >
@@ -164,17 +154,6 @@ const PartPage = () => {
                   </div>
                 </PartAccordion>
               </div>
-              <PartAccordion title="Описание">
-                <div
-                  className={`${styles.part__accordion__content} ${darkModeClass}`}
-                >
-                  <p
-                    className={`${styles.part__tabs__content__text} ${darkModeClass}`}
-                  >
-                    {boilerPart.description}
-                  </p>
-                </div>
-              </PartAccordion>
             </div>
           )}
           <div className={styles.part__bottom}>
