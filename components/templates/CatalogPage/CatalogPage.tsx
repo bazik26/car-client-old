@@ -183,8 +183,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         }
         
         setIsFilterInQuery(true)
-      } else {
-        // Загружаем все автомобили без фильтров
+      } else if (!isFilterInQuery) {
+        // Загружаем все автомобили только если нет активных фильтров
         const result = await getBoilerPartsFx('/cars/search?limit=100')
         console.log('📋 All cars result:', result)
         setBoilerParts(result)
