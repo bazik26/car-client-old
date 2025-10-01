@@ -194,6 +194,8 @@ const CatalogFilters = ({
           rows: uniqueRows
         }
         console.log('📊 Combined filtered data:', data)
+        console.log('🖼️ First item images:', data.rows[0]?.images)
+        console.log('🖼️ First item name:', data.rows[0]?.name)
         setFilteredBoilerParts(data)
       } else {
         // Если бренды не выбраны, фильтруем только по цене
