@@ -404,7 +404,7 @@
           padding: 0;
           height: 302px;
           overflow-y: auto;
-          
+
           @media (max-width: 560px) {
             height: 558px;
           }
@@ -565,7 +565,7 @@
             transition: width 0.5s linear;
             z-index:-1;
           }
-    
+
           &:hover:before{
             width:100%;
           }
@@ -821,7 +821,7 @@
         &:hover {
           // color: #ff0000;
         }
-  
+
 
         @media (max-width: 560px) {
           font-size: 15px;
@@ -846,7 +846,7 @@
         font-size: 13px;
         line-height: 1.4;
         color: rgba(255, 255, 255, 0.7);
-        
+
         p {
           margin: 0;
         }
@@ -896,7 +896,7 @@
 
       &__price {
         font-weight: 500;
-        font-size: 24px;
+        font-size: 18px;
         color: white;
         font-family: EuropeExtBold, sans-serif;
         // color: #ff0000;
