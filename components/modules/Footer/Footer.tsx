@@ -240,7 +240,7 @@ const Footer = () => {
           </svg>
           </i>										<div>
                                 <div>
-                        <a className="dark_link qwe" href="mailto:importeurocar@yandex.com">importeurocar@yandex.com</a>
+                        <a className="dark_link qwe" href="mailto:auto-c-cars@yandex.ru">auto-c-cars@yandex.ru</a>
                       </div>
                               </div>
                   </div>
