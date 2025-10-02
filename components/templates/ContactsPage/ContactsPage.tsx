@@ -17,7 +17,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
 
   const handleClick = () => {
     const form = document.querySelector('.formbord') as HTMLElement
-  
+
     if (form) {
       if (window.innerWidth > 560) {
         form.style.display = 'flex'
@@ -99,7 +99,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                     <div className="contact-property__label font_13 color_999">E-mail</div>
                     <div className="">
                       <div className="contact-property__value" itemProp="email">
-                        <a href="mailto:importeurocar@yandex.ru">importeurocar@yandex.ru</a>
+                        <a href="mailto:auto-c-cars@yandex.ru">auto-c-cars@yandex.ru</a>
                       </div>
                     </div>
                   </div>
