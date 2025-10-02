@@ -22,7 +22,7 @@ function ShippingPaymentPage({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://import-euro-car.ru/" />
+        <link rel="canonical" href="https://auto-c-cars.ru/" />
 
         {/* Favicon */}
         <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png" />
@@ -39,7 +39,7 @@ function ShippingPaymentPage({
           sizes="180x180"
           href="/apple-touch-icon.png"
         />
-        <meta name="apple-mobile-web-app-title" content="Import Euro Car" />
+        <meta name="apple-mobile-web-app-title" content="Auto-c" />
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* SEO Meta Tags */}
@@ -56,11 +56,11 @@ function ShippingPaymentPage({
         <meta property="og:description" content={metaDescription} />
         <meta
           property="og:image"
-          content="https://import-euro-car.ru/img/logo.png"
+          content="https://auto-c-cars.ru/img/logo.png"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://import-euro-car.ru/" />
+        <meta property="og:url" content="https://auto-c-cars.ru/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="ru_RU" />
 
@@ -70,7 +70,7 @@ function ShippingPaymentPage({
         <meta name="twitter:description" content={metaDescription} />
         <meta
           name="twitter:image"
-          content="https://import-euro-car.ru/img/logo.png"
+          content="https://auto-c-cars.ru/img/logo.png"
         />
       </Head>
       <Layout>
@@ -94,9 +94,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
   console.log('🔍 getServerSideProps вызван на сервере!')
   return {
     props: {
-      metaTitle: 'Import Euro Car – Доставка и оплата',
+      metaTitle: 'Auto-c – Доставка и оплата',
       metaDescription:
-        'Узнайте о вариантах доставки и способах оплаты при покупке автомобилей из Европы на Import Euro Car. Подробная информация о процессе покупки, условиях транспортировки и доступных методах оплаты.',
+        'Узнайте о вариантах доставки и способах оплаты при покупке автомобилей из Европы на Auto-c. Подробная информация о процессе покупки, условиях транспортировки и доступных методах оплаты.',
     },
   }
 }

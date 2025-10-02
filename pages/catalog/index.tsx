@@ -27,30 +27,30 @@ function Catalog({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="canonical" href="https://import-euro-car.ru/" />
+        <link rel="canonical" href="https://auto-c-cars.ru/" />
         <link rel="icon" type="image/png" sizes="32x32" href="/img/logo.png" />
         <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Import Euro Car" />
+        <meta name="apple-mobile-web-app-title" content="Auto-c" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="description" content={metaDescription} />
         <meta name="keywords" content="авто из Европы, купить авто, автомобили, продажа авто, автопригон" />
-        <meta name="author" content="Import Euro Car" />
+        <meta name="author" content="Auto-c" />
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content="https://import-euro-car.ru/img/logo.png" />
+        <meta property="og:image" content="https://auto-c-cars.ru/img/logo.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://import-euro-car.ru/" />
+        <meta property="og:url" content="https://auto-c-cars.ru/" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="ru_RU" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metaTitle} />
         <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content="https://import-euro-car.ru/img/logo.png" />
+        <meta name="twitter:image" content="https://auto-c-cars.ru/img/logo.png" />
       </Head>
 
       {shouldLoadContent && (
@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       query,
-      metaTitle: 'Import Euro Car – Каталог',
+      metaTitle: 'Auto-c – Каталог',
       metaDescription:
         'Ознакомьтесь с нашим каталогом автомобилей. Подробные описания, характеристики и выгодные предложения ждут вас на нашем сайте.',
     },
