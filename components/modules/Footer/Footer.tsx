@@ -230,10 +230,10 @@ const Footer = () => {
                       </div>
                     </div>
                   </div>
-                </div>                                                           
+                </div>
                 <div className="footer--nowrap footer--mt-3 footer__info-item line-block__item flex-100-767 check-visible " data-ajax-load-block="FOOTER_TOGGLE_EMAIL" data-ajax-check-visible="FOOTER_TOGGLE_SUBSCRIBE,FOOTER_TOGGLE_PHONE,FOOTER_TOGGLE_EMAIL,FOOTER_TOGGLE_ADDRESS,FOOTER_TOGGLE_SOCIAL">
-                  
-                                          <div className="icon-block--with_icon">				
+
+                                          <div className="icon-block--with_icon">
                   <div className="footer__email font_14">
                                 <i className="svg inline  svg-inline-email" aria-hidden="true"><svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11.6663 0.666992H2.33301C1.80257 0.666992 1.29387 0.877706 0.918794 1.25278C0.543722 1.62785 0.333008 2.13656 0.333008 2.66699V9.33366C0.333008 9.86409 0.543722 10.3728 0.918794 10.7479C1.29387 11.1229 1.80257 11.3337 2.33301 11.3337H11.6663C12.1968 11.3337 12.7055 11.1229 13.0806 10.7479C13.4556 10.3728 13.6663 9.86409 13.6663 9.33366V2.66699C13.6663 2.13656 13.4556 1.62785 13.0806 1.25278C12.7055 0.877706 12.1968 0.666992 11.6663 0.666992ZM11.393 2.00033L7.47301 5.92033C7.41103 5.98281 7.3373 6.03241 7.25606 6.06625C7.17482 6.1001 7.08768 6.11752 6.99967 6.11752C6.91167 6.11752 6.82453 6.1001 6.74329 6.06625C6.66205 6.03241 6.58832 5.98281 6.52634 5.92033L2.60634 2.00033H11.393ZM12.333 9.33366C12.333 9.51047 12.2628 9.68004 12.1377 9.80506C12.0127 9.93009 11.8432 10.0003 11.6663 10.0003H2.33301C2.1562 10.0003 1.98663 9.93009 1.8616 9.80506C1.73658 9.68004 1.66634 9.51047 1.66634 9.33366V2.94033L5.58634 6.86033C5.96134 7.23486 6.46967 7.44523 6.99967 7.44523C7.52968 7.44523 8.03801 7.23486 8.41301 6.86033L12.333 2.94033V9.33366Z" fill="#7C7C7C"></path>
@@ -245,14 +245,14 @@ const Footer = () => {
                               </div>
                   </div>
                   </div>
-                      
-                  
-                  
-                </div>                                                        
+
+
+
+                </div>
                 <div className="footer__address footer--mt-3 footer__info-item line-block__item flex-100-767 check-visible " data-ajax-load-block="FOOTER_TOGGLE_ADDRESS" data-ajax-check-visible="FOOTER_TOGGLE_SUBSCRIBE,FOOTER_TOGGLE_PHONE,FOOTER_TOGGLE_EMAIL,FOOTER_TOGGLE_ADDRESS,FOOTER_TOGGLE_SOCIAL">
-                  
-                                          <div className="icon-block--with_icon">					
-                  
+
+                                          <div className="icon-block--with_icon">
+
                   <div className="address">
                                 <span className="icon-block__icon icon-block__icon--top banner-light-icon-fill menu-light-icon-fill">
                         <i className="svg inline  svg-inline-address" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -263,9 +263,9 @@ const Footer = () => {
                               183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119</div>
                   </div>
                   </div>
-                      
-                  
-                  
+
+
+
                 </div>
 			        </div>
             </div>
@@ -275,7 +275,7 @@ const Footer = () => {
           <div className="footer__socials">
                 <ul className="footer__socials-list">
                     <li className="footer__socials-item">
-                        <a href="https://t.me/+8tXb1bnEPe04MDhi" target='_blank' className="footer__socials-link">
+                        <a href="https://t.me/+BXRLxzmv4rlhZjMy" target='_blank' className="footer__socials-link">
                           <img src='/img/telegram.png' style={{ width: '20px' }} alt="Instagram"></img>
                           <span>мы в Telegram</span>
                         </a>
@@ -308,44 +308,44 @@ const Footer = () => {
                             <p>ООО "Авто-с" 183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119</p>
                             <p>Тел.: <Num/></p>
                             <p>ОГРН 1175190000358 / ИНН 5190067377 / КПП 519001001</p>
-                              Import Euro Car © 2017
+                              Auto-C © 2017
                           </div>
                     </div>
                     <div className="footer__part-item">
                         <div className="footer__license font_13">
                           <Link className="color_999 dark_link" href="/privacypolicy" passHref legacyBehavior>Политика конфиденциальности</Link>
                         </div>
-                    </div>                               
+                    </div>
 					{/* <div className="footer__part-item fill-theme-parent-all color-theme-parent-all hidden" data-ajax-load-block="FOOTER_TOGGLE_EYED" data-ajax-check-visible="">
-						
-						
-						
-					</div>                                       
+
+
+
+					</div>
 					<div className="footer__part-item footer__part-item-sitemap fill-theme-parent-all color-theme-parent-all font_13 hidden" data-ajax-load-block="FOOTER_TOGGLE_SITEMAP" data-ajax-check-visible="">
-						
-						
-						
-					</div>                           
+
+
+
+					</div>
 					<div className="footer__part-item footer__part-item--subscribe check-visible hidden" data-ajax-load-block="FOOTER_TOGGLE_SUBSCRIBE" data-ajax-check-visible="FOOTER_TOGGLE_SUBSCRIBE,FOOTER_TOGGLE_PHONE,FOOTER_TOGGLE_EMAIL,FOOTER_TOGGLE_ADDRESS,FOOTER_TOGGLE_SOCIAL">
-						
-						
-						
-					</div>                               
+
+
+
+					</div>
 					<div className="footer__pays footer__part-item hidden" data-ajax-load-block="FOOTER_TOGGLE_PAY_SYSTEMS" data-ajax-check-visible="">
-						
-						
-						
-					</div>                                 
+
+
+
+					</div>
 					<div className="footer__lang footer__part-item hidden" data-ajax-load-block="FOOTER_TOGGLE_LANG" data-ajax-check-visible="">
-						
-						
-						
+
+
+
 					</div>
                     <div id="bx-composite-banner" className="footer__part-item"></div>
 					<div className="footer__developer footer__part-item font_12 color_999 hidden" data-ajax-load-block="FOOTER_TOGGLE_DEVELOPER" data-ajax-check-visible="">
-						
-						
-						
+
+
+
 					</div> */}
 			    </div>
             </div>

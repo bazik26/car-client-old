@@ -121,12 +121,12 @@ const DashboardPage = () => {
   ];
 
   const recommendations = [
-    { title: "Менеджер ", src: "/video/IMG_0461.MP4", url: "https://t.me/+8tXb1bnEPe04MDhi", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0705.MP4", url: "https://t.me/+8tXb1bnEPe04MDhi", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0586.MP4", url: "https://t.me/+8tXb1bnEPe04MDhi", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0805.MP4", url: "https://t.me/+8tXb1bnEPe04MDhi", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_0845.MP4", url: "https://t.me/+8tXb1bnEPe04MDhi", poster: "/img/logo16.9.png" },
-    { title: "Менеджер ", src: "/video/IMG_1472.MP4", url: "https://t.me/+8tXb1bnEPe04MDhi", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0461.MP4", url: "https://t.me/+BXRLxzmv4rlhZjMy", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0705.MP4", url: "https://t.me/+BXRLxzmv4rlhZjMy", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0586.MP4", url: "https://t.me/+BXRLxzmv4rlhZjMy", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0805.MP4", url: "https://t.me/+BXRLxzmv4rlhZjMy", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_0845.MP4", url: "https://t.me/+BXRLxzmv4rlhZjMy", poster: "/img/logo16.9.png" },
+    { title: "Менеджер ", src: "/video/IMG_1472.MP4", url: "https://t.me/+BXRLxzmv4rlhZjMy", poster: "/img/logo16.9.png" },
   ];
 
   const handleClick = () => {
@@ -134,14 +134,14 @@ const DashboardPage = () => {
     const brand = (document.querySelector('input[name="brand"]') as HTMLInputElement)?.value
     const model = (document.querySelector('input[name="model"]') as HTMLInputElement)?.value
     const generation = (document.querySelector('input[name="generation"]') as HTMLTextAreaElement)?.value
-  
+
     // 2. Можно передать эти данные дальше или сохранить
     console.log({ brand, model, generation }) // или сохранить в localStorage, state и т.д.
     // localStorage.setItem('formData', JSON.stringify({ name, email, message }))
-  
+
     // 3. Показываем форму (твоя логика)
     const form = document.querySelector('.formbord') as HTMLElement
-  
+
     if (form) {
       if (window.innerWidth < 560) {
         form.style.right = '0px'
@@ -185,7 +185,7 @@ const DashboardPage = () => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
-  
+
   return (
     <section className={styles.dashboard}>
       <div className={`container ${styles.dashboard__container}`}>
