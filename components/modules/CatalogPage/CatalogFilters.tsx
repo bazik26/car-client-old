@@ -148,23 +148,6 @@ const CatalogFilters = ({
         .filter((item) => item.checked)
         .map((item) => item.title)
       
-      // Создаем параметры для нового API
-      const searchParams: any = {
-        limit: 20,
-        page: 1
-      }
-
-      // Добавляем фильтры по бренду (boilers -> brand)
-      if (boilers.length > 0) {
-        searchParams.brand = boilers[0] // Берем первый выбранный бренд
-      }
-
-      // Добавляем фильтры по цене
-      if (isPriceRangeChanged) {
-        searchParams.priceStart = priceFrom
-        searchParams.priceEnd = priceTo
-      }
-
       // Обновляем URL параметры для совместимости
       const encodedBoilerQuery = encodeURIComponent(JSON.stringify(boilers))
       const encodedPartsQuery = encodeURIComponent(JSON.stringify(parts))
@@ -189,11 +172,45 @@ const CatalogFilters = ({
         { shallow: true }
       )
 
-      // Используем новый API для фильтрации
-      console.log('🔍 Applying filters with searchParams:', searchParams)
-      const data = await getFilteredCarsFx(searchParams)
-      console.log('📊 Filtered data received:', data)
-      setFilteredBoilerParts(data)
+      // Если выбрано несколько брендов, делаем несколько запросов
+      if (boilers.length > 0) {
+        const allResults = await Promise.all(
+          boilers.map(brand => 
+            getFilteredCarsFx({
+              brand: brand, // Отправляем по одному бренду
+              priceStart: isPriceRangeChanged ? priceFrom : undefined,
+              priceEnd: isPriceRangeChanged ? priceTo : undefined,
+              limit: 100,
+              page: 1
+            })
+          )
+        )
+        
+        // Объединяем результаты
+        const combinedRows = allResults.flatMap(result => result.rows || [])
+        const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
+        const data = {
+          count: uniqueRows.length,
+          rows: uniqueRows
+        }
+        console.log('📊 Combined filtered data:', data)
+        console.log('🖼️ First item images:', data.rows[0]?.images)
+        console.log('🖼️ First item name:', data.rows[0]?.name)
+        setFilteredBoilerParts(data)
+      } else {
+        // Если бренды не выбраны, фильтруем только по цене
+        const searchParams: any = {
+          limit: 100,
+          page: 1
+        }
+        if (isPriceRangeChanged) {
+          searchParams.priceStart = priceFrom
+          searchParams.priceEnd = priceTo
+        }
+        const data = await getFilteredCarsFx(searchParams)
+        console.log('📊 Filtered data received:', data)
+        setFilteredBoilerParts(data)
+      }
       
     } catch (error) {
       console.error('Error applying filters:', error)

@@ -28,7 +28,7 @@ const SoldCarsSlider = ({
   console.log('🚨🚨🚨 SOLD CARS SLIDER RENDERED 🚨🚨🚨')
   console.log('🎠 SoldCarsSlider received items:', items)
   console.log('🎠 SoldCarsSlider items length:', items.length)
-  console.log('🎠 SoldCarsSlider items details:', items.map(item => `${item.name} (sale: ${item.sale})`))
+  console.log('🎠 SoldCarsSlider items details:', items.map(item => `${item.name} (isSold: ${item.sale})`))
   console.log('🚨🚨🚨 END SOLD CARS SLIDER 🚨🚨🚨')
 
   useEffect(() => {

@@ -74,7 +74,10 @@ export const getBoilerPartsFx = createEffect(async (url: string) => {
   
   // Если данные приходят в новом формате (массив ICar), преобразуем их
   if (data.cars && Array.isArray(data.cars)) {
-    const mappedData = createBoilerPartsFromCars(data.cars as ICar[])
+    // Фильтруем только НЕпроданные машины для каталога
+    const availableCars = data.cars.filter((car: ICar) => !car.isSold)
+    console.log('🚗 Available cars (not sold):', availableCars.length, 'of', data.cars.length)
+    const mappedData = createBoilerPartsFromCars(availableCars as ICar[])
     console.log('🔄 Mapped data:', mappedData)
     console.log('📈 Mapped count:', mappedData.count, 'rows:', mappedData.rows.length)
     return mappedData
@@ -151,18 +154,16 @@ export const getPartByNameFx = createEffect(
 export const getFilteredCarsFx = createEffect(
   async (searchParams: any) => {
     try {
-      console.log('🚀 getFilteredCarsFx called with:', searchParams)
       const { data } = await api.post('/cars/search', searchParams)
-      console.log('📡 API response:', data)
 
       // Если данные приходят в новом формате (массив ICar), преобразуем их
       if (data.cars && Array.isArray(data.cars)) {
-        const result = createBoilerPartsFromCars(data.cars as ICar[])
-        console.log('🔄 Mapped result:', result)
-        return result
+        // Фильтруем только НЕпроданные машины для каталога
+        const availableCars = data.cars.filter((car: ICar) => !car.isSold)
+        console.log('🚗 Filtered available cars:', availableCars.length, 'of', data.cars.length)
+        return createBoilerPartsFromCars(availableCars as ICar[])
       }
 
-      console.log('⚠️ No cars found in response')
       return { count: 0, rows: [] }
     } catch (error) {
       console.error('Error in getFilteredCarsFx:', error)

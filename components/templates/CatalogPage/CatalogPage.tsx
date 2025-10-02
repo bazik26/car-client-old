@@ -111,37 +111,56 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       if (hasFilters) {
         console.log('🔍 Found filters in URL, applying them...')
         
-        // Создаем параметры для API фильтрации
-        const searchParams: any = {
-          limit: 100,
-          page: 1
-        }
+        let boilerArray: string[] = []
+        const priceStart = router.query.priceFrom ? Number(router.query.priceFrom) : undefined
+        const priceEnd = router.query.priceTo ? Number(router.query.priceTo) : undefined
 
-        // Добавляем фильтр по бренду
+        // Парсим выбранные бренды
         if (router.query.boiler) {
           try {
-            const boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
-            if (boilerArray.length > 0) {
-              searchParams.brand = boilerArray[0]
-              console.log('🏷️ Filtering by brand:', searchParams.brand)
-            }
+            boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
+            console.log('🏷️ Filtering by brands:', boilerArray)
           } catch (e) {
             console.error('Error parsing boiler filter:', e)
           }
         }
 
-        // Добавляем фильтр по цене
-        if (router.query.priceFrom && router.query.priceTo) {
-          searchParams.priceStart = Number(router.query.priceFrom)
-          searchParams.priceEnd = Number(router.query.priceTo)
-          console.log('💰 Filtering by price:', searchParams.priceStart, '-', searchParams.priceEnd)
+        // Если выбраны бренды, делаем несколько запросов
+        if (boilerArray.length > 0) {
+          const allResults = await Promise.all(
+            boilerArray.map(brand => 
+              getFilteredCarsFx({
+                brand: brand,
+                priceStart,
+                priceEnd,
+                limit: 100,
+                page: 1
+              })
+            )
+          )
+          
+          // Объединяем и удаляем дубликаты
+          const combinedRows = allResults.flatMap(result => result.rows || [])
+          const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
+          const result = {
+            count: uniqueRows.length,
+            rows: uniqueRows
+          }
+          console.log('📊 Combined filtered result:', result)
+          setFilteredBoilerParts(result)
+          setBoilerParts(result)
+        } else if (priceStart || priceEnd) {
+          // Только фильтр по цене
+          const result = await getFilteredCarsFx({
+            priceStart,
+            priceEnd,
+            limit: 100,
+            page: 1
+          })
+          console.log('📊 Filtered result:', result)
+          setFilteredBoilerParts(result)
+          setBoilerParts(result)
         }
-
-        // Используем getFilteredCarsFx для фильтрации
-        const result = await getFilteredCarsFx(searchParams)
-        console.log('📊 Filtered result:', result)
-        setFilteredBoilerParts(result)
-        setBoilerParts(result) // Также обновляем основное состояние
         
         // Обновляем состояние фильтров в UI
         if (router.query.boiler) {
@@ -164,8 +183,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         }
         
         setIsFilterInQuery(true)
-      } else {
-        // Загружаем все автомобили без фильтров
+      } else if (!isFilterInQuery) {
+        // Загружаем все автомобили только если нет активных фильтров
         const result = await getBoilerPartsFx('/cars/search?limit=100')
         console.log('📋 All cars result:', result)
         setBoilerParts(result)
