@@ -30,12 +30,12 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
         className={`${styles.catalog__list__item} ${darkModeClass}`}
       >
         <div className={styles.catalog__list__item__imghold}>
-          <CarImage 
+          <CarImage
             src={
               item.images && item.images !== '[]' && item.images !== 'null'
                 ? JSON.parse(item.images)[0]
                 : undefined
-            } 
+            }
             alt={item.name}
             className={styles.catalog__list__item__img}
           />
@@ -70,39 +70,6 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
               </h4>
             )}
           </div>
-
-          {/* Дополнительная информация */}
-          <div className={styles.catalog__list__item__additional_info}>
-            {(item.gearbox || item.Transmission) && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>КПП: </span>
-                {item.gearbox || item.Transmission}
-              </h4>
-            )}
-            {(item.drive || item.Drive) && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>Привод: </span>
-                {item.drive || item.Drive}
-              </h4>
-            )}
-            {item.powerValue && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>Мощность: </span>
-                {item.powerValue} {item.powerType}
-              </h4>
-            )}
-          </div>
-
-          {/* Описание */}
-          {item.description && (
-            <div className={styles.catalog__list__item__description}>
-              <p>
-                {item.description.length > 100
-                  ? `${item.description.substring(0, 100)}...`
-                  : item.description}
-              </p>
-            </div>
-          )}
 
           {/* Статус и цена */}
           <div className={styles.catalog__list__item__footer}>

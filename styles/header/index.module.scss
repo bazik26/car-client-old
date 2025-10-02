@@ -13,7 +13,7 @@
     font-family: MontserratNormal,sans-serif;
     min-width: 170px;
     cursor: pointer;
-    
+
     a {
       color: white !important;
 
@@ -204,7 +204,7 @@
       &__item {
         font-family: MontserratNormal,sans-serif;
         font-style: normal !important;
-        
+
         &:first-child a {
           // width: 143px;
 
@@ -230,10 +230,10 @@
         }
 
         &:not(:last-child) {
-          margin-right: 50px;
+          margin-right: 30px;
 
           @media (max-width: 1140px) {
-            margin-right: 30px;
+            margin-right: 20px;
           }
 
           @media (max-width: 950px) {
