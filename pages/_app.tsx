@@ -49,9 +49,9 @@ function App({ Component, pageProps }: AppProps) {
                 if (document.scripts[j].src === r) { return; }
               }
               k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-            })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=104022088", "ym");
+            })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=104354120", "ym");
 
-            ym(104022088, "init", {
+            ym(104354120, "init", {
               ssr:true,
               webvisor:true,
               clickmap:true,
