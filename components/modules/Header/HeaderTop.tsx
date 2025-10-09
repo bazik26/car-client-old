@@ -91,7 +91,7 @@ const HeaderTop = () => {
                 </a>
               </Link>
             </li> */}
-            
+
             {isMedia950 && (
               <>
                 <div className={styles.header__nav__list__itembr} /><li className={styles.header__nav__list__item}>
@@ -124,7 +124,7 @@ const HeaderTop = () => {
                   </li>
                   <li className={styles.header__nav__list__item}>
                     <a
-                      href="https://www.tiktok.com/@import_euro_car?_t=ZM-8vYPNyBb3ix&_r=1"
+                      href="https://www.tiktok.com/@avtocimport?_t=ZM-90OqiYMk9xQ&_r=1"
                       target="_blank"
                       className={styles.header__nav__list__item__tg}
                       >
@@ -133,7 +133,7 @@ const HeaderTop = () => {
                   </li>
                   <li className={styles.header__nav__list__item}>
                     <a
-                      href="https://www.instagram.com/import_euro_car?igsh=dWhvcm15aW8zazVk&utm_source=qr"
+                      href="https://www.instagram.com/avto_c_import?igsh=MWM3YnF3cHZrMTN2eg=="
                       target="_blank"
                       className={styles.header__nav__list__item__tg}
                       >
@@ -158,7 +158,7 @@ const HeaderTop = () => {
             <span />
           </button>
         )}
-        {!isMedia950 && 
+        {!isMedia950 &&
           <>
             <div className={styles.header__phoneborder}></div>
             <div className={styles.header__phone}>
@@ -167,7 +167,7 @@ const HeaderTop = () => {
             <Headerbutton />
           </>
         }
-        
+
         {/* <ProfileDropdown /> */}
       </div>
       <div className="formbord">
