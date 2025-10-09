@@ -282,14 +282,14 @@ const Footer = () => {
                     </li>
 
                     <li className="footer__socials-item">
-                        <a href="https://www.instagram.com/avto_c_import?igsh=MWM3YnF3cHZrMTN2eg==" target='_blank' className="footer__socials-link">
+                        <a href="https://www.instagram.com/avto_c_import/" target='_blank' className="footer__socials-link">
                             <img src='/img/instagram-1-svgrepo-com.svg' style={{ width: '20px' }} alt="Instagram"></img>
                             <span>мы в Instagram</span>
                         </a>
                     </li>
 
                     <li className="footer__socials-item">
-                        <a href="https://www.tiktok.com/@avtocimport?_t=ZM-90OqiYMk9xQ&_r=1" target='_blank' className="footer__socials-link">
+                        <a href="https://www.tiktok.com/@avtocimport" target='_blank' className="footer__socials-link">
                           <img src='/img/tiktok-svgrepo-com.svg' style={{ width: '20px' }} alt="Instagram"></img>
                           <span>мы в TikTok</span>
                         </a>

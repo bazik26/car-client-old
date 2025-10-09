@@ -124,7 +124,7 @@ const HeaderTop = () => {
                   </li>
                   <li className={styles.header__nav__list__item}>
                     <a
-                      href="https://www.tiktok.com/@avtocimport?_t=ZM-90OqiYMk9xQ&_r=1"
+                      href="https://www.tiktok.com/@avtocimport"
                       target="_blank"
                       className={styles.header__nav__list__item__tg}
                       >
@@ -133,7 +133,7 @@ const HeaderTop = () => {
                   </li>
                   <li className={styles.header__nav__list__item}>
                     <a
-                      href="https://www.instagram.com/avto_c_import?igsh=MWM3YnF3cHZrMTN2eg=="
+                      href="https://www.instagram.com/avto_c_import/"
                       target="_blank"
                       className={styles.header__nav__list__item__tg}
                       >
