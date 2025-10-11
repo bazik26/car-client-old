@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <yml_catalog date="2025-10-11T09:30:00+03:00">
   <shop>
-    <name>My Shop</name>
+    <name>Auto - C</name>
     <company>My Company LLC</company>
-    <url>https://example.com</url>
+    <url>https://auto-c-cars.ru/</url>
 
     <currencies>
       <currency id="RUB" rate="1"/>
@@ -20,44 +20,631 @@
     </delivery-options>
 
     <offers>
-      <offer id="101" available="true">
-        <url>https://example.com/product/101</url>
-        <price>1760000</price>
+      <offer id="20" available="true">
+        <url>https://auto-c-cars.ru/catalog/20</url>
+        <price>1530000</price>
         <currencyId>RUB</currencyId>
-        <categoryId>3</categoryId>
+        <categoryId>1</categoryId>
 
-        <picture>https://example.com/images/toyota-camry-2022-1.jpg</picture>
-        <picture>https://example.com/images/toyota-camry-2022-2.jpg</picture>
+        <picture>https://live.staticflickr.com/65535/54325103871_d5542540e0_o.jpg</picture>
 
-        <vendor>Toyota</vendor>
-        <vendorCode>CAMRY2022RUS</vendorCode>
+        <vendor>Hyundai</vendor>
+        <vendorCode>TMAJ381ADHJ405920</vendorCode>
 
-        <name>Toyota Camry 2022</name>
-        <description><![CDATA[
-Автомобиль в отличном состоянии, оригинальный пробег 29 000 км.
-Двигатель 2.5 л (207 л.с.), автоматическая коробка передач, передний привод.
-        ]]></description>
+        <name>Авто с пробегом Hyundai Tucson 2017 год. Цена 1530000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 110000 км пробег 2.0л(139Л/C) Дизель. Полный привод. Автомат.]]></description>
 
         <pickup>true</pickup>
         <delivery>true</delivery>
       </offer>
-
-      <offer id="102" available="false">
-        <url>https://example.com/product/102</url>
-        <price>2290000</price>
+      <offer id="103" available="true">
+        <url>https://auto-c-cars.ru/catalog/103</url>
+        <price>1280000</price>
         <currencyId>RUB</currencyId>
-        <categoryId>2</categoryId>
+        <categoryId>1</categoryId>
 
-        <picture>https://example.com/images/toyota-rav4-2023.jpg</picture>
+        <picture>https://live.staticflickr.com/65535/54338737087_d01f179c53_o.jpg</picture>
+
+        <vendor>Volkswagen</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Volkswagen Polo 2024 год. Цена 1280000 ₽</name>
+        <description><![CDATA[Как новый! 2 360 км пробег, 2.0 л (169 л.с.), дизель, передний привод, механика]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="105" available="true">
+        <url>https://auto-c-cars.ru/catalog/105</url>
+        <price>1310000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54338022378_0447f3865e_o.jpg</picture>
 
         <vendor>Toyota</vendor>
-        <vendorCode>RAV42023</vendorCode>
+        <vendorCode></vendorCode>
 
-        <name>Toyota RAV4 2023</name>
-        <description><![CDATA[
-RAV4 2.5 Hybrid, полный привод, пробег 21 000 км.
-Автомобиль без ДТП, оригинальная гарантия до 2027 года.
-        ]]></description>
+        <name>Авто с пробегом Toyota Yaris Cross 2021 год. Цена 1310000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 26746 км пробег 1.0л(161Л/C) Бензин. Передний привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="107" available="true">
+        <url>https://auto-c-cars.ru/catalog/107</url>
+        <price>1110000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54338216650_f6909ee7c2_o.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Toyota Corolla 2021 год. Цена 1110000 ₽</name>
+        <description><![CDATA[Состояние идеал! Пробег 20 393 км, 1.8 л (221 л.с.) гибрид, передний привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="108" available="true">
+        <url>https://auto-c-cars.ru/catalog/108</url>
+        <price>1470000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54336895612_554ea8c5ed_o.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Toyota C-HR 2021 год. Цена 1470000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 54545 км пробег 1.8л(188Л/C) Гибрид. Передний привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="109" available="true">
+        <url>https://auto-c-cars.ru/catalog/109</url>
+        <price>2980000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54351756611_4230f61a76_o.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Audi Q5 2018 год. Цена 2980000 ₽</name>
+        <description><![CDATA[Как новый! 150 000 км, 2.0 л (258 л.с.), бензин, полный привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="110" available="true">
+        <url>https://auto-c-cars.ru/catalog/110</url>
+        <price>2240000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54350890897_984d9c9a73_o.png</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Audi Q5 2018 год. Цена 2240000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 52800 км пробег 2.0л(161Л/C) Бензин. Полный привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="111" available="true">
+        <url>https://auto-c-cars.ru/catalog/111</url>
+        <price>2680000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54352048373_3b29751286_o.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Audi Q5 2019 год. Цена 2680000 ₽</name>
+        <description><![CDATA[Как новый! Пробег 52 000 км, 2.0 л (333 л.с.), бензин, полный привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="112" available="true">
+        <url>https://auto-c-cars.ru/catalog/112</url>
+        <price>2180000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54352061854_7761793b22_o.png</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode>WAUZZZFYXJ2168651</vendorCode>
+
+        <name>Авто с пробегом Audi Q5 2018 год. Цена 2180000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 170740 км пробег 2.0л(197Л/C) Бензин. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="113" available="true">
+        <url>https://auto-c-cars.ru/catalog/113</url>
+        <price>2280000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54352099498_0a88525173_o.png</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Audi Q5 2019 год. Цена 2280000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 52000 км пробег 2.0л(255Л/C) Бензин. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="114" available="true">
+        <url>https://auto-c-cars.ru/catalog/114</url>
+        <price>1420000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54354054198_67dba02f11_o.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Toyota RAV4 2018 год. Цена 1420000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал, 96 000 км пробег, 2.0 л (161 л.с.), бензин, полный привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="120" available="true">
+        <url>https://auto-c-cars.ru/catalog/120</url>
+        <price>3300000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54371419960_7f21e24498_o.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Toyota Hilux 2021 год. Цена 3300000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 84900 км пробег 2.8л(205Л/C) Дизель. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="124" available="true">
+        <url>https://auto-c-cars.ru/catalog/124</url>
+        <price>2250000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54394272041_69ceea6ac1_o.jpg</picture>
+
+        <vendor>Kia</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Kia Sorento 2022 год. Цена 2250000 ₽</name>
+        <description><![CDATA[Состояние идеал! 42 000 км пробег, 2.2 л (153 л.с.) дизель, полный привод, автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="127" available="true">
+        <url>https://auto-c-cars.ru/catalog/127</url>
+        <price>1450000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54415246633_c5fd03f317_o.jpg</picture>
+
+        <vendor>Honda</vendor>
+        <vendorCode>SHSRE5880GU004018</vendorCode>
+
+        <name>Авто из Европы Honda CR-V 2019 год. Цена 1450000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 50000 км пробег 2.0л(165Л/C) Бензин. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="128" available="true">
+        <url>https://auto-c-cars.ru/catalog/128</url>
+        <price>1650000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54423851475_23fb8ab905_o.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Toyota RAV4 2020 год. Цена 1650000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 102964 км пробег 2.0л(296Л/C) Бензин. Передний привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="131" available="true">
+        <url>https://auto-c-cars.ru/catalog/131</url>
+        <price>3870000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://live.staticflickr.com/65535/54474702411_d604212d6a_o.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode>WAUZZZ4M0LD006548</vendorCode>
+
+        <name>Авто с пробегом Audi Q7 2020 год. Цена 3870000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 94500 км пробег 3.0л(133Л/C) Бензин. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1782" available="true">
+        <url>https://auto-c-cars.ru/catalog/1782</url>
+        <price>4180000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001782/1.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Audi Q7 2021 год. Цена 4180000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 113420 км пробег 3.0л(134Л/C) Дизель. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1783" available="true">
+        <url>https://auto-c-cars.ru/catalog/1783</url>
+        <price>1380000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001783/1.jpg</picture>
+
+        <vendor>Honda</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Honda CR-V 2019 год. Цена 1380000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 73884 км пробег 2.0л (157Л/C) Гибрид. Передний привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1784" available="true">
+        <url>https://auto-c-cars.ru/catalog/1784</url>
+        <price>2280000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001784/1.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Audi Q5 2016 год. Цена 2280000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 72647 км пробег 2.0л(187Л/C) Гибрид. Полный привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1785" available="true">
+        <url>https://auto-c-cars.ru/catalog/1785</url>
+        <price>2050000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001785/1.jpg</picture>
+
+        <vendor>Kia</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Kia Sorento 2020 год. Цена 2050000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 39000 км пробег 1.6л(149Л/C) Гибрид. Полный привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1786" available="true">
+        <url>https://auto-c-cars.ru/catalog/1786</url>
+        <price>1750000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001786/1.jpg</picture>
+
+        <vendor>Kia</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Kia Sorento 2020 год. Цена 1750000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 96726 км пробег 2.2л(246Л/C) Дизель. Полный привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1787" available="true">
+        <url>https://auto-c-cars.ru/catalog/1787</url>
+        <price>3000000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001787/1.jpg</picture>
+
+        <vendor>Mazda</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Mazda CX 5 2023 год. Цена 3000000 ₽</name>
+        <description><![CDATA[В отличном состоянии! 29 155 км пробег, 2.5 л (250 л.с.), бензин, полный привод, автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1788" available="true">
+        <url>https://auto-c-cars.ru/catalog/1788</url>
+        <price>1680000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001788/1.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode>WAUZZZ4G9JN020788</vendorCode>
+
+        <name>Авто из Европы Audi A6 2017 год. Цена 1680000 ₽</name>
+        <description><![CDATA[Как новый! 156 454 км пробег, 1.8 л (191 л.с.), бензин, полный привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1789" available="true">
+        <url>https://auto-c-cars.ru/catalog/1789</url>
+        <price>3230000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001789/1.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode>WAUZZZF19LD011638</vendorCode>
+
+        <name>Авто с пробегом Audi Q8 2019 год. Цена 3230000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 97192 км пробег 3.0л(326Л/C) Бензин. Полный привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1790" available="true">
+        <url>https://auto-c-cars.ru/catalog/1790</url>
+        <price>1480000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001790/1.jpg</picture>
+
+        <vendor>Kia</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Kia XCeed 2023 год. Цена 1480000 ₽</name>
+        <description><![CDATA[Состояние идеал! 17 900 км пробег, 1.5 л (176 л.с.) бензин, передний привод, автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1791" available="true">
+        <url>https://auto-c-cars.ru/catalog/1791</url>
+        <price>3980000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001791/1.jpg</picture>
+
+        <vendor>Mercedes-Benz</vendor>
+        <vendorCode>WDC2923641A118546</vendorCode>
+
+        <name>Авто из Европы Mercedes-Benz GLE 43 AMG coupe 2018 год. Цена 3980000 ₽</name>
+        <description><![CDATA[Как новый! 79 000 км пробег, 3.0 л (182 л.с.), бензин, полный привод, автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1792" available="true">
+        <url>https://auto-c-cars.ru/catalog/1792</url>
+        <price>2280000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001792/1.jpg</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Audi Q7 2016 год. Цена 2280000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 178000 км пробег 3.0л(145Л/C) Дизель. Полный привод. Механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1793" available="true">
+        <url>https://auto-c-cars.ru/catalog/1793</url>
+        <price>3180000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001793/1.jpg</picture>
+
+        <vendor>Volkswagen</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Volkswagen Touareg 2023 год. Цена 3180000 ₽</name>
+        <description><![CDATA[Состояние идеал! Пробег 36 000 км, 3.0 л (205 л.с.), дизель, полный привод, автомат]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1794" available="true">
+        <url>https://auto-c-cars.ru/catalog/1794</url>
+        <price>2750000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001794/1.jpg</picture>
+
+        <vendor>Volkswagen</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Volkswagen Tiguan 2024 год. Цена 2750000 ₽</name>
+        <description><![CDATA[Как новый! Пробег 18034 км, 1.5 л (182 л.с.), бензин, передний привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1795" available="true">
+        <url>https://auto-c-cars.ru/catalog/1795</url>
+        <price>5626000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001795/1.jpg</picture>
+
+        <vendor>Mercedes-Benz</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Mercedes-Benz G350 2019 год. Цена 5626000 ₽</name>
+        <description><![CDATA[Как новый! 105000 км пробег, 3.0л (122Л/C), дизель, полный привод, автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1796" available="true">
+        <url>https://auto-c-cars.ru/catalog/1796</url>
+        <price>1920000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001796/1.jpg</picture>
+
+        <vendor>Lexus</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Lexus GS 250 2012 год. Цена 1920000 ₽</name>
+        <description><![CDATA[Состояние идеал! 198000 км пробег, 2.5 л (312 л.с.), бензин, задний привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1797" available="true">
+        <url>https://auto-c-cars.ru/catalog/1797</url>
+        <price>4200000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001798/1.jpg</picture>
+
+        <vendor>BMW</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы BMW X5M 2022 год. Цена 4200000 ₽</name>
+        <description><![CDATA[Как новый! 50 000 км пробег, 3.0 л (168 л.с.), бензин, полный привод, механика]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1798" available="true">
+        <url>https://auto-c-cars.ru/catalog/1798</url>
+        <price>1900000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001799/1.jpg</picture>
+
+        <vendor>BMW</vendor>
+        <vendorCode>WBAXW710400W21100</vendorCode>
+
+        <name>Авто с пробегом BMW X4 2017 год. Цена 1900000 ₽</name>
+        <description><![CDATA[Состояние идеал! 108000 км пробег 3.0л(267Л/C) Бензин. Передний привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1800" available="true">
+        <url>https://auto-c-cars.ru/catalog/1800</url>
+        <price>6895000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001800/1.jpg</picture>
+
+        <vendor>BMW</vendor>
+        <vendorCode>WBA11EV0609T80560</vendorCode>
+
+        <name>Авто с пробегом BMW X5 2023 год. Цена 6895000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 12750 км пробег 2.0л(223Л/C) Дизель. Передний привод. Автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1801" available="true">
+        <url>https://auto-c-cars.ru/catalog/1801</url>
+        <price>2600000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001801/1.png</picture>
+
+        <vendor>Audi</vendor>
+        <vendorCode>WAUZZZFY8M2084915</vendorCode>
+
+        <name>Авто из Европы Audi Q5 2021 год. Цена 2600000 ₽</name>
+        <description><![CDATA[В отличном состоянии! 135000 км пробег, 2.0 л (170 л.с.), бензин, полный привод, автомат.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1803" available="true">
+        <url>https://auto-c-cars.ru/catalog/1803</url>
+        <price>1600000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001803/1.jpg</picture>
+
+        <vendor>Mazda</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто с пробегом Mazda CX 5 2020 год. Цена 1600000 ₽</name>
+        <description><![CDATA[Как новый! Пробег 71 084 км, 2.0 л (121 л.с.), бензин, передний привод, механика.]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+      <offer id="1804" available="true">
+        <url>https://auto-c-cars.ru/catalog/1804</url>
+        <price>4150000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>1</categoryId>
+
+        <picture>https://car-api-production.up.railway.app/cars/001804/1.jpg</picture>
+
+        <vendor>Land Rover</vendor>
+        <vendorCode></vendorCode>
+
+        <name>Авто из Европы Land Rover Sport 2019 год. Цена 4150000 ₽</name>
+        <description><![CDATA[Как новый! Состояние идеал 69000 км пробег 2.0л(191Л/C) Бензин. Передний привод. Механика.]]></description>
 
         <pickup>true</pickup>
         <delivery>true</delivery>
