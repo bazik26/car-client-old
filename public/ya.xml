@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog date="2025-10-11T09:30:00+03:00">
+  <shop>
+    <name>My Shop</name>
+    <company>My Company LLC</company>
+    <url>https://example.com</url>
+
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+
+    <categories>
+      <category id="1">Автомобили</category>
+      <category id="2" parentId="1">Кроссоверы</category>
+      <category id="3" parentId="1">Седаны</category>
+    </categories>
+
+    <delivery-options>
+      <option cost="0" days="1-3"/>
+    </delivery-options>
+
+    <offers>
+      <offer id="101" available="true">
+        <url>https://example.com/product/101</url>
+        <price>1760000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>3</categoryId>
+
+        <picture>https://example.com/images/toyota-camry-2022-1.jpg</picture>
+        <picture>https://example.com/images/toyota-camry-2022-2.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode>CAMRY2022RUS</vendorCode>
+
+        <name>Toyota Camry 2022</name>
+        <description><![CDATA[
+Автомобиль в отличном состоянии, оригинальный пробег 29 000 км.
+Двигатель 2.5 л (207 л.с.), автоматическая коробка передач, передний привод.
+        ]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+
+      <offer id="102" available="false">
+        <url>https://example.com/product/102</url>
+        <price>2290000</price>
+        <currencyId>RUB</currencyId>
+        <categoryId>2</categoryId>
+
+        <picture>https://example.com/images/toyota-rav4-2023.jpg</picture>
+
+        <vendor>Toyota</vendor>
+        <vendorCode>RAV42023</vendorCode>
+
+        <name>Toyota RAV4 2023</name>
+        <description><![CDATA[
+RAV4 2.5 Hybrid, полный привод, пробег 21 000 км.
+Автомобиль без ДТП, оригинальная гарантия до 2027 года.
+        ]]></description>
+
+        <pickup>true</pickup>
+        <delivery>true</delivery>
+      </offer>
+    </offers>
+  </shop>
+</yml_catalog>
