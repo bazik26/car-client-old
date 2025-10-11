@@ -26,7 +26,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>https://auto-c-cars.ru/img/about-img1.jpg</picture>
+        <picture>https://live.staticflickr.com/65535/54325103871_d5542540e0_o.jpg</picture>
 
         <vendor>Hyundai</vendor>
         <vendorCode>TMAJ381ADHJ405920</vendorCode>
@@ -43,7 +43,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>https://auto-c-cars.ru/img/about-img1.jpg</picture>
+        <picture>https://live.staticflickr.com/65535/54338737087_d01f179c53_o.jpg</picture>
 
         <vendor>Volkswagen</vendor>
         <vendorCode></vendorCode>
@@ -604,7 +604,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>https://auto-c-cars.ru/img/about-img1.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/cars/001801/1.png</picture>
 
         <vendor>Audi</vendor>
         <vendorCode>WAUZZZFY8M2084915</vendorCode>
@@ -621,7 +621,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>https://auto-c-cars.ru/img/about-img1.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/cars/001803/1.jpg</picture>
 
         <vendor>Mazda</vendor>
         <vendorCode></vendorCode>
@@ -638,7 +638,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>https://auto-c-cars.ru/img/about-img1.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/cars/001804/1.jpg</picture>
 
         <vendor>Land Rover</vendor>
         <vendorCode></vendorCode>
