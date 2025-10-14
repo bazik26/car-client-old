@@ -1244,30 +1244,13 @@
         <pickup>true</pickup>
         <delivery>true</delivery>
       </offer>
-      <offer id="1858" available="true">
-        <url>https://auto-c-cars.ru/catalog/1858</url>
-        <price>628520</price>
-        <currencyId>RUB</currencyId>
-        <categoryId>1</categoryId>
-
-        <picture></picture>
-
-        <vendor>Audi</vendor>
-        <vendorCode>WSD1T397YK03M7XG8</vendorCode>
-
-        <name>Авто с пробегом Audi A4 2017 год. Цена 628520 ₽</name>
-        <description><![CDATA[Как новый! Состояние идеал 119620 км пробег 3.0л(264Л/C) Дизель. Задний привод. Автомат.]]></description>
-
-        <pickup>true</pickup>
-        <delivery>true</delivery>
-      </offer>
       <offer id="1859" available="true">
         <url>https://auto-c-cars.ru/catalog/1859</url>
         <price>1400078</price>
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>images/1758373074193-975001566.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/1758373074193-975001566.jpg</picture>
 
         <vendor>Audi</vendor>
         <vendorCode>5MPP88UULZJJS5DE5</vendorCode>
@@ -1284,7 +1267,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>images/1758526757987-156711232.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/1758526757987-156711232.jpg</picture>
 
         <vendor>Kia</vendor>
         <vendorCode>P6L1CFARF5J3C9HB6</vendorCode>
@@ -1301,7 +1284,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>images/1758692726341-343433673.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/1758692726341-343433673.jpg</picture>
 
         <vendor>Kia</vendor>
         <vendorCode>KNARH81BHP5199580</vendorCode>
@@ -1318,7 +1301,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>images/1758695984344-868169356.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/1758695984344-868169356.jpg</picture>
 
         <vendor>Nissan</vendor>
         <vendorCode>VSKCTND23U0094744</vendorCode>
@@ -1335,7 +1318,7 @@
         <currencyId>RUB</currencyId>
         <categoryId>1</categoryId>
 
-        <picture>images/1758887707948-30631435.jpg</picture>
+        <picture>https://car-api-production.up.railway.app/1758887707948-30631435.jpg</picture>
 
         <vendor>Renault</vendor>
         <vendorCode>VF1RFB00863998454</vendorCode>
