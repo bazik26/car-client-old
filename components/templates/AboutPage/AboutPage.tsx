@@ -16,7 +16,7 @@ const AboutPage: React.FC = () => {
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const handleClick = () => {
     const form = document.querySelector('.formbord') as HTMLElement
-  
+
     if (form) {
       if (window.innerWidth > 560) {
         form.style.display = 'flex'
@@ -83,7 +83,7 @@ const AboutPage: React.FC = () => {
                     <div className="more-yt-videos">
                       <div className="more-yt-videos__video">
                         <video
-                          src="/video/IMG_1650.MOV"
+                          src="/video/IMG_5340.MOV"
                           controls
                           poster="/img/logo16.9.png"
                           controlsList="nodownload"
@@ -116,13 +116,13 @@ const AboutPage: React.FC = () => {
     <p>
       Ценим время и доверие клиентов, поэтому честно говорим о комиссии.
     </p></div>
-                                                      <div className="company-item__tizers company-item--mt-49">											
+                                                      <div className="company-item__tizers company-item--mt-49">
         <div className="tizers-list  tizers-list--wide">
-        
+
         <div className="tizers-list__items-wrapper grid-list grid-list--items--wide   ">
                   <div className="tizers-list__item-wrapper  grid-list__item tizers-list__item-wrapper-offset">
               <div className="tizers-list__item  tizers-list__item--images-ICONS tizers-list__item--images-position-TOP tizers-list__item--column" id="bx_651765591_39">
-                
+
                               <div className="tizers-list__item-image-wrapper tizers-list__item-image-wrapper--ICONS tizers-list__item-image-wrapper--position-TOP">
                                                           <i className="svg inline  svg-inline- fill-theme tizers-list__item-image-icon" aria-hidden="true">
                                                               <svg width="50" height="50" viewBox="0 0 50 50" fill="#ff0000" xmlns="http://www.w3.org/2000/svg">
@@ -134,18 +134,18 @@ const AboutPage: React.FC = () => {
                                                               </svg>
                                                             </i>
                                                         </div>
-                
+
                 <div className="tizers-list__item-text-wrapper color_333">
                                                       <span className="tizers-list__item-name font_17 switcher-title">Автомобиль под ключ</span>
                                                       <br/>
-                                                
+
                                   <span className="tizers-list__item-descr font_14 color_666">Сами привозим авто и проходим сертификацию. Можно садиться и ехать</span>
                               </div>
               </div>
             </div>
                   <div className="tizers-list__item-wrapper  grid-list__item tizers-list__item-wrapper-offset">
               <div className="tizers-list__item  tizers-list__item--images-ICONS tizers-list__item--images-position-TOP tizers-list__item--column" id="bx_651765591_38">
-                
+
                               <div className="tizers-list__item-image-wrapper tizers-list__item-image-wrapper--ICONS tizers-list__item-image-wrapper--position-TOP">
                                                           <i className="svg inline  svg-inline- fill-theme tizers-list__item-image-icon" aria-hidden="true"><svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M7 6C7 2.68629 9.68629 0 13 0H45C47.7614 0 50 2.23858 50 5V11C50 11.5523 49.5523 12 49 12H43V45.0001C43 47.7615 40.7615 50 38.0001 50H7C3.13401 50 0 46.866 0 43V40C0 39.4477 0.447715 39 1 39H7V37C7 36.4477 7.44772 36 8 36C8.55228 36 9 36.4477 9 37V39H34.0002C34.5525 39 35.0002 39.4477 35.0002 40V45.0001C35.0002 46.6569 36.3433 48 38.0001 48C39.6569 48 41 46.6569 41 45.0001V11C41 10.4477 41.4477 10 42 10H48V5C48 3.34315 46.6569 2 45 2H13C10.7909 2 9 3.79086 9 6V7C9 7.55228 8.55228 8 8 8C7.44772 8 7 7.55228 7 7V6ZM33.9998 48C33.3721 47.1644 33.0002 46.1257 33.0002 45.0001V41H8H2V43C2 45.7614 4.23858 48 7 48H33.9998ZM26 24C26 23.4477 26.4477 23 27 23H36C36.5523 23 37 23.4477 37 24C37 24.5523 36.5523 25 36 25H27C26.4477 25 26 24.5523 26 24ZM27 18C26.4477 18 26 18.4477 26 19C26 19.5523 26.4477 20 27 20H36C36.5523 20 37 19.5523 37 19C37 18.4477 36.5523 18 36 18H27ZM26 14C26 13.4477 26.4477 13 27 13H36C36.5523 13 37 13.4477 37 14C37 14.5523 36.5523 15 36 15H27C26.4477 15 26 14.5523 26 14ZM27 28C26.4477 28 26 28.4477 26 29C26 29.5523 26.4477 30 27 30H32C32.5523 30 33 29.5523 33 29C33 28.4477 32.5523 28 32 28H27ZM16.7071 17.2929C17.0976 17.6834 17.0976 18.3166 16.7071 18.7071L10.7071 24.7071C10.3166 25.0976 9.68342 25.0976 9.29289 24.7071L6.29289 21.7071C5.90237 21.3166 5.90237 20.6834 6.29289 20.2929C6.68342 19.9024 7.31658 19.9024 7.70711 20.2929L10 22.5858L15.2929 17.2929C15.6834 16.9024 16.3166 16.9024 16.7071 17.2929ZM11.3354 9.05793C11.1185 8.98069 10.8815 8.98069 10.6646 9.05793L0.664582 12.6184C0.266114 12.7602 0 13.1375 0 13.5604V19.0748C0 25.3788 3.48849 31.1653 9.06335 34.1084L10.5331 34.8843C10.8253 35.0386 11.1747 35.0386 11.4669 34.8843L12.9367 34.1084C18.5115 31.1653 22 25.3788 22 19.0748V13.5604C22 13.1375 21.7339 12.7602 21.3354 12.6184L11.3354 9.05793ZM2 19.0748V14.2659L11 11.0615L20 14.2659V19.0748C20 24.6372 16.9219 29.7429 12.0029 32.3397L11 32.8692L9.99707 32.3397C5.07808 29.7429 2 24.6372 2 19.0748Z" fill="#365EDC"></path>
@@ -155,18 +155,18 @@ const AboutPage: React.FC = () => {
     <path fill-rule="evenodd" clip-rule="evenodd" d="M43 5C43 3.34315 44.3431 2 46 2V1H42.9995C41.7853 1.91223 41 3.3644 41 5V11C41 11.5523 41.4477 12 42 12C42.5523 12 43 11.5523 43 11V5Z" fill="#365EDC"></path>
     </svg>
     </i>																								</div>
-                
+
                 <div className="tizers-list__item-text-wrapper color_333">
                                                       <span className="tizers-list__item-name font_17 switcher-title">Надежная компания</span>
                                                       <br/>
-                                                
+
                                   <span className="tizers-list__item-descr font_14 color_666">Многопрофильная кампания с представительством в европе</span>
                               </div>
               </div>
             </div>
                   <div className="tizers-list__item-wrapper  grid-list__item tizers-list__item-wrapper-offset">
               <div className="tizers-list__item  tizers-list__item--images-ICONS tizers-list__item--images-position-TOP tizers-list__item--column" id="bx_651765591_37">
-                
+
                               <div className="tizers-list__item-image-wrapper tizers-list__item-image-wrapper--ICONS tizers-list__item-image-wrapper--position-TOP">
                                                           <i className="svg inline  svg-inline- fill-theme tizers-list__item-image-icon" aria-hidden="true"><svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="30.5" cy="9.5" r="1.5" fill="#365EDC"></circle>
@@ -181,18 +181,18 @@ const AboutPage: React.FC = () => {
     <path opacity="0.1" d="M18.1667 21C14.8333 21 14 24.242 14 25.8629C14.7357 26.0619 16.552 25.4797 18.1667 24.242C19.1667 26.1871 22.4722 26.1331 24 25.8629L23.5833 23.0262C23.1667 22.3508 21.5 21 18.1667 21Z" fill="#365EDC"></path>
     </svg>
     </i>																								</div>
-                
+
                 <div className="tizers-list__item-text-wrapper color_333">
                                                       <span className="tizers-list__item-name font_17 switcher-title">Широкий ассортимент</span>
                                                       <br/>
-                                                
+
                                   <span className="tizers-list__item-descr font_14 color_666">Подберем несколько вариантов по вашим требованиям</span>
                               </div>
               </div>
             </div>
                   <div className="tizers-list__item-wrapper  grid-list__item tizers-list__item-wrapper-offset">
               <div className="tizers-list__item  tizers-list__item--images-ICONS tizers-list__item--images-position-TOP tizers-list__item--column" id="bx_651765591_36">
-                
+
                               <div className="tizers-list__item-image-wrapper tizers-list__item-image-wrapper--ICONS tizers-list__item-image-wrapper--position-TOP">
                                                           <i className="svg inline  svg-inline- fill-theme tizers-list__item-image-icon" aria-hidden="true"><svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M13.234 22.4569C12.5094 21.8888 11.4906 21.8888 10.766 22.4569L2.76601 28.7291C2.28245 29.1082 2 29.6885 2 30.303V46C2 47.1046 2.89543 48 4 48H20C21.1046 48 22 47.1046 22 46V30.303C22 29.6885 21.7176 29.1082 21.234 28.7291L13.234 22.4569ZM9.532 20.883C10.9812 19.7468 13.0188 19.7468 14.468 20.883L22.468 27.1551C23.4351 27.9134 24 29.0741 24 30.303V46C24 48.2091 22.2091 50 20 50H4C1.79086 50 0 48.2091 0 46V30.303C0 29.0741 0.564899 27.9134 1.53201 27.1551L9.532 20.883Z" fill="#365EDC"></path>
@@ -203,11 +203,11 @@ const AboutPage: React.FC = () => {
     <path opacity="0.1" fill-rule="evenodd" clip-rule="evenodd" d="M12 49H21C22.1046 49 23 48.1046 23 47V30.7006C23 29.7529 22.5522 28.8609 21.7922 28.2948L13.7922 22.3351C13.2605 21.939 12.6302 21.7409 12 21.7409V49Z" fill="#365EDC"></path>
     </svg>
     </i>																								</div>
-                
+
                 <div className="tizers-list__item-text-wrapper color_333">
                                                       <span className="tizers-list__item-name font_17 switcher-title">Прозрачная сделка</span>
                                                       <br/>
-                                                
+
                                   <span className="tizers-list__item-descr font_14 color_666">На основных этапах сделки и доставки автомобиля производим фото-видеофиксацию</span>
                               </div>
               </div>
@@ -221,7 +221,7 @@ const AboutPage: React.FC = () => {
               </div>
 				    </div>
 	        </div>
-        </div>		
+        </div>
       </div>
 		</div>
 
@@ -241,7 +241,7 @@ const AboutPage: React.FC = () => {
                   <div className="consult__desc subtitle">
                     Оставьте свои контакты и мы расскажем вам, как за месяц получить во владение качественный автомобиль из Европы
                   </div>
-  
+
                   <form
                     className="consult__form simpleform simpleform-reload"
                     id="form3"
@@ -253,21 +253,21 @@ const AboutPage: React.FC = () => {
                     <input type="hidden" name="IBLOCK_ID" value="58" />
                     <input type="hidden" name="FROM_STEP_SUCCESS" value="N" />
                     <input type="hidden" name="SERVICE" value="302" />
-  
+
                     <fieldset className="fg">
                       <div id="name2" className="fg__input">
                         <input type="text" placeholder="Имя*" name="NAME" />
                         <span className="fg__error">Заполните обязательное поле</span>
                       </div>
                     </fieldset>
-  
+
                     <fieldset className="fg">
                       <div id="phone2" className="fg__input">
                         <input type="tel" placeholder="Телефон*" name="PHONE" />
                         <span className="fg__error">Заполните обязательное поле</span>
                       </div>
                     </fieldset>
-  
+
                     <button className="consult__btn mbtn mbtn-red" onClick={handleClick} type="button">
                       <span>отправить</span>
                       <svg width="21" height="29" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg">
