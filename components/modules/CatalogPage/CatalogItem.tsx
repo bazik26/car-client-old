@@ -42,13 +42,11 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
           className={styles.catalog__list__item__link}
           itemProp="url"
         >
-          <div className={styles.catalog__list__item__imghold}>
+          <div className={styles.catalog__list__item__imghold} itemProp="image">
             <CarImage
               src={mainImage}
               alt={item.name}
               className={styles.catalog__list__item__img}
-              itemProp="image"
-              loading="lazy"
             />
           </div>
           <div className={styles.catalog__list__item__inner}>
@@ -112,7 +110,7 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
                   <meta itemProp="priceCurrency" content="RUB" />
                   <meta itemProp="price" content={item.price.toString()} />
                   <meta itemProp="availability" content={item.in_stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
-                  <span itemProp="price" content={item.price.toString()}>
+                  <span>
                     {formatPrice(item.price)} ₽
                   </span>
                 </span>
@@ -123,7 +121,7 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
       </Link>
       {/* Hidden structured data */}
       <meta itemProp="brand" content={item.brand || item.boiler_manufacturer} />
-      <meta itemProp="model" content={item.model || item.Model} />
+      <meta itemProp="model" content={item.Model || ''} />
       {item.description && (
         <meta itemProp="description" content={item.description} />
       )}

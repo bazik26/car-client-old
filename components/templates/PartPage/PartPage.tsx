@@ -73,7 +73,7 @@ const PartPage = () => {
                     <meta itemProp="price" content={(boilerPart.price || 0).toString()} />
                     <meta itemProp="availability" content={boilerPart.in_stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
                     <meta itemProp="url" content={productUrl} />
-                    <span itemProp="price" content={(boilerPart.price || 0).toString()}>
+                    <span>
                       {formatPrice(boilerPart.price || 0)} ₽
                     </span>
                   </span>

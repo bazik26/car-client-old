@@ -18,8 +18,8 @@ import {
   updateParamsAndFilters,
   updateParamsAndFiltersFromQuery,
 } from '@/utils/catalog'
-import { getFilteredCarsFx } from '@/app/api/boilerParts'
-import { setFilteredBoilerParts } from '@/context/boilerParts'
+import { getFilteredCarsFx, getBoilerPartsFx } from '@/app/api/boilerParts'
+import { setFilteredBoilerParts, setBoilerParts } from '@/context/boilerParts'
 
 const CatalogFilters = ({
   priceRange,
@@ -162,31 +162,22 @@ const CatalogFilters = ({
       // Добавляем бренды только если они выбраны
       if (encodedBoilerQuery) {
         urlParams.boiler = encodedBoilerQuery
-      } else {
-        // Если бренды не выбраны, удаляем параметр из URL
-        delete router.query.boiler
       }
 
       // Добавляем части только если они выбраны
       if (encodedPartsQuery) {
         urlParams.parts = encodedPartsQuery
-      } else {
-        delete router.query.parts
       }
 
       // Добавляем цену только если она изменена
       if (isPriceRangeChanged) {
         urlParams.priceFrom = priceFrom
         urlParams.priceTo = priceTo
-      } else {
-        // Если цена не изменена, удаляем параметры из URL
-        delete router.query.priceFrom
-        delete router.query.priceTo
       }
 
       console.log('🔗 Updating URL with params:', urlParams)
 
-      // Обновляем URL - это вызовет useEffect в CatalogPage который загрузит данные
+      // Обновляем URL
       await router.push(
         {
           pathname: router.pathname,
@@ -201,14 +192,68 @@ const CatalogFilters = ({
       
       console.log('✅ URL updated, router.query after push:', router.query)
       
-      // Не делаем запросы здесь - пусть loadBoilerParts в CatalogPage это сделает
-      // Это избежит дублирования запросов
+      // Делаем запросы сразу здесь, чтобы избежать проблем с асинхронным обновлением router.query
+      const priceStart = isPriceRangeChanged ? priceFrom : undefined
+      const priceEnd = isPriceRangeChanged ? priceTo : undefined
+      
+      if (boilers.length > 0) {
+        console.log(`🚀 Making ${boilers.length} requests for brands:`, boilers)
+        
+        const allResults = await Promise.all(
+          boilers.map(async (brand) => {
+            console.log(`📡 Requesting cars for brand: "${brand}"`)
+            const result = await getFilteredCarsFx({
+              brand: brand,
+              priceStart,
+              priceEnd,
+              limit: 100,
+              page: 1
+            })
+            console.log(`✅ Got ${result.rows?.length || 0} cars for brand "${brand}"`)
+            return result
+          })
+        )
+        
+        // Объединяем и удаляем дубликаты
+        const combinedRows = allResults.flatMap(result => result.rows || [])
+        const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
+        const data = {
+          count: uniqueRows.length,
+          rows: uniqueRows
+        }
+        console.log('📊 Combined filtered data:', {
+          totalRows: data.rows.length,
+          brands: boilers,
+          sampleBrands: uniqueRows.slice(0, 5).map(r => r.boiler_manufacturer || r.brand)
+        })
+        setFilteredBoilerParts(data)
+        setBoilerParts(data) // Также устанавливаем в boilerParts для использования в getCurrentPageItems
+      } else if (isPriceRangeChanged) {
+        // Только фильтр по цене
+        console.log('💰 Filtering by price only:', { priceStart, priceEnd })
+        const data = await getFilteredCarsFx({
+          priceStart,
+          priceEnd,
+          limit: 100,
+          page: 1
+        })
+        console.log('📊 Filtered data received:', data)
+        setFilteredBoilerParts(data)
+        setBoilerParts(data) // Также устанавливаем в boilerParts для использования в getCurrentPageItems
+      } else {
+        // Нет фильтров - загружаем все
+        console.log('📋 No filters selected, loading all cars...')
+        const data = await getBoilerPartsFx('/cars/search?limit=100')
+        console.log('📋 All cars result:', { count: data.count, rows: data.rows?.length })
+        setBoilerParts(data)
+        setFilteredBoilerParts({ count: 0, rows: [] })
+      }
       
     } catch (error) {
       console.error('❌ Error applying filters:', error)
       toast.error('Ошибка при применении фильтров')
     } finally {
-      setTimeout(() => setSpinner(false), 500) // Даем время для loadBoilerParts
+      setSpinner(false)
     }
   }, [
     priceRange,

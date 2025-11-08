@@ -180,7 +180,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           console.log('📊 Combined filtered result:', {
             totalRows: result.rows.length,
             brands: boilerArray,
-            sampleBrands: uniqueRows.slice(0, 5).map(r => r.boiler_manufacturer)
+            sampleBrands: uniqueRows.slice(0, 5).map(r => r.boiler_manufacturer || r.brand)
           })
           setFilteredBoilerParts(result)
           setBoilerParts(result)

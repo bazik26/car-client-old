@@ -170,7 +170,7 @@ export const getFilteredCarsFx = createEffect(
         
         // Проверяем что бренды совпадают
         if (searchParams.brand && availableCars.length > 0) {
-          const brandsInResult = [...new Set(availableCars.map(car => car.brand))]
+          const brandsInResult = Array.from(new Set(availableCars.map((car: ICar) => car.brand)))
           console.log('🏷️ Brands in result:', brandsInResult, 'Expected:', searchParams.brand)
           if (!brandsInResult.includes(searchParams.brand)) {
             console.warn('⚠️ WARNING: Brand mismatch! Expected:', searchParams.brand, 'Got:', brandsInResult)
