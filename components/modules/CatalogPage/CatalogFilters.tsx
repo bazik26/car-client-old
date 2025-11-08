@@ -152,24 +152,44 @@ const CatalogFilters = ({
       console.log('🎯 Price range changed:', isPriceRangeChanged, priceFrom, priceTo)
       
       // Обновляем URL параметры для совместимости
-      const encodedBoilerQuery = encodeURIComponent(JSON.stringify(boilers))
-      const encodedPartsQuery = encodeURIComponent(JSON.stringify(parts))
+      const encodedBoilerQuery = boilers.length > 0 ? encodeURIComponent(JSON.stringify(boilers)) : undefined
+      const encodedPartsQuery = parts.length > 0 ? encodeURIComponent(JSON.stringify(parts)) : undefined
       
       const urlParams: any = {
-        boiler: encodedBoilerQuery,
-        parts: encodedPartsQuery,
         offset: 1,
+      }
+
+      // Добавляем бренды только если они выбраны
+      if (encodedBoilerQuery) {
+        urlParams.boiler = encodedBoilerQuery
+      } else {
+        // Если бренды не выбраны, удаляем параметр из URL
+        delete router.query.boiler
+      }
+
+      // Добавляем части только если они выбраны
+      if (encodedPartsQuery) {
+        urlParams.parts = encodedPartsQuery
+      } else {
+        delete router.query.parts
       }
 
       // Добавляем цену только если она изменена
       if (isPriceRangeChanged) {
         urlParams.priceFrom = priceFrom
         urlParams.priceTo = priceTo
+      } else {
+        // Если цена не изменена, удаляем параметры из URL
+        delete router.query.priceFrom
+        delete router.query.priceTo
       }
 
+      console.log('🔗 Updating URL with params:', urlParams)
+
       // Обновляем URL - это вызовет useEffect в CatalogPage который загрузит данные
-      router.push(
+      await router.push(
         {
+          pathname: router.pathname,
           query: {
             ...router.query,
             ...urlParams,
@@ -179,11 +199,13 @@ const CatalogFilters = ({
         { shallow: true }
       )
       
+      console.log('✅ URL updated, router.query after push:', router.query)
+      
       // Не делаем запросы здесь - пусть loadBoilerParts в CatalogPage это сделает
       // Это избежит дублирования запросов
       
     } catch (error) {
-      console.error('Error applying filters:', error)
+      console.error('❌ Error applying filters:', error)
       toast.error('Ошибка при применении фильтров')
     } finally {
       setTimeout(() => setSpinner(false), 500) // Даем время для loadBoilerParts

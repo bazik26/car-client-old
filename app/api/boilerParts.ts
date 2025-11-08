@@ -154,19 +154,37 @@ export const getPartByNameFx = createEffect(
 export const getFilteredCarsFx = createEffect(
   async (searchParams: any) => {
     try {
+      console.log('📤 Sending search request with params:', JSON.stringify(searchParams, null, 2))
       const { data } = await api.post('/cars/search', searchParams)
+      console.log('📥 Received response:', {
+        totalCars: data.cars?.length || 0,
+        pagination: data.pagination,
+        firstCarBrand: data.cars?.[0]?.brand
+      })
 
       // Если данные приходят в новом формате (массив ICar), преобразуем их
       if (data.cars && Array.isArray(data.cars)) {
         // Фильтруем только НЕпроданные машины для каталога
         const availableCars = data.cars.filter((car: ICar) => !car.isSold)
-        console.log('🚗 Filtered available cars:', availableCars.length, 'of', data.cars.length)
+        console.log('🚗 Filtered available cars:', availableCars.length, 'of', data.cars.length, 'for brand:', searchParams.brand)
+        
+        // Проверяем что бренды совпадают
+        if (searchParams.brand && availableCars.length > 0) {
+          const brandsInResult = [...new Set(availableCars.map(car => car.brand))]
+          console.log('🏷️ Brands in result:', brandsInResult, 'Expected:', searchParams.brand)
+          if (!brandsInResult.includes(searchParams.brand)) {
+            console.warn('⚠️ WARNING: Brand mismatch! Expected:', searchParams.brand, 'Got:', brandsInResult)
+          }
+        }
+        
         return createBoilerPartsFromCars(availableCars as ICar[])
       }
 
+      console.warn('⚠️ No cars array in response:', data)
       return { count: 0, rows: [] }
     } catch (error) {
-      console.error('Error in getFilteredCarsFx:', error)
+      console.error('❌ Error in getFilteredCarsFx:', error)
+      console.error('❌ Request params were:', searchParams)
       toast.error('Ошибка при загрузке отфильтрованных автомобилей')
       return { count: 0, rows: [] }
     }
