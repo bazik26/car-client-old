@@ -268,7 +268,7 @@ const AboutPage: React.FC = () => {
                       </div>
                     </fieldset>
 
-                    <button className="consult__btn mbtn mbtn-red" onClick={handleClick} type="button">
+                    <button id="form-submit-btn" className="consult__btn mbtn mbtn-red" onClick={handleClick} type="button">
                       <span>отправить</span>
                       <svg width="21" height="29" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

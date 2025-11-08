@@ -107,7 +107,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                 </div>
               </div>
               <div className="contacts__sticky-panel__btn-wraper">
-                  <button className="btn-qvest" onClick={handleClick}>
+                  <button id="form-submit-btn" className="btn-qvest" onClick={handleClick}>
                     Написать сообщение
                   </button>
               </div>

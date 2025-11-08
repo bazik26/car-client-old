@@ -53,6 +53,7 @@ const SignInForm = () => {
       <NameInput register={register} errors={errors} />
       <PasswordInput register={register} errors={errors} />
       <button
+        id="form-submit-btn"
         className={`${styles.form__button} ${styles.button} ${styles.submit} ${darkModeClass}`}
       >
         {spinner ? <div className={spinnerStyles.spinner} /> : 'SIGN IN'}

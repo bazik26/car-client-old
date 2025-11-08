@@ -148,6 +148,7 @@ const OrderPage = () => {
                 </span>
               </div>
               <button
+                id="form-submit-btn"
                 disabled={!(orderIsReady && agreement)}
                 className={styles.order__pay__btn}
                 onClick={makePay}
