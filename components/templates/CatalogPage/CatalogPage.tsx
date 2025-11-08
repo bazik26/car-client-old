@@ -17,7 +17,7 @@ import { $mode } from '@/context/mode'
 import styles from '@/styles/catalog/index.module.scss'
 import { useStore } from 'effector-react'
 import { AnimatePresence } from 'framer-motion'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
 import CatalogItem from '@/components/modules/CatalogPage/CatalogItem'
@@ -40,7 +40,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const [priceRange, setPriceRange] = useState([1000, 9000])
   const [isFilterInQuery, setIsFilterInQuery] = useState(false)
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
-  const [filtersAppliedManually, setFiltersAppliedManually] = useState(false)
+  const filtersAppliedManuallyRef = useRef(false)
   const itemsPerPage = 20
   
   // Используем правильные данные для подсчета страниц
@@ -243,9 +243,14 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     
     // Если фильтры были применены вручную через applyFilters, не перезагружаем данные
     // Это предотвращает перезапись отфильтрованных данных всеми машинами
-    if (filtersAppliedManually) {
+    if (filtersAppliedManuallyRef.current) {
       console.log('⏸️ Filters were applied manually, skipping loadBoilerParts')
-      setFiltersAppliedManually(false) // Сбрасываем флаг после использования
+      // Сбрасываем флаг через задержку, чтобы useEffect не сработал повторно
+      // Используем большую задержку, чтобы убедиться что все обновления URL завершены
+      setTimeout(() => {
+        filtersAppliedManuallyRef.current = false
+        console.log('🔄 Flag reset, loadBoilerParts can now be called')
+      }, 500)
       return
     }
     
@@ -259,7 +264,6 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     router.query.priceFrom,
     router.query.priceTo,
     router.isReady,
-    filtersAppliedManually,
   ])
 
   const handlePageChange = async ({ selected }: { selected: number }) => {
@@ -295,7 +299,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       setSpinner(true)
       console.log('🔄 Resetting filters...')
       // Сбрасываем флаг, чтобы loadBoilerParts мог перезагрузить данные
-      setFiltersAppliedManually(false)
+      filtersAppliedManuallyRef.current = false
       const data = await getBoilerPartsFx('/cars/search?limit=100')
       console.log('📊 Reset data received:', data)
       router.push(
@@ -383,7 +387,9 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               setIsFilterInQuery={setIsFilterInQuery}
               closePopup={closePopup}
               filtersMobileOpen={open}
-              setFiltersAppliedManually={setFiltersAppliedManually}
+              setFiltersAppliedManually={(value: boolean) => {
+                filtersAppliedManuallyRef.current = value
+              }}
             />
             {spinner ? (
               <ul className={skeletonStyles.skeleton}>

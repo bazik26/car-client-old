@@ -178,30 +178,18 @@ const CatalogFilters = ({
 
       console.log('🔗 Updating URL with params:', urlParams)
 
-      // Устанавливаем флаг, что фильтры применяются вручную
+      // Устанавливаем флаг ДО обновления URL, чтобы useEffect не перезагрузил данные
       // Это предотвратит перезагрузку данных через useEffect в CatalogPage
       if (setFiltersAppliedManually) {
+        console.log('🚩 Setting filtersAppliedManually flag to true')
         setFiltersAppliedManually(true)
       }
 
-      // Обновляем URL
-      await router.push(
-        {
-          pathname: router.pathname,
-          query: {
-            ...router.query,
-            ...urlParams,
-          },
-        },
-        undefined,
-        { shallow: true }
-      )
-      
-      console.log('✅ URL updated, router.query after push:', router.query)
-      
-      // Делаем запросы сразу здесь, чтобы избежать проблем с асинхронным обновлением router.query
+      // Делаем запросы ПЕРЕД обновлением URL, чтобы данные были готовы сразу
       const priceStart = isPriceRangeChanged ? priceFrom : undefined
       const priceEnd = isPriceRangeChanged ? priceTo : undefined
+      
+      let filteredData: any = null
       
       if (boilers.length > 0) {
         console.log(`🚀 Making ${boilers.length} requests for brands:`, boilers)
@@ -224,36 +212,56 @@ const CatalogFilters = ({
         // Объединяем и удаляем дубликаты
         const combinedRows = allResults.flatMap(result => result.rows || [])
         const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
-        const data = {
+        filteredData = {
           count: uniqueRows.length,
           rows: uniqueRows
         }
         console.log('📊 Combined filtered data:', {
-          totalRows: data.rows.length,
+          totalRows: filteredData.rows.length,
           brands: boilers,
           sampleBrands: uniqueRows.slice(0, 5).map(r => r.boiler_manufacturer || r.brand)
         })
-        setFilteredBoilerParts(data)
-        setBoilerParts(data) // Также устанавливаем в boilerParts для использования в getCurrentPageItems
       } else if (isPriceRangeChanged) {
         // Только фильтр по цене
         console.log('💰 Filtering by price only:', { priceStart, priceEnd })
-        const data = await getFilteredCarsFx({
+        filteredData = await getFilteredCarsFx({
           priceStart,
           priceEnd,
           limit: 100,
           page: 1
         })
-        console.log('📊 Filtered data received:', data)
-        setFilteredBoilerParts(data)
-        setBoilerParts(data) // Также устанавливаем в boilerParts для использования в getCurrentPageItems
+        console.log('📊 Filtered data received:', filteredData)
       } else {
         // Нет фильтров - загружаем все
         console.log('📋 No filters selected, loading all cars...')
-        const data = await getBoilerPartsFx('/cars/search?limit=100')
-        console.log('📋 All cars result:', { count: data.count, rows: data.rows?.length })
-        setBoilerParts(data)
-        setFilteredBoilerParts({ count: 0, rows: [] })
+        filteredData = await getBoilerPartsFx('/cars/search?limit=100')
+        console.log('📋 All cars result:', { count: filteredData.count, rows: filteredData.rows?.length })
+      }
+
+      // Обновляем URL ПОСЛЕ загрузки данных
+      await router.push(
+        {
+          pathname: router.pathname,
+          query: {
+            ...router.query,
+            ...urlParams,
+          },
+        },
+        undefined,
+        { shallow: true }
+      )
+      
+      console.log('✅ URL updated, router.query after push:', router.query)
+      
+      // Устанавливаем данные ПОСЛЕ обновления URL
+      if (filteredData) {
+        if (boilers.length > 0 || isPriceRangeChanged) {
+          setFilteredBoilerParts(filteredData)
+          setBoilerParts(filteredData)
+        } else {
+          setBoilerParts(filteredData)
+          setFilteredBoilerParts({ count: 0, rows: [] })
+        }
       }
       
     } catch (error) {
