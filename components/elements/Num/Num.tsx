@@ -1,8 +1,8 @@
 const Num = () => {
     return (
-        <a href="tel:+79852634164">
+        <span>
             +7 (985) 263-41-64
-            </a>
+        </span>
     );
 };
 

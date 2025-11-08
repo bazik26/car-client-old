@@ -403,9 +403,9 @@ const DashboardPage = () => {
                   <a href="https://yandex.ru/maps/-/CLa~bVi2" target='_blank' className="contacts__item">
                     183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119
                   </a>
-                  <a href="mailto:auto-c-cars@yandex.ru" className="contacts__item">
+                  <span className="contacts__item">
                     auto-c-cars@yandex.ru
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>

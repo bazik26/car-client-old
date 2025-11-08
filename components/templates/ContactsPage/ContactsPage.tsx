@@ -99,7 +99,7 @@ const ContactsPage = ({ isWholesaleBuyersPage = false }) => {
                     <div className="contact-property__label font_13 color_999">E-mail</div>
                     <div className="">
                       <div className="contact-property__value" itemProp="email">
-                        <a href="mailto:auto-c-cars@yandex.ru">auto-c-cars@yandex.ru</a>
+                        <span>auto-c-cars@yandex.ru</span>
                       </div>
                     </div>
                   </div>
