@@ -4,8 +4,8 @@ import { Range, getTrackBackground } from 'react-range'
 import styles from '@/styles/catalog/index.module.scss'
 import { IPriceRangeProps } from '@/types/catalog'
 
-const STEP = 1000
-const MIN = 500000
+const STEP = 10000
+const MIN = 0
 const MAX = 10000000
 
 const PriceRange = ({
@@ -34,15 +34,15 @@ const PriceRange = ({
       <div className={`${styles.filters__price__inputs} ${darkModeClass}`}>
         <input
           type="text"
-          value={Math.ceil(safePriceRange[0])}
+          value={Math.ceil(safePriceRange[0]).toLocaleString('ru-RU')}
           placeholder="от 0"
           readOnly
         />
         <span className={styles.filters__price__inputs__border} />
         <input
           type="text"
-          value={Math.ceil(safePriceRange[1])}
-          placeholder="до 5 000 000"
+          value={Math.ceil(safePriceRange[1]).toLocaleString('ru-RU')}
+          placeholder="до 10 000 000"
           readOnly
         />
       </div>

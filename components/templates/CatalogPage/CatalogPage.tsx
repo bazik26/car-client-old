@@ -35,7 +35,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const filteredBoilerParts = useStore($filteredBoilerParts)
   const boilerParts = useStore($boilerParts)
   const [spinner, setSpinner] = useState(false)
-  const [priceRange, setPriceRange] = useState([1000, 9000])
+  const [priceRange, setPriceRange] = useState([500000, 10000000])
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
   const itemsPerPage = 20
   
@@ -55,10 +55,17 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       .map((item) => item.title)
   }, [boilerManufacturers])
 
+  // Вычисляем выбранные типы топлива из состояния
+  const selectedFuelTypes = useMemo(() => {
+    return partsManufacturers
+      .filter((item) => item.checked)
+      .map((item) => item.title)
+  }, [partsManufacturers])
+
   // Вычисляем есть ли активные фильтры
   const hasActiveFilters = useMemo(() => {
-    return selectedBrands.length > 0 || isPriceRangeChanged
-  }, [selectedBrands, isPriceRangeChanged])
+    return selectedBrands.length > 0 || selectedFuelTypes.length > 0 || isPriceRangeChanged
+  }, [selectedBrands, selectedFuelTypes, isPriceRangeChanged])
 
   // Используем правильные данные для подсчета страниц
   const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
@@ -112,6 +119,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               console.log(`📡 Requesting cars for brand: "${brand}"`)
               const result = await getFilteredCarsFx({
                 brand: brand,
+                fuel: selectedFuelTypes.length > 0 ? selectedFuelTypes : undefined,
                 priceStart,
                 priceEnd,
                 limit: 100,
@@ -124,15 +132,38 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           
           // Объединяем и удаляем дубликаты
           const combinedRows = allResults.flatMap(result => result.rows || [])
-          const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
+          
+          // Если выбраны типы топлива, фильтруем на клиенте
+          let filteredRows = combinedRows
+          if (selectedFuelTypes.length > 0) {
+            filteredRows = combinedRows.filter((item) => 
+              selectedFuelTypes.includes(item.fuel)
+            )
+          }
+          
+          const uniqueRows = Array.from(new Map(filteredRows.map(item => [item.id, item])).values())
           const result = {
             count: uniqueRows.length,
             rows: uniqueRows
           }
           console.log('📊 Combined filtered result:', {
             totalRows: result.rows.length,
-            brands: selectedBrands
+            brands: selectedBrands,
+            fuelTypes: selectedFuelTypes
           })
+          setFilteredBoilerParts(result)
+          setBoilerParts(result)
+        } else if (selectedFuelTypes.length > 0) {
+          // Только фильтр по типу топлива
+          console.log('⛽ Filtering by fuel type only:', selectedFuelTypes)
+          const result = await getFilteredCarsFx({
+            fuel: selectedFuelTypes,
+            priceStart,
+            priceEnd,
+            limit: 100,
+            page: 1
+          })
+          console.log('📊 Filtered result:', result)
           setFilteredBoilerParts(result)
           setBoilerParts(result)
         } else if (isPriceRangeChanged) {
@@ -164,7 +195,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     } finally {
       setSpinner(false)
     }
-  }, [selectedBrands, priceRange, isPriceRangeChanged, hasActiveFilters])
+  }, [selectedBrands, selectedFuelTypes, priceRange, isPriceRangeChanged, hasActiveFilters])
 
   // Автоматически загружаем данные при изменении фильтров с debounce
   const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -192,7 +223,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedBrands.length, selectedBrands.join(','), isPriceRangeChanged, priceRange[0], priceRange[1]])
+  }, [selectedBrands.length, selectedBrands.join(','), selectedFuelTypes.length, selectedFuelTypes.join(','), isPriceRangeChanged, priceRange[0], priceRange[1]])
 
   // Загружаем данные при первой загрузке страницы
   useEffect(() => {
@@ -229,7 +260,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       setPartsManufacturers(
         partsManufacturers.map((item) => ({ ...item, checked: false }))
       )
-      setPriceRange([1000, 9000])
+      setPriceRange([500000, 10000000])
       setIsPriceRangeChanged(false)
       
       // Загружаем все машины
@@ -274,7 +305,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           <AnimatePresence>
             {isAnyPartsManufacturerChecked && (
               <ManufacturersBlock
-                title="Страна"
+                title="Тип топлива"
                 event={updatePartsManufacturer}
                 manufacturersList={partsManufacturers}
               />
@@ -361,3 +392,4 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
 }
 
 export default CatalogPage
+

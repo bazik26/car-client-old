@@ -58,7 +58,7 @@ const CatalogFiltersMobile = ({
     )
 
   const applyFiltersAndClosePopup = () => {
-    applyFilters()
+    // Фильтры применяются автоматически, просто закрываем попап
     closePopup()
   }
 
@@ -100,10 +100,10 @@ const CatalogFiltersMobile = ({
             className={`${styles.filters__manufacturer__btn} ${darkModeClass}`}
             onClick={handleOpenParts}
           >
-            Страна
+            Тип топлива
           </button>
           <FiltersPopup
-            title="Страна"
+            title="Тип топлива"
             resetFilterBtnDisabled={!isAnyPartsManufacturerChecked}
             updateManufacturer={updatePartsManufacturer}
             setManufacturer={setPartsManufacturers}
@@ -132,22 +132,7 @@ const CatalogFiltersMobile = ({
           </Accordion>
         </div>
       </div>
-      <div className={styles.filters__actions}>
-        <button
-          className={styles.filters__actions__show}
-          onClick={applyFiltersAndClosePopup}
-          disabled={resetFilterBtnDisabled}
-        >
-          {spinner ? (
-            <span
-              className={spinnerStyles.spinner}
-              style={{ top: 6, left: '47%' }}
-            />
-          ) : (
-            'Показать'
-          )}
-        </button>
-      </div>
+      {/* Кнопка "Показать" убрана - фильтры применяются автоматически */}
     </div>
   )
 }
