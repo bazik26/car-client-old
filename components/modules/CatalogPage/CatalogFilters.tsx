@@ -1,25 +1,7 @@
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import CatalogFiltersDesktop from './CatalogFiltersDesktop'
 import { ICatalogFiltersProps } from '@/types/catalog'
-import { useCallback, useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import {
-  $boilerManufacturers,
-  $partsManufacturers,
-  setBoilerManufacturersFromQuery,
-  setPartsManufacturersFromQuery,
-} from '@/context/boilerParts'
-import { useStore } from 'effector-react'
-import { useRouter } from 'next/router'
-import { getQueryParamOnFirstRender } from '@/utils/common'
 import CatalogFiltersMobile from './CatalogFiltersMobile'
-import {
-  checkQueryParams,
-  updateParamsAndFilters,
-  updateParamsAndFiltersFromQuery,
-} from '@/utils/catalog'
-import { getFilteredCarsFx, getBoilerPartsFx } from '@/app/api/boilerParts'
-import { setFilteredBoilerParts, setBoilerParts } from '@/context/boilerParts'
 
 const CatalogFilters = ({
   priceRange,
@@ -32,284 +14,25 @@ const CatalogFilters = ({
   setIsFilterInQuery,
   closePopup,
   filtersMobileOpen,
-  setFiltersAppliedManually,
-  setLastAppliedFilters,
 }: ICatalogFiltersProps) => {
   const isMobile = useMediaQuery(820)
-  const [spinner, setSpinner] = useState(false)
-  const boilerManufacturers = useStore($boilerManufacturers)
-  const partsManufacturers = useStore($partsManufacturers)
-  const router = useRouter()
 
-  const updatePriceFromQuery = useCallback(
-    (priceFrom: number, priceTo: number) => {
-      setIsFilterInQuery(true)
-      setPriceRange([+priceFrom, +priceTo])
-      setIsPriceRangeChanged(true)
-    },
-    [setIsFilterInQuery, setPriceRange, setIsPriceRangeChanged]
-  )
-
-  const applyFiltersFromQuery = useCallback(async () => {
-    try {
-      const {
-        isValidBoilerQuery,
-        isValidPartsQuery,
-        isValidPriceQuery,
-        partsQueryValue,
-        priceFromQueryValue,
-        boilerQueryValue,
-        priceToQueryValue,
-      } = checkQueryParams(router)
-
-      const boilerQuery = `&boiler=${getQueryParamOnFirstRender(
-        'boiler',
-        router
-      )}`
-      const partsQuery = `&parts=${getQueryParamOnFirstRender('parts', router)}`
-      const priceQuery = `&priceFrom=${priceFromQueryValue}&priceTo=${priceToQueryValue}`
-
-      if (isValidBoilerQuery && isValidPartsQuery && isValidPriceQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          updatePriceFromQuery(+priceFromQueryValue, +priceToQueryValue)
-          setBoilerManufacturersFromQuery(boilerQueryValue)
-          setPartsManufacturersFromQuery(partsQueryValue)
-        }, `${currentPage}${priceQuery}${boilerQuery}${partsQuery}`)
-        return
-      }
-
-      if (isValidPriceQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          updatePriceFromQuery(+priceFromQueryValue, +priceToQueryValue)
-        }, `${currentPage}${priceQuery}`)
-      }
-
-      if (isValidBoilerQuery && isValidPartsQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          setIsFilterInQuery(true)
-          setBoilerManufacturersFromQuery(boilerQueryValue)
-          setPartsManufacturersFromQuery(partsQueryValue)
-        }, `${currentPage}${boilerQuery}${partsQuery}`)
-        return
-      }
-
-      if (isValidBoilerQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          setIsFilterInQuery(true)
-          setBoilerManufacturersFromQuery(boilerQueryValue)
-        }, `${currentPage}${boilerQuery}`)
-      }
-
-      if (isValidPartsQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          setIsFilterInQuery(true)
-          setPartsManufacturersFromQuery(partsQueryValue)
-        }, `${currentPage}${partsQuery}`)
-      }
-
-      if (isValidPartsQuery && isValidPriceQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          updatePriceFromQuery(+priceFromQueryValue, +priceToQueryValue)
-          setPartsManufacturersFromQuery(partsQueryValue)
-        }, `${currentPage}${priceQuery}${partsQuery}`)
-      }
-
-      if (isValidBoilerQuery && isValidPriceQuery) {
-        updateParamsAndFiltersFromQuery(() => {
-          updatePriceFromQuery(+priceFromQueryValue, +priceToQueryValue)
-          setBoilerManufacturersFromQuery(boilerQueryValue)
-        }, `${currentPage}${priceQuery}${boilerQuery}`)
-      }
-    } catch (error) {
-      const err = error as Error
-
-      if (err.message === 'URI malformed') {
-        toast.warning('Неправильный url для фильтров')
-        return
-      }
-
-      toast.error(err.message)
+  // Простая функция для применения фильтров - просто закрывает попап на мобильной версии
+  // Фильтры применяются автоматически через useEffect в CatalogPage при изменении состояния
+  const handleApplyFilters = () => {
+    if (isMobile) {
+      closePopup()
     }
-  }, [router, currentPage, updatePriceFromQuery, setIsFilterInQuery])
-
-  useEffect(() => {
-    applyFiltersFromQuery()
-  }, [applyFiltersFromQuery])
-
-  const applyFilters = useCallback(async () => {
-    setIsFilterInQuery(true)
-    try {
-      setSpinner(true)
-      const priceFrom = Math.ceil(priceRange[0])
-      const priceTo = Math.ceil(priceRange[1])
-      
-      const boilers = boilerManufacturers
-        .filter((item) => item.checked)
-        .map((item) => item.title)
-      const parts = partsManufacturers
-        .filter((item) => item.checked)
-        .map((item) => item.title)
-      
-      console.log('🎯 Applying filters - Selected brands:', boilers)
-      console.log('🎯 Price range changed:', isPriceRangeChanged, priceFrom, priceTo)
-      
-      // Обновляем URL параметры для совместимости
-      const encodedBoilerQuery = boilers.length > 0 ? encodeURIComponent(JSON.stringify(boilers)) : undefined
-      const encodedPartsQuery = parts.length > 0 ? encodeURIComponent(JSON.stringify(parts)) : undefined
-      
-      const urlParams: any = {
-        offset: 1,
-      }
-
-      // Добавляем бренды только если они выбраны
-      if (encodedBoilerQuery) {
-        urlParams.boiler = encodedBoilerQuery
-      }
-
-      // Добавляем части только если они выбраны
-      if (encodedPartsQuery) {
-        urlParams.parts = encodedPartsQuery
-      }
-
-      // Добавляем цену только если она изменена
-      if (isPriceRangeChanged) {
-        urlParams.priceFrom = priceFrom
-        urlParams.priceTo = priceTo
-      }
-
-      console.log('🔗 Updating URL with params:', urlParams)
-
-      // Устанавливаем флаг ДО обновления URL, чтобы useEffect не перезагрузил данные
-      // Это предотвратит перезагрузку данных через useEffect в CatalogPage
-      if (setFiltersAppliedManually) {
-        console.log('🚩 Setting filtersAppliedManually flag to true')
-        setFiltersAppliedManually(true)
-      }
-
-      // Делаем запросы ПЕРЕД обновлением URL, чтобы данные были готовы сразу
-      const priceStart = isPriceRangeChanged ? priceFrom : undefined
-      const priceEnd = isPriceRangeChanged ? priceTo : undefined
-      
-      let filteredData: any = null
-      
-      if (boilers.length > 0) {
-        console.log(`🚀 Making ${boilers.length} requests for brands:`, boilers)
-        
-        const allResults = await Promise.all(
-          boilers.map(async (brand) => {
-            console.log(`📡 Requesting cars for brand: "${brand}"`)
-            const result = await getFilteredCarsFx({
-              brand: brand,
-              priceStart,
-              priceEnd,
-              limit: 100,
-              page: 1
-            })
-            console.log(`✅ Got ${result.rows?.length || 0} cars for brand "${brand}"`)
-            return result
-          })
-        )
-        
-        // Объединяем и удаляем дубликаты
-        const combinedRows = allResults.flatMap(result => result.rows || [])
-        const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
-        filteredData = {
-          count: uniqueRows.length,
-          rows: uniqueRows
-        }
-        console.log('📊 Combined filtered data:', {
-          totalRows: filteredData.rows.length,
-          brands: boilers,
-          sampleBrands: uniqueRows.slice(0, 5).map(r => r.boiler_manufacturer || r.brand)
-        })
-      } else if (isPriceRangeChanged) {
-        // Только фильтр по цене
-        console.log('💰 Filtering by price only:', { priceStart, priceEnd })
-        filteredData = await getFilteredCarsFx({
-          priceStart,
-          priceEnd,
-          limit: 100,
-          page: 1
-        })
-        console.log('📊 Filtered data received:', filteredData)
-      } else {
-        // Нет фильтров - загружаем все
-        console.log('📋 No filters selected, loading all cars...')
-        filteredData = await getBoilerPartsFx('/cars/search?limit=100')
-        console.log('📋 All cars result:', { count: filteredData.count, rows: filteredData.rows?.length })
-      }
-
-      // Обновляем URL ПОСЛЕ загрузки данных
-      await router.push(
-        {
-          pathname: router.pathname,
-          query: {
-            ...router.query,
-            ...urlParams,
-          },
-        },
-        undefined,
-        { shallow: true }
-      )
-      
-      console.log('✅ URL updated, router.query after push:', router.query)
-      
-      // Устанавливаем данные ПОСЛЕ обновления URL
-      if (filteredData) {
-        if (boilers.length > 0 || isPriceRangeChanged) {
-          setFilteredBoilerParts(filteredData)
-          setBoilerParts(filteredData)
-        } else {
-          setBoilerParts(filteredData)
-          setFilteredBoilerParts({ count: 0, rows: [] })
-        }
-      }
-      
-      // Сохраняем информацию о примененных фильтрах для предотвращения повторной загрузки
-      // Используем те же значения, что были переданы в URL
-      const appliedFiltersKey = JSON.stringify({
-        boiler: urlParams.boiler || null,
-        priceFrom: urlParams.priceFrom || null,
-        priceTo: urlParams.priceTo || null
-      })
-      
-      if (setLastAppliedFilters) {
-        setLastAppliedFilters(appliedFiltersKey)
-        console.log('💾 Saved applied filters key:', appliedFiltersKey)
-      }
-      
-      // Сбрасываем флаг ПОСЛЕ установки данных, но только через большую задержку
-      // Это даст время всем useEffect'ам завершиться
-      setTimeout(() => {
-        if (setFiltersAppliedManually) {
-          console.log('🔄 Resetting filtersAppliedManually flag after data is set')
-          setFiltersAppliedManually(false)
-        }
-      }, 2000) // Увеличиваем задержку до 2 секунд для максимальной надежности
-      
-    } catch (error) {
-      console.error('❌ Error applying filters:', error)
-      toast.error('Ошибка при применении фильтров')
-    } finally {
-      setSpinner(false)
-    }
-  }, [
-    priceRange,
-    isPriceRangeChanged,
-    boilerManufacturers,
-    partsManufacturers,
-    currentPage,
-    router,
-    setIsFilterInQuery
-  ])
+    // На десктопе фильтры применяются автоматически при изменении
+  }
 
   return (
     <>
       {isMobile ? (
         <CatalogFiltersMobile
           closePopup={closePopup}
-          spinner={spinner}
-          applyFilters={applyFilters}
+          spinner={false}
+          applyFilters={handleApplyFilters}
           priceRange={priceRange}
           setIsPriceRangeChanged={setIsPriceRangeChanged}
           setPriceRange={setPriceRange}
@@ -323,9 +46,9 @@ const CatalogFilters = ({
           setPriceRange={setPriceRange}
           setIsPriceRangeChanged={setIsPriceRangeChanged}
           resetFilterBtnDisabled={resetFilterBtnDisabled}
-          spinner={spinner}
+          spinner={false}
           resetFilters={resetFilters}
-          applyFilters={applyFilters}
+          applyFilters={handleApplyFilters}
         />
       )}
     </>

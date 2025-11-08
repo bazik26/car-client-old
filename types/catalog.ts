@@ -55,8 +55,6 @@ export interface ICatalogFiltersProps
   setIsFilterInQuery: (arg0: boolean) => void
   closePopup: VoidFunction
   filtersMobileOpen: boolean
-  setFiltersAppliedManually?: (arg0: boolean) => void
-  setLastAppliedFilters?: (arg0: string) => void
 }
 
 export type IPriceRangeProps = ICatalogBaseTypes
