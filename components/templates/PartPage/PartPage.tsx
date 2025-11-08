@@ -47,19 +47,37 @@ const PartPage = () => {
   // const toggleToCart = () =>
   //   toggleCartItem(user.username, boilerPart.id, isInCart)
 
+  const images = boilerPart.images && boilerPart.images !== '[]' && boilerPart.images !== 'null'
+    ? JSON.parse(boilerPart.images)
+    : []
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://auto-c-cars.ru'
+  const productUrl = `${baseUrl}/catalog/${boilerPart.id}`
+
   return (
-      <section>
+      <section itemScope itemType="https://schema.org/Product" aria-labelledby="product-heading">
         <div className="container">
           <div className={`${styles.part__top} ${darkModeClass}`}>
-            <h2 className={`${styles.part__title} ${darkModeClass}`}>
+            <h2 id="product-heading" className={`${styles.part__title} ${darkModeClass}`} itemProp="name">
               {boilerPart.name}
             </h2>
             <div className={styles.part__inner}>
               <PartImagesList />
               <div className={styles.part__info}>
-                <span className={`${styles.part__info__price} ${darkModeClass}`}>
-                  {formatPrice(boilerPart.price || 0)} P
-                </span>
+                {!boilerPart.sale && (
+                  <span
+                    itemScope
+                    itemType="https://schema.org/Offer"
+                    className={`${styles.part__info__price} ${darkModeClass}`}
+                  >
+                    <meta itemProp="priceCurrency" content="RUB" />
+                    <meta itemProp="price" content={(boilerPart.price || 0).toString()} />
+                    <meta itemProp="availability" content={boilerPart.in_stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
+                    <meta itemProp="url" content={productUrl} />
+                    <span itemProp="price" content={(boilerPart.price || 0).toString()}>
+                      {formatPrice(boilerPart.price || 0)} ₽
+                    </span>
+                  </span>
+                )}
                 <span className={styles.part__info__stock}>
                   {boilerPart.sale ? (
                     <span className={styles.part__info__stock__sold}>
@@ -75,42 +93,50 @@ const PartPage = () => {
                 </span>
                 {boilerPart.Model !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Модель: </span>{boilerPart.Model}
+                    <span>Модель: </span>
+                    <span itemProp="model">{boilerPart.Model}</span>
                   </h4>
                 )}
                 {boilerPart.Year !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Год: </span>{boilerPart.Year}
+                    <span>Год: </span>
+                    <span itemProp="productionDate">{boilerPart.Year}</span>
                   </h4>
                 )}
                 {boilerPart.Mileage !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Пробег: </span>{boilerPart.Mileage}
+                    <span>Пробег: </span>
+                    <span itemProp="mileageFromOdometer">{boilerPart.Mileage}</span>
                   </h4>
                 )}
                 {boilerPart.Engine !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Двигатель: </span>{boilerPart.Engine}
+                    <span>Двигатель: </span>
+                    <span itemProp="vehicleEngine">{boilerPart.Engine}</span>
                   </h4>
                 )}
-                {boilerPart.Engine !== null && (
+                {boilerPart.fuel && (
                   <h4 className={styles.part__info__text}>
-                    <span>Топливо: </span>{boilerPart.fuel}
+                    <span>Топливо: </span>
+                    <span itemProp="fuelType">{boilerPart.fuel}</span>
                   </h4>
                 )}
                 {boilerPart.gearbox && (
                   <h4 className={styles.part__info__text}>
-                    <span>КПП: </span>{boilerPart.gearbox}
+                    <span>КПП: </span>
+                    <span itemProp="vehicleTransmission">{boilerPart.gearbox}</span>
                   </h4>
                 )}
                 {boilerPart.drive && (
                   <h4 className={styles.part__info__text}>
-                    <span>Привод: </span>{boilerPart.drive}
+                    <span>Привод: </span>
+                    <span itemProp="driveWheelConfiguration">{boilerPart.drive}</span>
                   </h4>
                 )}
                 {boilerPart.powerValue && (
                   <h4 className={styles.part__info__text}>
-                    <span>Мощность: </span>{boilerPart.powerValue} {boilerPart.powerType}
+                    <span>Мощность: </span>
+                    <span itemProp="vehicleEngine">{boilerPart.powerValue} {boilerPart.powerType}</span>
                   </h4>
                 )}
                 {(boilerPart.vin || boilerPart.vendor_code) && boilerPart.vendor_code !== '???' && (
@@ -148,6 +174,7 @@ const PartPage = () => {
                   >
                     <p
                       className={`${styles.part__tabs__content__text} ${darkModeClass}`}
+                      itemProp="description"
                     >
                       {boilerPart.description}
                     </p>
@@ -167,6 +194,18 @@ const PartPage = () => {
             />
           </div>
         </div>
+        {/* Hidden structured data for SEO */}
+        <meta itemProp="brand" content={boilerPart.brand || boilerPart.boiler_manufacturer} />
+        {images.length > 0 && (
+          <link itemProp="image" href={images[0]} />
+        )}
+        {boilerPart.description && (
+          <meta itemProp="description" content={boilerPart.description} />
+        )}
+        <meta itemProp="sku" content={boilerPart.id.toString()} />
+        {boilerPart.vin && (
+          <meta itemProp="vehicleIdentificationNumber" content={boilerPart.vin} />
+        )}
       </section>
   )
 }

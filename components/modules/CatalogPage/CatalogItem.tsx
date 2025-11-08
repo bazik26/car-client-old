@@ -23,91 +23,111 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
 
   // const toggleToCart = () => toggleCartItem(user.username, item.id, isInCart)
 
+  const images = item.images && item.images !== '[]' && item.images !== 'null'
+    ? JSON.parse(item.images)
+    : []
+  const mainImage = images[0] || undefined
+  const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://auto-c-cars.ru'
+  const productUrl = `${baseUrl}/catalog/${item.id}`
+
   return (
-    <Link href={`/catalog/${item.id}`} target="_blank" passHref legacyBehavior>
-      <a
-        target="_blank"
-        className={`${styles.catalog__list__item} ${darkModeClass}`}
-      >
-        <div className={styles.catalog__list__item__imghold}>
-          <CarImage
-            src={
-              item.images && item.images !== '[]' && item.images !== 'null'
-                ? JSON.parse(item.images)[0]
-                : undefined
-            }
-            alt={item.name}
-            className={styles.catalog__list__item__img}
-          />
-        </div>
-        <div className={styles.catalog__list__item__inner}>
-          <h3 className={styles.catalog__list__item__title}>{item.name}</h3>
-
-          {/* Основная информация */}
-          <div className={styles.catalog__list__item__main_info}>
-            {(item.year || item.Year) && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>Год: </span>
-                {item.year || item.Year}
-              </h4>
-            )}
-            {(item.mileage || item.Mileage) && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>Пробег: </span>
-                {(item.mileage || item.Mileage).toLocaleString()} км
-              </h4>
-            )}
-            {item.Engine && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>Двигатель: </span>
-                {item.Engine} л
-              </h4>
-            )}
-            {item.fuel && (
-              <h4 className={styles.catalog__list__item__info}>
-                <span>Топливо: </span>
-                {item.fuel}
-              </h4>
-            )}
+    <article
+      itemScope
+      itemType="https://schema.org/Product"
+      className={`${styles.catalog__list__item} ${darkModeClass}`}
+    >
+      <Link href={`/catalog/${item.id}`} target="_blank" passHref legacyBehavior>
+        <a
+          target="_blank"
+          className={styles.catalog__list__item__link}
+          itemProp="url"
+        >
+          <div className={styles.catalog__list__item__imghold}>
+            <CarImage
+              src={mainImage}
+              alt={item.name}
+              className={styles.catalog__list__item__img}
+              itemProp="image"
+              loading="lazy"
+            />
           </div>
+          <div className={styles.catalog__list__item__inner}>
+            <h3 className={styles.catalog__list__item__title} itemProp="name">
+              {item.name}
+            </h3>
 
-          {/* Статус и цена */}
-          <div className={styles.catalog__list__item__footer}>
-            <span className={styles.catalog__list__item__stock}>
-              {item.sale ? (
-                <span className={styles.catalog__list__item__stock__sold}>
-                  ПРОДАНО
-                </span>
-              ) : item.in_stock > 0 ? (
-                <span className={styles.catalog__list__item__stock__success}>
-                  В наличии
-                </span>
-              ) : (
-                <span className={styles.catalog__list__item__stock__not}>
-                  Нет в наличии
+            {/* Основная информация */}
+            <div className={styles.catalog__list__item__main_info}>
+              {(item.year || item.Year) && (
+                <h4 className={styles.catalog__list__item__info}>
+                  <span>Год: </span>
+                  <span itemProp="productionDate">{item.year || item.Year}</span>
+                </h4>
+              )}
+              {(item.mileage || item.Mileage) && (
+                <h4 className={styles.catalog__list__item__info}>
+                  <span>Пробег: </span>
+                  <span itemProp="mileageFromOdometer">
+                    {(item.mileage || item.Mileage).toLocaleString()} км
+                  </span>
+                </h4>
+              )}
+              {item.Engine && (
+                <h4 className={styles.catalog__list__item__info}>
+                  <span>Двигатель: </span>
+                  <span itemProp="vehicleEngine">{item.Engine} л</span>
+                </h4>
+              )}
+              {item.fuel && (
+                <h4 className={styles.catalog__list__item__info}>
+                  <span>Топливо: </span>
+                  <span itemProp="fuelType">{item.fuel}</span>
+                </h4>
+              )}
+            </div>
+
+            {/* Статус и цена */}
+            <div className={styles.catalog__list__item__footer}>
+              <span className={styles.catalog__list__item__stock}>
+                {item.sale ? (
+                  <span className={styles.catalog__list__item__stock__sold}>
+                    ПРОДАНО
+                  </span>
+                ) : item.in_stock > 0 ? (
+                  <span className={styles.catalog__list__item__stock__success}>
+                    В наличии
+                  </span>
+                ) : (
+                  <span className={styles.catalog__list__item__stock__not}>
+                    Нет в наличии
+                  </span>
+                )}
+              </span>
+              {!item.sale && (
+                <span
+                  itemScope
+                  itemType="https://schema.org/Offer"
+                  className={styles.catalog__list__item__price}
+                >
+                  <meta itemProp="priceCurrency" content="RUB" />
+                  <meta itemProp="price" content={item.price.toString()} />
+                  <meta itemProp="availability" content={item.in_stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
+                  <span itemProp="price" content={item.price.toString()}>
+                    {formatPrice(item.price)} ₽
+                  </span>
                 </span>
               )}
-            </span>
-            <span className={styles.catalog__list__item__price}>
-              {formatPrice(item.price)} ₽
-            </span>
+            </div>
           </div>
-        </div>
-        {/* <button
-          className={`${styles.catalog__list__item__cart} ${
-            isInCart ? styles.added : ''
-          }`}
-          disabled={spinner}
-          onClick={toggleToCart}
-        >
-          {spinner ? (
-            <div className={spinnerStyles.spinner} style={{ top: 6, left: 6 }} />
-          ) : (
-            <span>{isInCart ? <CartHoverCheckedSvg /> : <CartHoverSvg />}</span>
-          )}
-        </button> */}
-      </a>
-    </Link>
+        </a>
+      </Link>
+      {/* Hidden structured data */}
+      <meta itemProp="brand" content={item.brand || item.boiler_manufacturer} />
+      <meta itemProp="model" content={item.model || item.Model} />
+      {item.description && (
+        <meta itemProp="description" content={item.description} />
+      )}
+    </article>
   )
 }
 

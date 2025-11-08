@@ -312,10 +312,10 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   }
 
   return (
-    <section className={styles.catalog}>
+    <section className={styles.catalog} aria-labelledby="catalog-heading">
       <div className={`container ${styles.catalog__container}`}>
-        <h2 className={`${styles.catalog__title} ${darkModeClass}`}>
-          Витрина автомобилей
+        <h2 id="catalog-heading" className={`${styles.catalog__title} ${darkModeClass}`}>
+          Каталог автомобилей из Канады
         </h2>
         <div className={`${styles.catalog__top} ${darkModeClass}`}>
           <AnimatePresence>
