@@ -41,6 +41,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const [isFilterInQuery, setIsFilterInQuery] = useState(false)
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
   const filtersAppliedManuallyRef = useRef(false)
+  const lastAppliedFiltersRef = useRef<string>('') // Храним последние примененные фильтры
   const itemsPerPage = 20
   
   // Используем правильные данные для подсчета страниц
@@ -101,6 +102,24 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   }, [])
 
   const loadBoilerParts = useCallback(async () => {
+    // Если фильтры были применены вручную, НЕ загружаем данные
+    // Это критически важно для предотвращения перезаписи отфильтрованных данных
+    if (filtersAppliedManuallyRef.current) {
+      console.log('⛔ loadBoilerParts BLOCKED - filters were applied manually')
+      return
+    }
+
+    // Проверяем, не совпадают ли текущие фильтры в URL с последними примененными
+    const currentFilters = JSON.stringify({
+      boiler: router.query.boiler,
+      priceFrom: router.query.priceFrom,
+      priceTo: router.query.priceTo
+    })
+    if (lastAppliedFiltersRef.current === currentFilters && filteredBoilerParts?.rows?.length > 0) {
+      console.log('⛔ loadBoilerParts BLOCKED - filters match last applied filters and data exists')
+      return
+    }
+
     setSpinner(true)
 
     try {
@@ -244,13 +263,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     // Если фильтры были применены вручную через applyFilters, не перезагружаем данные
     // Это предотвращает перезапись отфильтрованных данных всеми машинами
     if (filtersAppliedManuallyRef.current) {
-      console.log('⏸️ Filters were applied manually, skipping loadBoilerParts')
-      // Сбрасываем флаг через задержку, чтобы useEffect не сработал повторно
-      // Используем большую задержку, чтобы убедиться что все обновления URL завершены
-      setTimeout(() => {
-        filtersAppliedManuallyRef.current = false
-        console.log('🔄 Flag reset, loadBoilerParts can now be called')
-      }, 500)
+      console.log('⏸️ useEffect: Filters were applied manually, skipping loadBoilerParts')
+      // НЕ сбрасываем флаг здесь - он будет сброшен в applyFilters после установки данных
       return
     }
     
@@ -298,8 +312,9 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     try {
       setSpinner(true)
       console.log('🔄 Resetting filters...')
-      // Сбрасываем флаг, чтобы loadBoilerParts мог перезагрузить данные
+      // Сбрасываем флаги, чтобы loadBoilerParts мог перезагрузить данные
       filtersAppliedManuallyRef.current = false
+      lastAppliedFiltersRef.current = ''
       const data = await getBoilerPartsFx('/cars/search?limit=100')
       console.log('📊 Reset data received:', data)
       router.push(
@@ -389,6 +404,9 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               filtersMobileOpen={open}
               setFiltersAppliedManually={(value: boolean) => {
                 filtersAppliedManuallyRef.current = value
+              }}
+              setLastAppliedFilters={(value: string) => {
+                lastAppliedFiltersRef.current = value
               }}
             />
             {spinner ? (

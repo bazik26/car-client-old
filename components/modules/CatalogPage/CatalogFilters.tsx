@@ -33,6 +33,7 @@ const CatalogFilters = ({
   closePopup,
   filtersMobileOpen,
   setFiltersAppliedManually,
+  setLastAppliedFilters,
 }: ICatalogFiltersProps) => {
   const isMobile = useMediaQuery(820)
   const [spinner, setSpinner] = useState(false)
@@ -263,6 +264,28 @@ const CatalogFilters = ({
           setFilteredBoilerParts({ count: 0, rows: [] })
         }
       }
+      
+      // Сохраняем информацию о примененных фильтрах для предотвращения повторной загрузки
+      // Используем те же значения, что были переданы в URL
+      const appliedFiltersKey = JSON.stringify({
+        boiler: urlParams.boiler || null,
+        priceFrom: urlParams.priceFrom || null,
+        priceTo: urlParams.priceTo || null
+      })
+      
+      if (setLastAppliedFilters) {
+        setLastAppliedFilters(appliedFiltersKey)
+        console.log('💾 Saved applied filters key:', appliedFiltersKey)
+      }
+      
+      // Сбрасываем флаг ПОСЛЕ установки данных, но только через большую задержку
+      // Это даст время всем useEffect'ам завершиться
+      setTimeout(() => {
+        if (setFiltersAppliedManually) {
+          console.log('🔄 Resetting filtersAppliedManually flag after data is set')
+          setFiltersAppliedManually(false)
+        }
+      }, 2000) // Увеличиваем задержку до 2 секунд для максимальной надежности
       
     } catch (error) {
       console.error('❌ Error applying filters:', error)
