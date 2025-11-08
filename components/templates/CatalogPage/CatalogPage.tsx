@@ -40,6 +40,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const [priceRange, setPriceRange] = useState([1000, 9000])
   const [isFilterInQuery, setIsFilterInQuery] = useState(false)
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
+  const [filtersAppliedManually, setFiltersAppliedManually] = useState(false)
   const itemsPerPage = 20
   
   // Используем правильные данные для подсчета страниц
@@ -240,6 +241,14 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       return
     }
     
+    // Если фильтры были применены вручную через applyFilters, не перезагружаем данные
+    // Это предотвращает перезапись отфильтрованных данных всеми машинами
+    if (filtersAppliedManually) {
+      console.log('⏸️ Filters were applied manually, skipping loadBoilerParts')
+      setFiltersAppliedManually(false) // Сбрасываем флаг после использования
+      return
+    }
+    
     console.log('🔄 useEffect triggered, loading boiler parts...')
     loadBoilerParts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -250,6 +259,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     router.query.priceFrom,
     router.query.priceTo,
     router.isReady,
+    filtersAppliedManually,
   ])
 
   const handlePageChange = async ({ selected }: { selected: number }) => {
@@ -284,6 +294,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     try {
       setSpinner(true)
       console.log('🔄 Resetting filters...')
+      // Сбрасываем флаг, чтобы loadBoilerParts мог перезагрузить данные
+      setFiltersAppliedManually(false)
       const data = await getBoilerPartsFx('/cars/search?limit=100')
       console.log('📊 Reset data received:', data)
       router.push(
@@ -371,6 +383,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               setIsFilterInQuery={setIsFilterInQuery}
               closePopup={closePopup}
               filtersMobileOpen={open}
+              setFiltersAppliedManually={setFiltersAppliedManually}
             />
             {spinner ? (
               <ul className={skeletonStyles.skeleton}>

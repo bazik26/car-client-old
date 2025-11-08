@@ -32,6 +32,7 @@ const CatalogFilters = ({
   setIsFilterInQuery,
   closePopup,
   filtersMobileOpen,
+  setFiltersAppliedManually,
 }: ICatalogFiltersProps) => {
   const isMobile = useMediaQuery(820)
   const [spinner, setSpinner] = useState(false)
@@ -176,6 +177,12 @@ const CatalogFilters = ({
       }
 
       console.log('🔗 Updating URL with params:', urlParams)
+
+      // Устанавливаем флаг, что фильтры применяются вручную
+      // Это предотвратит перезагрузку данных через useEffect в CatalogPage
+      if (setFiltersAppliedManually) {
+        setFiltersAppliedManually(true)
+      }
 
       // Обновляем URL
       await router.push(
