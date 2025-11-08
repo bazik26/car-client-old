@@ -148,19 +148,26 @@ const CatalogFilters = ({
         .filter((item) => item.checked)
         .map((item) => item.title)
       
+      console.log('🎯 Applying filters - Selected brands:', boilers)
+      console.log('🎯 Price range changed:', isPriceRangeChanged, priceFrom, priceTo)
+      
       // Обновляем URL параметры для совместимости
       const encodedBoilerQuery = encodeURIComponent(JSON.stringify(boilers))
       const encodedPartsQuery = encodeURIComponent(JSON.stringify(parts))
       
-      const urlParams = {
+      const urlParams: any = {
         boiler: encodedBoilerQuery,
         parts: encodedPartsQuery,
-        priceFrom: isPriceRangeChanged ? priceFrom : undefined,
-        priceTo: isPriceRangeChanged ? priceTo : undefined,
         offset: 1,
       }
 
-      // Обновляем URL
+      // Добавляем цену только если она изменена
+      if (isPriceRangeChanged) {
+        urlParams.priceFrom = priceFrom
+        urlParams.priceTo = priceTo
+      }
+
+      // Обновляем URL - это вызовет useEffect в CatalogPage который загрузит данные
       router.push(
         {
           query: {
@@ -171,52 +178,15 @@ const CatalogFilters = ({
         undefined,
         { shallow: true }
       )
-
-      // Если выбрано несколько брендов, делаем несколько запросов
-      if (boilers.length > 0) {
-        const allResults = await Promise.all(
-          boilers.map(brand => 
-            getFilteredCarsFx({
-              brand: brand, // Отправляем по одному бренду
-              priceStart: isPriceRangeChanged ? priceFrom : undefined,
-              priceEnd: isPriceRangeChanged ? priceTo : undefined,
-              limit: 100,
-              page: 1
-            })
-          )
-        )
-        
-        // Объединяем результаты
-        const combinedRows = allResults.flatMap(result => result.rows || [])
-        const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
-        const data = {
-          count: uniqueRows.length,
-          rows: uniqueRows
-        }
-        console.log('📊 Combined filtered data:', data)
-        console.log('🖼️ First item images:', data.rows[0]?.images)
-        console.log('🖼️ First item name:', data.rows[0]?.name)
-        setFilteredBoilerParts(data)
-      } else {
-        // Если бренды не выбраны, фильтруем только по цене
-        const searchParams: any = {
-          limit: 100,
-          page: 1
-        }
-        if (isPriceRangeChanged) {
-          searchParams.priceStart = priceFrom
-          searchParams.priceEnd = priceTo
-        }
-        const data = await getFilteredCarsFx(searchParams)
-        console.log('📊 Filtered data received:', data)
-        setFilteredBoilerParts(data)
-      }
+      
+      // Не делаем запросы здесь - пусть loadBoilerParts в CatalogPage это сделает
+      // Это избежит дублирования запросов
       
     } catch (error) {
       console.error('Error applying filters:', error)
       toast.error('Ошибка при применении фильтров')
     } finally {
-      setSpinner(false)
+      setTimeout(() => setSpinner(false), 500) // Даем время для loadBoilerParts
     }
   }, [
     priceRange,

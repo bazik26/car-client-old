@@ -106,27 +106,34 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
       const offset = isValidOffset ? +query.offset - 1 : 0
       
       // Проверяем есть ли фильтры в URL
-      const hasFilters = router.query.boiler || router.query.parts || router.query.priceFrom || router.query.priceTo
+      let boilerArray: string[] = []
+      const priceStart = router.query.priceFrom ? Number(router.query.priceFrom) : undefined
+      const priceEnd = router.query.priceTo ? Number(router.query.priceTo) : undefined
+
+      // Парсим выбранные бренды
+      if (router.query.boiler) {
+        try {
+          const decodedBoiler = decodeURIComponent(String(router.query.boiler))
+          // Проверяем что это не пустая строка и не "undefined"
+          if (decodedBoiler && decodedBoiler !== 'undefined' && decodedBoiler !== 'null') {
+            boilerArray = JSON.parse(decodedBoiler)
+            console.log('🏷️ Filtering by brands:', boilerArray)
+          }
+        } catch (e) {
+          console.error('Error parsing boiler filter:', e)
+        }
+      }
+
+      // Определяем есть ли реальные фильтры (не пустые значения)
+      const hasRealBrandFilter = boilerArray.length > 0
+      const hasPriceFilter = priceStart || priceEnd
+      const hasAnyFilter = hasRealBrandFilter || hasPriceFilter
       
-      if (hasFilters) {
+      if (hasAnyFilter) {
         console.log('🔍 Found filters in URL, applying them...')
         
-        let boilerArray: string[] = []
-        const priceStart = router.query.priceFrom ? Number(router.query.priceFrom) : undefined
-        const priceEnd = router.query.priceTo ? Number(router.query.priceTo) : undefined
-
-        // Парсим выбранные бренды
-        if (router.query.boiler) {
-          try {
-            boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
-            console.log('🏷️ Filtering by brands:', boilerArray)
-          } catch (e) {
-            console.error('Error parsing boiler filter:', e)
-          }
-        }
-
         // Если выбраны бренды, делаем несколько запросов
-        if (boilerArray.length > 0) {
+        if (hasRealBrandFilter) {
           const allResults = await Promise.all(
             boilerArray.map(brand => 
               getFilteredCarsFx({
@@ -149,7 +156,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           console.log('📊 Combined filtered result:', result)
           setFilteredBoilerParts(result)
           setBoilerParts(result)
-        } else if (priceStart || priceEnd) {
+        } else if (hasPriceFilter) {
           // Только фильтр по цене
           const result = await getFilteredCarsFx({
             priceStart,
@@ -163,18 +170,13 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         }
         
         // Обновляем состояние фильтров в UI
-        if (router.query.boiler) {
-          try {
-            const boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
-            setBoilerManufacturers(
-              boilerManufacturers.map(item => ({
-                ...item,
-                checked: boilerArray.includes(item.title)
-              }))
-            )
-          } catch (e) {
-            console.error('Error updating boiler manufacturers:', e)
-          }
+        if (hasRealBrandFilter) {
+          setBoilerManufacturers(
+            boilerManufacturers.map(item => ({
+              ...item,
+              checked: boilerArray.includes(item.title)
+            }))
+          )
         }
         
         if (router.query.priceFrom && router.query.priceTo) {
@@ -183,12 +185,14 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         }
         
         setIsFilterInQuery(true)
-      } else if (!isFilterInQuery) {
-        // Загружаем все автомобили только если нет активных фильтров
+      } else {
+        // Загружаем все автомобили только если НЕТ фильтров в URL
+        console.log('📋 No filters in URL, loading all cars...')
         const result = await getBoilerPartsFx('/cars/search?limit=100')
         console.log('📋 All cars result:', result)
         setBoilerParts(result)
         setFilteredBoilerParts({ count: 0, rows: [] }) // Очищаем фильтры
+        setIsFilterInQuery(false)
       }
 
       setCurrentPage(offset)
@@ -197,7 +201,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     } finally {
       setSpinner(false)
     }
-  }, [router, query.offset, isValidOffset, isFilterInQuery])
+  }, [router, query.offset, isValidOffset, boilerManufacturers])
 
   useEffect(() => {
     loadBoilerParts()
