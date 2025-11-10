@@ -23,7 +23,7 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
     }
     // Если path существует, но это относительный путь, добавляем baseUrl
     if (file.path) {
-      // Убираем 'images/' из начала пути, так как ServeStaticModule раздаёт файлы из /images по корню
+     // Убираем 'images/' из начала пути, так как ServeStaticModule раздаёт файлы из /images по корню
       let cleanPath = file.path
       if (cleanPath.startsWith('images/')) {
         cleanPath = cleanPath.replace('images/', '')
