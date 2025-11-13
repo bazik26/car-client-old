@@ -1,45 +1,115 @@
 /* eslint-disable @next/next/no-img-element */
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { useCallback, useState } from 'react'
+import classNames from 'classnames'
 import styles from '@/styles/part/index.module.scss'
 
-const PartSlider = ({ images }: { images: string[] }) => {
-  const isMobile700 = useMediaQuery(700)
-  const isMobile530 = useMediaQuery(530)
-  const sliderImages = images.length > 0 ? images : ['']
+interface PartSliderProps {
+  images: string[]
+  currentIndex: number
+  onChange: (index: number) => void
+}
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    variableWidth: true,
-    autoplay: true,
-    speed: 500,
-    arrows: false,
-    slidesToScroll: 1,
+const PartSlider = ({ images, currentIndex, onChange }: PartSliderProps) => {
+  const [touchStartX, setTouchStartX] = useState<number | null>(null)
+  const [touchEndX, setTouchEndX] = useState<number | null>(null)
+
+  const fallbackImages = images.length > 0 ? images : ['/img/logo.png']
+
+  const prev = useCallback(() => {
+    const newIndex =
+      currentIndex === 0 ? fallbackImages.length - 1 : (currentIndex - 1) % fallbackImages.length
+    onChange(newIndex)
+  }, [currentIndex, fallbackImages.length, onChange])
+
+  const next = useCallback(() => {
+    const newIndex = (currentIndex + 1) % fallbackImages.length
+    onChange(newIndex)
+  }, [currentIndex, fallbackImages.length, onChange])
+
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    setTouchStartX(event.touches[0].clientX)
+  }
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    setTouchEndX(event.touches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    if (touchStartX !== null && touchEndX !== null) {
+      const delta = touchStartX - touchEndX
+      if (Math.abs(delta) > 50) {
+        if (delta > 0) {
+          next()
+        } else {
+          prev()
+        }
+      }
+    }
+    setTouchStartX(null)
+    setTouchEndX(null)
   }
 
   return (
-    <Slider {...settings} className={styles.part__slider}>
-      {sliderImages.map((src, i) => (
+    <div
+      className={styles.part__slider}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <button
+        type="button"
+        aria-label="Предыдущее фото"
+        className={classNames(styles.part__slider__nav, styles.part__slider__nav_prev)}
+        onClick={prev}
+      >
+        ‹
+      </button>
+
+      <div className={styles.part__slider__viewport}>
         <div
-          className={styles.part__slide}
-          key={i}
-          style={{ width: isMobile530 ? 228 : isMobile700 ? 350 : 593 }}
+          className={styles.part__slider__track}
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          <img
-            src={src || '/img/logo.png'}
-            alt={`image-${i + 1}`}
-            className={styles.part__slide__img}
-            loading="lazy"
-            onError={(event) => {
-              event.currentTarget.src = '/img/logo.png'
-            }}
-          />
+          {fallbackImages.map((src, index) => (
+            <div className={styles.part__slider__item} key={`${src}-${index}`}>
+              <img
+                src={src || '/img/logo.png'}
+                alt={`image-${index + 1}`}
+                loading="lazy"
+                onError={(event) => {
+                  event.currentTarget.src = '/img/logo.png'
+                }}
+              />
+            </div>
+          ))}
         </div>
-      ))}
-    </Slider>
+      </div>
+
+      <button
+        type="button"
+        aria-label="Следующее фото"
+        className={classNames(styles.part__slider__nav, styles.part__slider__nav_next)}
+        onClick={next}
+      >
+        ›
+      </button>
+
+      {fallbackImages.length > 1 && (
+        <div className={styles.part__slider__dots}>
+          {fallbackImages.map((_, index) => (
+            <button
+              type="button"
+              key={index}
+              className={classNames(styles.part__slider__dot, {
+                [styles.part__slider__dot_active]: index === currentIndex,
+              })}
+              onClick={() => onChange(index)}
+              aria-label={`Перейти к фото ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useStore } from 'effector-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { $boilerPart } from '@/context/boilerPart'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PartImagesItem from './PartImagesItem'
@@ -12,23 +12,26 @@ import { normalizeImages } from '@/utils/common'
 const PartImagesList = () => {
   const boilerPart = useStore($boilerPart)
   const isMobile = useMediaQuery(850)
-  const images = normalizeImages(boilerPart.images)
+  const images = useMemo(() => normalizeImages(boilerPart.images), [boilerPart.images])
   const displayName = boilerPart.name || (typeof boilerPart.title === 'string' ? boilerPart.title : 'Автомобиль')
-  const [currentImgSrc, setCurrentImgSrc] = useState(images[0] ?? '')
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
-    setCurrentImgSrc(images[0] ?? '')
+    setCurrentIndex(0)
   }, [images])
+
+  const currentImage = images[currentIndex] ?? '/img/logo.png'
 
   return (
     <div className={styles.part__images}>
       {isMobile ? (
-        <PartSlider images={images} />
+        <PartSlider images={images} currentIndex={currentIndex} onChange={setCurrentIndex} />
       ) : (
         <>
           <div className={styles.part__images__main}>
             <CarImage 
-              src={currentImgSrc || images[0]} 
+              key={currentImage}
+              src={currentImage} 
               alt={displayName}
               className={styles.part__images__main__img}
             />
@@ -36,10 +39,12 @@ const PartImagesList = () => {
           <ul className={styles.part__images__list}>
             {images.map((item, i) => (
               <PartImagesItem
-                key={i}
+                key={`${item}-${i}`}
                 alt={`image-${i + 1}`}
-                callback={setCurrentImgSrc}
                 src={item}
+                index={i}
+                isActive={i === currentIndex}
+                onSelect={setCurrentIndex}
               />
             ))}
           </ul>
