@@ -13,6 +13,7 @@ const PartImagesList = () => {
   const boilerPart = useStore($boilerPart)
   const isMobile = useMediaQuery(850)
   const images = normalizeImages(boilerPart.images)
+  const displayName = boilerPart.name || (typeof boilerPart.title === 'string' ? boilerPart.title : 'Автомобиль')
   const [currentImgSrc, setCurrentImgSrc] = useState(images[0] ?? '')
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const PartImagesList = () => {
           <div className={styles.part__images__main}>
             <CarImage 
               src={currentImgSrc || images[0]} 
-              alt={boilerPart.name}
+              alt={displayName}
               className={styles.part__images__main__img}
             />
           </div>

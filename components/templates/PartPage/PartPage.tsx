@@ -49,7 +49,8 @@ const PartPage = () => {
 
   const images = normalizeImages(boilerPart.images)
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://auto-c-cars.ru'
-  const productUrl = `${baseUrl}/catalog/${boilerPart.id}`
+  const carId = typeof boilerPart.id === 'number' ? boilerPart.id : 0
+  const productUrl = `${baseUrl}/catalog/${carId}`
   const displayName = boilerPart.name || (typeof boilerPart.title === 'string' ? boilerPart.title : 'Автомобиль')
   const priceValue = safeNumber(boilerPart.price)
 
@@ -202,7 +203,7 @@ const PartPage = () => {
         {boilerPart.description && (
           <meta itemProp="description" content={boilerPart.description} />
         )}
-        <meta itemProp="sku" content={boilerPart.id.toString()} />
+        <meta itemProp="sku" content={carId ? carId.toString() : undefined} />
         {boilerPart.vin && (
           <meta itemProp="vehicleIdentificationNumber" content={boilerPart.vin} />
         )}
