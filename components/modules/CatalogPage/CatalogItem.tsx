@@ -3,7 +3,7 @@ import { useStore } from 'effector-react'
 import Link from 'next/link'
 import { $mode } from '@/context/mode'
 import { IBoilerPart } from '@/types/boilerparts'
-import { formatPrice } from '@/utils/common'
+import { formatPrice, normalizeImages, safeNumber } from '@/utils/common'
 import styles from '@/styles/catalog/index.module.scss'
 import CarImage from '@/components/elements/CarImage/CarImage'
 
@@ -15,20 +15,24 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
   // const spinner = useStore(removeFromCartFx.pending)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
-  // Debug: проверим, какие данные приходят
-  console.log('CatalogItem data:', item)
-  console.log('Item year:', item.year, 'Item Year:', item.Year)
-  console.log('Item mileage:', item.mileage, 'Item Mileage:', item.Mileage)
-  console.log('Item description:', item.description)
-
   // const toggleToCart = () => toggleCartItem(user.username, item.id, isInCart)
 
-  const images = item.images && item.images !== '[]' && item.images !== 'null'
-    ? JSON.parse(item.images)
-    : []
-  const mainImage = images[0] || undefined
+  const images = normalizeImages(item.images)
+  const mainImage = images[0]
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://auto-c-cars.ru'
   const productUrl = `${baseUrl}/catalog/${item.id}`
+  const displayName = item.name || (typeof item.title === 'string' ? item.title : 'Автомобиль')
+  const yearValue = item.year ?? item.Year ?? ''
+  const mileageRaw = item.mileage ?? item.Mileage
+  const mileageValue = safeNumber(mileageRaw, NaN)
+  const mileageText = Number.isFinite(mileageValue)
+    ? mileageValue.toLocaleString('ru-RU')
+    : typeof mileageRaw === 'string'
+      ? mileageRaw
+      : ''
+  const engineText = item.Engine || ''
+  const priceValue = safeNumber(item.price)
+
 
   return (
     <article
@@ -51,29 +55,29 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
           </div>
           <div className={styles.catalog__list__item__inner}>
             <h3 className={styles.catalog__list__item__title} itemProp="name">
-              {item.name}
+              {displayName}
             </h3>
 
             {/* Основная информация */}
             <div className={styles.catalog__list__item__main_info}>
-              {(item.year || item.Year) && (
+              {yearValue && (
                 <h4 className={styles.catalog__list__item__info}>
                   <span>Год: </span>
-                  <span itemProp="productionDate">{item.year || item.Year}</span>
+                  <span itemProp="productionDate">{yearValue}</span>
                 </h4>
               )}
-              {(item.mileage || item.Mileage) && (
+              {mileageText && (
                 <h4 className={styles.catalog__list__item__info}>
                   <span>Пробег: </span>
                   <span itemProp="mileageFromOdometer">
-                    {(item.mileage || item.Mileage).toLocaleString()} км
+                    {mileageText} км
                   </span>
                 </h4>
               )}
-              {item.Engine && (
+              {engineText && (
                 <h4 className={styles.catalog__list__item__info}>
                   <span>Двигатель: </span>
-                  <span itemProp="vehicleEngine">{item.Engine} л</span>
+                  <span itemProp="vehicleEngine">{engineText} л</span>
                 </h4>
               )}
               {item.fuel && (
@@ -108,10 +112,10 @@ const CatalogItem = ({ item }: { item: IBoilerPart }) => {
                   className={styles.catalog__list__item__price}
                 >
                   <meta itemProp="priceCurrency" content="RUB" />
-                  <meta itemProp="price" content={item.price.toString()} />
+                  <meta itemProp="price" content={priceValue.toString()} />
                   <meta itemProp="availability" content={item.in_stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
                   <span>
-                    {formatPrice(item.price)} ₽
+                    {formatPrice(priceValue)} ₽
                   </span>
                 </span>
               )}

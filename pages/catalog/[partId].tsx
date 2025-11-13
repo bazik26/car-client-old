@@ -12,6 +12,7 @@ import PartPage from '@/components/templates/PartPage/PartPage'
 import Custom404 from '../404'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { GetServerSideProps } from 'next'
+import { normalizeImages, safeNumber } from '@/utils/common'
 
 function CatalogPartPage({
   query,
@@ -146,39 +147,45 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
 
-    const images = data.images && data.images !== '[]' && data.images !== 'null'
-      ? JSON.parse(data.images)
-      : []
+    const images = normalizeImages(data.images)
     const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://auto-c-cars.ru'
     const productUrl = `${baseUrl}/catalog/${data.id}`
+    const priceValue = safeNumber(data.price)
+    const mileageValue = safeNumber(data.mileage ?? data.Mileage, NaN)
+    const mileageFromOdometer = Number.isFinite(mileageValue) ? mileageValue : undefined
+    const productionYear = data.year ?? data.Year ?? undefined
+    const vin = data.vin || data.vendor_code || undefined
+    const brandName = data.brand || data.boiler_manufacturer || undefined
+    const availability =
+      data.sale || data.in_stock === 0
+        ? 'https://schema.org/Discontinued'
+        : 'https://schema.org/InStock'
 
     // JSON-LD структурированные данные для товара
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Product",
-      "name": data.name,
-      "description": data.description || `Купить ${data.name} по отличной цене`,
+      "name": data.name || 'Автомобиль',
+      "description": data.description || (data.name ? `Купить ${data.name} по отличной цене` : 'Купить автомобиль по отличной цене'),
       "image": images.length > 0 ? images : [`${baseUrl}/img/logo.png`],
       "brand": {
         "@type": "Brand",
-        "name": data.brand || data.boiler_manufacturer
+        "name": brandName
       },
       "sku": data.id.toString(),
       "offers": {
         "@type": "Offer",
         "url": productUrl,
         "priceCurrency": "RUB",
-        "price": data.price || 0,
-        "availability": data.sale || data.in_stock === 0 
-          ? "https://schema.org/Discontinued" 
-          : "https://schema.org/InStock",
+        "price": priceValue,
+        "availability": availability,
         "itemCondition": "https://schema.org/UsedCondition"
       },
-      "vehicleIdentificationNumber": data.vin || undefined,
-      "productionDate": data.year || data.Year || undefined,
+      "vehicleIdentificationNumber": vin,
+      "productionDate": productionYear,
       "mileageFromOdometer": {
         "@type": "QuantitativeValue",
-        "value": data.mileage || data.Mileage || undefined,
+        "value": mileageFromOdometer,
         "unitCode": "KMT"
       }
     }

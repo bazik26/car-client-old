@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { $boilerPart } from '@/context/boilerPart'
 import { $mode } from '@/context/mode'
 import PartImagesList from '@/components/modules/PartPage/PartImagesList'
-import { formatPrice } from '@/utils/common'
+import { formatPrice, normalizeImages, safeNumber } from '@/utils/common'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PartTabs from '@/components/modules/PartPage/PartTabs'
 import DashboardSlider from '@/components/modules/DashboardPage/DashboardSlider'
@@ -47,18 +47,18 @@ const PartPage = () => {
   // const toggleToCart = () =>
   //   toggleCartItem(user.username, boilerPart.id, isInCart)
 
-  const images = boilerPart.images && boilerPart.images !== '[]' && boilerPart.images !== 'null'
-    ? JSON.parse(boilerPart.images)
-    : []
+  const images = normalizeImages(boilerPart.images)
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://auto-c-cars.ru'
   const productUrl = `${baseUrl}/catalog/${boilerPart.id}`
+  const displayName = boilerPart.name || (typeof boilerPart.title === 'string' ? boilerPart.title : 'Автомобиль')
+  const priceValue = safeNumber(boilerPart.price)
 
   return (
       <section itemScope itemType="https://schema.org/Product" aria-labelledby="product-heading">
         <div className="container">
           <div className={`${styles.part__top} ${darkModeClass}`}>
             <h2 id="product-heading" className={`${styles.part__title} ${darkModeClass}`} itemProp="name">
-              {boilerPart.name}
+              {displayName}
             </h2>
             <div className={styles.part__inner}>
               <PartImagesList />
@@ -70,11 +70,11 @@ const PartPage = () => {
                     className={`${styles.part__info__price} ${darkModeClass}`}
                   >
                     <meta itemProp="priceCurrency" content="RUB" />
-                    <meta itemProp="price" content={(boilerPart.price || 0).toString()} />
+                    <meta itemProp="price" content={priceValue.toString()} />
                     <meta itemProp="availability" content={boilerPart.in_stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"} />
                     <meta itemProp="url" content={productUrl} />
                     <span>
-                      {formatPrice(boilerPart.price || 0)} ₽
+                      {formatPrice(priceValue)} ₽
                     </span>
                   </span>
                 )}

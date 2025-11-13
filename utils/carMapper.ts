@@ -1,4 +1,8 @@
 import { ICar, IBoilerPart } from '@/types/boilerparts'
+import { safeNumber } from './common'
+
+const toOptionalString = (value: unknown): string =>
+  value === null || value === undefined ? '' : String(value)
 
 /**
  * Преобразует данные автомобиля из новой структуры (CarEntity) в старую (IBoilerPart)
@@ -7,112 +11,156 @@ import { ICar, IBoilerPart } from '@/types/boilerparts'
 export function mapCarToBoilerPart(car: ICar): IBoilerPart {
   // Создаем массив изображений из файлов
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
-  
-  const images = car.files?.map(file => {
-    // Если path содержит старый домен shop-ytb-client, заменяем на наш API
-    if (file.path && file.path.includes('shop-ytb-client.onrender.com')) {
-      // Извлекаем относительный путь после домена
-      const relativePath = file.path.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
-      // Убеждаемся, что путь начинается со слэша
-      const normalizedPath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
-      return `${baseUrl}${normalizedPath}`
-    }
-    // Если path - это полный URL (начинается с http), используем его как есть
-    if (file.path && (file.path.startsWith('http://') || file.path.startsWith('https://'))) {
-      return file.path
-    }
-    // Если path существует, но это относительный путь, добавляем baseUrl
-    if (file.path) {
-     // Убираем 'images/' из начала пути, так как ServeStaticModule раздаёт файлы из /images по корню
-      let cleanPath = file.path
-      if (cleanPath.startsWith('images/')) {
-        cleanPath = cleanPath.replace('images/', '')
+  const files = Array.isArray(car.files) ? car.files : []
+
+  const images = files
+    .map(file => {
+      if (!file) {
+        return null
       }
-      // Убеждаемся, что путь начинается со слэша
-      const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`
-      return `${baseUrl}${normalizedPath}`
-    }
-    // Если только filename, создаем URL для API
-    return `${baseUrl}/${file.filename}`
-  }) || []
-  
+
+      const rawPath = typeof file.path === 'string' ? file.path : ''
+
+      if (rawPath && rawPath.includes('shop-ytb-client.onrender.com')) {
+        const relativePath = rawPath.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
+        const normalizedPath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
+        return `${baseUrl}${normalizedPath}`
+      }
+
+      if (rawPath && (rawPath.startsWith('http://') || rawPath.startsWith('https://'))) {
+        return rawPath
+      }
+
+      if (rawPath) {
+        let cleanPath = rawPath
+        if (cleanPath.startsWith('images/')) {
+          cleanPath = cleanPath.replace('images/', '')
+        }
+        const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`
+        return `${baseUrl}${normalizedPath}`
+      }
+
+      const filename = typeof file.filename === 'string' ? file.filename : ''
+      if (filename) {
+        const normalizedFilename = filename.startsWith('/') ? filename : `/${filename}`
+        return `${baseUrl}${normalizedFilename}`
+      }
+
+      return null
+    })
+    .filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+
+  const brand = typeof car.brand === 'string' ? car.brand : ''
+  const model = typeof car.model === 'string' ? car.model : ''
+  const composedName = `${brand} ${model}`.trim()
+  const name = composedName || brand || model || 'Автомобиль'
+  const description = typeof car.description === 'string' ? car.description : ''
+  const fuel = typeof car.fuel === 'string' ? car.fuel : ''
+  const drive = typeof car.drive === 'string' ? car.drive : ''
+  const gearbox = typeof car.gearbox === 'string' ? car.gearbox : ''
+
+  const yearValue =
+    typeof car.year === 'number' && Number.isFinite(car.year)
+      ? car.year
+      : safeNumber(car.year, NaN)
+
+  const mileageValue =
+    typeof car.mileage === 'number' && Number.isFinite(car.mileage)
+      ? car.mileage
+      : safeNumber(car.mileage, NaN)
+
+  const powerValue =
+    typeof car.powerValue === 'number' && Number.isFinite(car.powerValue)
+      ? car.powerValue
+      : safeNumber(car.powerValue, NaN)
+
   return {
     // Обязательные поля для IBoilerPart
     id: car.id,
-    fuel: car.fuel,
+    fuel,
     createdAt: null, // Старое поле должно быть null
-    Drive: car.drive,
-    Transmission: car.gearbox,
-    Engine: car.engine?.toString() || '',
-    Mileage: car.mileage?.toString() || '',
-    Year: car.year?.toString() || '',
-    Model: car.model,
-    title: `${car.brand} ${car.model}`,
-    boiler_manufacturer: car.brand,
-    price: car.price,
-    parts_manufacturer: car.brand,
-    vendor_code: car.vin || '', // Если vin null, используем пустую строку
-    sale: car.isSold, // Используем только isSold для определения статуса продажи
+    Drive: drive,
+    Transmission: gearbox,
+    Engine: toOptionalString(car.engine),
+    Mileage: mileageValue && Number.isFinite(mileageValue) ? mileageValue.toString() : toOptionalString(car.mileage),
+    Year: yearValue && Number.isFinite(yearValue) ? yearValue.toString() : toOptionalString(car.year),
+    Model: model,
+    title: name,
+    boiler_manufacturer: brand,
+    price: safeNumber(car.price),
+    parts_manufacturer: brand,
+    vendor_code: typeof car.vin === 'string' ? car.vin : '', // Если vin null, используем пустую строку
+    sale: Boolean(car.isSold), // Используем только isSold для определения статуса продажи
     promo: car.promo,
-    name: `${car.brand} ${car.model}`,
-    description: car.description,
+    name,
+    description,
     images: JSON.stringify(images),
     in_stock: car.deletedAt ? 0 : 1, // Если удален, то не в наличии
     bestseller: false, // Пока не реализовано в новой структуре
     new: false, // Пока не реализовано в новой структуре
     popularity: 0, // Пока не реализовано в новой структуре
-    compatibility: car.description || '', // Используем description для совместимости
+    compatibility: description, // Используем description для совместимости
     
     // Опциональные поля из ICar (добавляем только те, что есть в IBoilerPart)
-    brand: car.brand,
-    year: car.year,
-    mileage: car.mileage,
-    vin: car.vin,
-    gearbox: car.gearbox,
-    powerValue: car.powerValue,
-    powerType: car.powerType,
-    drive: car.drive,
-    updatedAt: car.updatedAt,
-    deletedAt: car.deletedAt,
-    conditionerType: car.conditionerType,
-    windowLifter: car.windowLifter,
-    interiorMaterials: car.interiorMaterials,
-    interiorColor: car.interiorColor,
-    powerSteering: car.powerSteering,
-    steeringWheelAdjustment: car.steeringWheelAdjustment,
-    spareWheel: car.spareWheel,
-    headlights: car.headlights,
-    seatAdjustment: car.seatAdjustment,
-    memorySeatModule: car.memorySeatModule,
-    seatHeated: car.seatHeated,
-    seatVentilation: car.seatVentilation,
-    group1: car.group1,
-    group2: car.group2,
-    group3: car.group3,
-    group4: car.group4,
-    group5: car.group5,
-    group6: car.group6,
-    group7: car.group7,
-    group8: car.group8,
-    group9: car.group9,
-    files: car.files,
-    admin: car.admin,
+    brand: brand || undefined,
+    year: Number.isFinite(yearValue) ? yearValue : undefined,
+    mileage: Number.isFinite(mileageValue) ? mileageValue : undefined,
+    vin: typeof car.vin === 'string' ? car.vin : undefined,
+    gearbox: gearbox || undefined,
+    powerValue: Number.isFinite(powerValue) ? powerValue : undefined,
+    powerType: typeof car.powerType === 'string' ? car.powerType : undefined,
+    drive: drive || undefined,
+    updatedAt: typeof car.updatedAt === 'string' ? car.updatedAt : undefined,
+    deletedAt: car.deletedAt ?? undefined,
+    conditionerType: car.conditionerType ?? undefined,
+    windowLifter: car.windowLifter ?? undefined,
+    interiorMaterials: car.interiorMaterials ?? undefined,
+    interiorColor: car.interiorColor ?? undefined,
+    powerSteering: car.powerSteering ?? undefined,
+    steeringWheelAdjustment: car.steeringWheelAdjustment ?? undefined,
+    spareWheel: car.spareWheel ?? undefined,
+    headlights: car.headlights ?? undefined,
+    seatAdjustment: car.seatAdjustment ?? undefined,
+    memorySeatModule: car.memorySeatModule ?? undefined,
+    seatHeated: car.seatHeated ?? undefined,
+    seatVentilation: car.seatVentilation ?? undefined,
+    group1: Array.isArray(car.group1) ? car.group1 : undefined,
+    group2: Array.isArray(car.group2) ? car.group2 : undefined,
+    group3: Array.isArray(car.group3) ? car.group3 : undefined,
+    group4: Array.isArray(car.group4) ? car.group4 : undefined,
+    group5: Array.isArray(car.group5) ? car.group5 : undefined,
+    group6: Array.isArray(car.group6) ? car.group6 : undefined,
+    group7: Array.isArray(car.group7) ? car.group7 : undefined,
+    group8: Array.isArray(car.group8) ? car.group8 : undefined,
+    group9: Array.isArray(car.group9) ? car.group9 : undefined,
+    files: files.length > 0 ? files : undefined,
+    admin: car.admin ?? undefined,
   }
 }
 
 /**
  * Преобразует массив автомобилей в массив IBoilerPart
  */
-export function mapCarsToBoilerParts(cars: ICar[]): IBoilerPart[] {
-  return cars.map(mapCarToBoilerPart)
+export function mapCarsToBoilerParts(cars?: ICar[] | null): IBoilerPart[] {
+  if (!Array.isArray(cars)) {
+    return []
+  }
+
+  return cars
+    .filter((car): car is ICar => Boolean(car))
+    .map(mapCarToBoilerPart)
 }
 
 /**
  * Создает объект IBoilerParts из массива автомобилей
  */
-export function createBoilerPartsFromCars(cars: ICar[]): { count: number; rows: IBoilerPart[] } {
+export function createBoilerPartsFromCars(
+  cars?: ICar[] | null
+): { count: number; rows: IBoilerPart[] } {
+  const rows = mapCarsToBoilerParts(cars)
+
   return {
-    count: cars.length,
-    rows: mapCarsToBoilerParts(cars)
+    count: rows.length,
+    rows,
   }
 }

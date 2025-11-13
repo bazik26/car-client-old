@@ -10,7 +10,7 @@ import { $mode } from '@/context/mode'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { IDashboardSlider } from '@/types/dashboard'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
-import { formatPrice } from '@/utils/common'
+import { formatPrice, normalizeImages, safeNumber } from '@/utils/common'
 import styles from '@/styles/dashboard/index.module.scss'
 import CarImage from '@/components/elements/CarImage/CarImage'
 
@@ -73,11 +73,7 @@ const DashboardSlider = ({
                 style={width}
               >
                 <CarImage 
-                  src={
-                    item.images && item.images !== '[]' && item.images !== 'null'
-                      ? JSON.parse(item.images)[0]
-                      : undefined
-                  } 
+                  src={normalizeImages(item.images)[0]}
                   alt={item.name}
                   className={styles.dashboard__slide__img}
                 />
@@ -112,7 +108,7 @@ const DashboardSlider = ({
                   </div>
                   <br />
                   <div className={styles.dashboard__slide__price}>
-                    {formatPrice(item.price)} P
+                    {formatPrice(safeNumber(item.price))} P
                   </div>
                 </div>
               </div>

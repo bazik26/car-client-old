@@ -10,7 +10,7 @@ import { $mode } from '@/context/mode'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { IDashboardSlider } from '@/types/dashboard'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
-import { formatPrice } from '@/utils/common'
+import { formatPrice, normalizeImages, safeNumber } from '@/utils/common'
 import styles from '@/styles/dashboard/index.module.scss'
 import CarImage from '@/components/elements/CarImage/CarImage'
 
@@ -24,12 +24,6 @@ const SoldCarsSlider = ({
   const isMedia560 = useMediaQuery(560)
   const mode = useStore($mode)
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
-
-  console.log('🚨🚨🚨 SOLD CARS SLIDER RENDERED 🚨🚨🚨')
-  console.log('🎠 SoldCarsSlider received items:', items)
-  console.log('🎠 SoldCarsSlider items length:', items.length)
-  console.log('🎠 SoldCarsSlider items details:', items.map(item => `${item.name} (isSold: ${item.sale})`))
-  console.log('🚨🚨🚨 END SOLD CARS SLIDER 🚨🚨🚨')
 
   useEffect(() => {
     const slider = document.querySelectorAll(`.${styles.dashboard__slider}`)
@@ -79,11 +73,7 @@ const SoldCarsSlider = ({
                 style={width}
               >
                 <CarImage 
-                  src={
-                    item.images && item.images !== '[]' && item.images !== 'null'
-                      ? JSON.parse(item.images)[0]
-                      : undefined
-                  } 
+                  src={normalizeImages(item.images)[0]}
                   alt={item.name}
                   className={styles.dashboard__slide__img}
                 />
@@ -114,7 +104,7 @@ const SoldCarsSlider = ({
                   </div>
                   <br />
                   <div className={styles.dashboard__slide__price}>
-                    {formatPrice(item.price)} P
+                    {formatPrice(safeNumber(item.price))} P
                   </div>
                 </div>
               </div>

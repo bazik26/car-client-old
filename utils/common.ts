@@ -7,8 +7,54 @@ export const getWindowWidth = () => {
   return { windowWidth }
 }
 
-export const formatPrice = (x: number) =>
-  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+const normalizeNumericInput = (value: number | string | null | undefined, fallback = 0): number => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value
+  }
+
+  if (typeof value === 'string') {
+    const cleaned = value.replace(/\s+/g, '')
+    const parsed = Number(cleaned)
+    if (Number.isFinite(parsed)) {
+      return parsed
+    }
+  }
+
+  const parsed = Number(value)
+  return Number.isFinite(parsed) ? parsed : fallback
+}
+
+export const formatPrice = (value: number | string | null | undefined): string => {
+  const numeric = normalizeNumericInput(value)
+  return new Intl.NumberFormat('ru-RU').format(numeric)
+}
+
+export const safeNumber = (value: number | string | null | undefined, fallback = 0): number =>
+  normalizeNumericInput(value, fallback)
+
+export const normalizeImages = (value: unknown): string[] => {
+  if (Array.isArray(value)) {
+    return value.filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+  }
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim()
+    if (!trimmed || trimmed === '[]' || trimmed.toLowerCase() === 'null') {
+      return []
+    }
+
+    try {
+      const parsed = JSON.parse(trimmed)
+      if (Array.isArray(parsed)) {
+        return parsed.filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+      }
+    } catch (error) {
+      console.error('Error parsing images value:', error)
+    }
+  }
+
+  return []
+}
 
 export const createSelectOption = (value: string | number) => ({
   value,

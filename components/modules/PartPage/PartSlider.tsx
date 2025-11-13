@@ -4,10 +4,12 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import styles from '@/styles/part/index.module.scss'
+import CarImage from '@/components/elements/CarImage/CarImage'
 
 const PartSlider = ({ images }: { images: string[] }) => {
   const isMobile700 = useMediaQuery(700)
   const isMobile530 = useMediaQuery(530)
+  const sliderImages = images.length > 0 ? images : ['']
 
   const settings = {
     dots: false,
@@ -21,13 +23,13 @@ const PartSlider = ({ images }: { images: string[] }) => {
 
   return (
     <Slider {...settings} className={styles.part__slider}>
-      {images.map((src, i) => (
+      {sliderImages.map((src, i) => (
         <div
           className={styles.part__slide}
           key={i}
           style={{ width: isMobile530 ? 228 : isMobile700 ? 350 : 593 }}
         >
-          <img src={src} alt={`image-${i + 1}`} />
+          <CarImage src={src} alt={`image-${i + 1}`} className={styles.part__slide__img} />
         </div>
       ))}
     </Slider>
