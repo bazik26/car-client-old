@@ -748,6 +748,14 @@
       background-color: #232323;
       cursor: pointer;
 
+      a {
+        text-decoration: none !important;
+      }
+
+      a * {
+        text-decoration: none !important;
+      }
+
       @media (max-width: 560px) {
         // padding: 16px 8px;
         // height: 277px;
