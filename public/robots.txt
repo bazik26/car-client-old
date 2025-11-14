@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Host
+Host: https://importeurocar.ru
+
+# Sitemaps
+Sitemap: https://importeurocar.ru/sitemap.xml
+Sitemap: https://importeurocar.ru/server-sitemap.xml

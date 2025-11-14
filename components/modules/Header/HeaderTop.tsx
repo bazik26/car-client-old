@@ -107,7 +107,8 @@ const HeaderTop = () => {
             {isMedia950 && (
               <>
               <div className={styles.header__phone}>
-                <Num/>
+                <PhoneSvg />
+                <Num withLink className={styles.header__phoneLink} />
               </div>
                 <Headerbutton />
                 <div className={styles.header__nav__list__itembr}/>
@@ -162,7 +163,8 @@ const HeaderTop = () => {
           <>
             <div className={styles.header__phoneborder}></div>
             <div className={styles.header__phone}>
-              <Num/>
+              <PhoneSvg />
+              <Num withLink className={styles.header__phoneLink} />
             </div>
             <Headerbutton />
           </>
