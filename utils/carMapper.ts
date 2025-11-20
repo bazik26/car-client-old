@@ -10,43 +10,39 @@ const toOptionalString = (value: unknown): string =>
  */
 export function mapCarToBoilerPart(car: ICar): IBoilerPart {
   // Создаем массив изображений из файлов
+  // Используем ту же логику что и в car-client для совместимости
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
   const files = Array.isArray(car.files) ? car.files : []
 
   const images = files
     .map(file => {
-      if (!file) {
+      if (!file || !file.path) {
         return null
       }
 
-      const rawPath = typeof file.path === 'string' ? file.path : ''
+      // Логика из car-client getFileUrl()
+      const imagePath = file.path
 
-      if (rawPath && rawPath.includes('shop-ytb-client.onrender.com')) {
-        const relativePath = rawPath.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
+      // Если path содержит старый домен shop-ytb-client, заменяем на наш API
+      if (imagePath.includes('shop-ytb-client.onrender.com')) {
+        const relativePath = imagePath.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
         const normalizedPath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
         return `${baseUrl}${normalizedPath}`
       }
 
-      if (rawPath && (rawPath.startsWith('http://') || rawPath.startsWith('https://'))) {
-        return rawPath
+      // Если полный URL (другой домен) - используем как есть
+      if (imagePath.startsWith('http')) {
+        return imagePath
       }
 
-      if (rawPath) {
-        let cleanPath = rawPath
-        if (cleanPath.startsWith('images/')) {
-          cleanPath = cleanPath.replace('images/', '')
-        }
-        const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`
-        return `${baseUrl}${normalizedPath}`
+      // Относительный путь - добавляем API_URL
+      // Убираем 'images/' из начала пути, так как ServeStaticModule раздаёт файлы из /images по корню
+      let cleanPath = imagePath
+      if (cleanPath.startsWith('images/')) {
+        cleanPath = cleanPath.replace('images/', '')
       }
-
-      const filename = typeof file.filename === 'string' ? file.filename : ''
-      if (filename) {
-        const normalizedFilename = filename.startsWith('/') ? filename : `/${filename}`
-        return `${baseUrl}${normalizedFilename}`
-      }
-
-      return null
+      const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`
+      return `${baseUrl}${normalizedPath}`
     })
     .filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
 
