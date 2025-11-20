@@ -33,26 +33,35 @@ export const safeNumber = (value: number | string | null | undefined, fallback =
   normalizeNumericInput(value, fallback)
 
 export const normalizeImages = (value: unknown): string[] => {
+  console.log('🖼️ normalizeImages called with:', typeof value, value)
+  
   if (Array.isArray(value)) {
-    return value.filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+    const filtered = value.filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+    console.log('✅ normalizeImages returning array:', filtered.length, 'images')
+    return filtered
   }
 
   if (typeof value === 'string') {
     const trimmed = value.trim()
     if (!trimmed || trimmed === '[]' || trimmed.toLowerCase() === 'null') {
+      console.log('⚠️ normalizeImages: empty or null string')
       return []
     }
 
     try {
       const parsed = JSON.parse(trimmed)
+      console.log('📦 normalizeImages parsed JSON:', Array.isArray(parsed) ? `${parsed.length} items` : typeof parsed)
       if (Array.isArray(parsed)) {
-        return parsed.filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+        const filtered = parsed.filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+        console.log('✅ normalizeImages returning parsed array:', filtered.length, 'images', filtered[0])
+        return filtered
       }
     } catch (error) {
-      console.error('Error parsing images value:', error)
+      console.error('❌ Error parsing images value:', error, 'Value:', trimmed.substring(0, 100))
     }
   }
 
+  console.log('⚠️ normalizeImages: returning empty array')
   return []
 }
 
