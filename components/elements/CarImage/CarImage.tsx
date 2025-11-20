@@ -12,7 +12,7 @@ const CarImage = ({
   src, 
   alt, 
   className = '', 
-  fallbackText = 'Фото удалено по просьбе владельца' 
+  fallbackText = 'Упс... что то пошло не так. но мы уже работаем над этим' 
 }: CarImageProps) => {
   const [imageError, setImageError] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
