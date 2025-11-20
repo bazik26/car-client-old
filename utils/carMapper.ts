@@ -14,9 +14,17 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
   const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://car-api-production.up.railway.app'
   const files = Array.isArray(car.files) ? car.files : []
 
+  console.log(`🚗 mapCarToBoilerPart for car ${car.id}:`, {
+    brand: car.brand,
+    model: car.model,
+    filesCount: files.length,
+    firstFilePath: files[0]?.path
+  })
+
   const images = files
     .map(file => {
       if (!file || !file.path) {
+        console.log('⚠️ File without path:', file)
         return null
       }
 
@@ -27,11 +35,14 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
       if (imagePath.includes('shop-ytb-client.onrender.com')) {
         const relativePath = imagePath.replace(/https?:\/\/shop-ytb-client\.onrender\.com/, '')
         const normalizedPath = relativePath.startsWith('/') ? relativePath : `/${relativePath}`
-        return `${baseUrl}${normalizedPath}`
+        const result = `${baseUrl}${normalizedPath}`
+        console.log('🔄 Converted shop-ytb URL:', imagePath, '→', result)
+        return result
       }
 
       // Если полный URL (другой домен) - используем как есть
       if (imagePath.startsWith('http')) {
+        console.log('🌐 External URL (GCS/other):', imagePath)
         return imagePath
       }
 
@@ -42,9 +53,13 @@ export function mapCarToBoilerPart(car: ICar): IBoilerPart {
         cleanPath = cleanPath.replace('images/', '')
       }
       const normalizedPath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`
-      return `${baseUrl}${normalizedPath}`
+      const result = `${baseUrl}${normalizedPath}`
+      console.log('📁 Relative path:', imagePath, '→', result)
+      return result
     })
     .filter((src): src is string => typeof src === 'string' && src.trim().length > 0)
+
+  console.log(`✅ Final images array for car ${car.id}:`, images.length, 'images', images[0])
 
   const brand = typeof car.brand === 'string' ? car.brand : ''
   const model = typeof car.model === 'string' ? car.model : ''
