@@ -40,9 +40,16 @@ export const boilerManufacturers = [
   'Volvo',
 ].map(createManufacturerCheckboxObj)
 
-export const partsManufacturers = ['Европа', 'Сша', 'Корея'].map(
-  createManufacturerCheckboxObj
-)
+// Типы топлива для фильтрации
+export const fuelTypes = [
+  'Бензин',
+  'Дизель',
+  'Гибрид',
+  'Электрический',
+].map(createManufacturerCheckboxObj)
+
+// Оставляем для обратной совместимости
+export const partsManufacturers = fuelTypes
 
 const checkPriceFromQuery = (price: number) =>
   price && !isNaN(price) && price >= 0 && price <= 10000

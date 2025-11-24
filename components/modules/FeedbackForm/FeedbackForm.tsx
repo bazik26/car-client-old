@@ -118,7 +118,7 @@ const FeedbackForm = ({ previousData }: FeedbackFormProps) => {
         <input type="hidden" name="model" value={previousData?.model || ''} />
         <input type="hidden" name="generation" value={previousData?.generation || ''} />
         <div className={styles.feedback_form__form__btn}>
-          <button>
+          <button id="form-submit-btn">
             {spinner ? (
               <span
                 className={spinnerStyles.spinner}

@@ -304,7 +304,7 @@ const DashboardPage = () => {
                       <span className="fg__error">Заполните обязательное поле</span>
                     </div>
                   </fieldset>
-                  <button className="consult__btn mbtn mbtn-red" type="button" onClick={handleClick}>
+                  <button id="form-submit-btn" className="consult__btn mbtn mbtn-red" type="button" onClick={handleClick}>
                     <span>Обратная связь</span>
                     <svg width="21" height="29" viewBox="0 0 21 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path opacity="0.3" d="M0 0L13.4129 14.5L0 29H7.58707L21 14.5L7.58707 0H0Z" fill="white" />
@@ -403,9 +403,9 @@ const DashboardPage = () => {
                   <a href="https://yandex.ru/maps/-/CLa~bVi2" target='_blank' className="contacts__item">
                     183039, Мурманская область, г Мурманск, ул Академика Книповича, д. 23, офис 119
                   </a>
-                  <a href="mailto:auto-c-cars@yandex.ru" className="contacts__item">
+                  <span className="contacts__item">
                     auto-c-cars@yandex.ru
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>

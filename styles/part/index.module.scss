@@ -301,6 +301,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 2px solid transparent;
+        transition: border-color 0.2s ease;
 
         @media (max-width: 1080px) {
           min-width: 150px;
@@ -311,23 +313,99 @@
           margin-right: 5px;
         }
 
-        img {
-          // width: 100%;
-          height: 100%;
+        &__active {
+          border-color: #04b19e;
         }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &__thumb {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
   }
 
-  &__slide {
+  &__slider {
+    position: relative;
     overflow: hidden;
-    border-radius: 4px;
-    height: 100%;
+    border-radius: 8px;
+    background-color: #1d1d1d;
 
-    img {
-      width: 100%;
-      height: 100%;
-      margin: 5px;
+    &__viewport {
+      overflow: hidden;
+    }
+
+    &__track {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+
+    &__item {
+      flex: 0 0 100%;
+      max-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+
+      &_prev {
+        left: 12px;
+      }
+
+      &_next {
+        right: 12px;
+      }
+    }
+
+    &__dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    &__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.3);
+
+      &_active {
+        background: #ffffff;
+      }
     }
   }
 

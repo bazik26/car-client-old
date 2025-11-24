@@ -1,7 +1,9 @@
 export interface IPartImagesItemProps {
   src: string
-  callback: (arg0: string) => void
   alt: string
+  index: number
+  isActive: boolean
+  onSelect: (index: number) => void
 }
 
 export interface IPartAccordionProps {

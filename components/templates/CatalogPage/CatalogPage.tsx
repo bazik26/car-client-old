@@ -17,17 +17,15 @@ import { $mode } from '@/context/mode'
 import styles from '@/styles/catalog/index.module.scss'
 import { useStore } from 'effector-react'
 import { AnimatePresence } from 'framer-motion'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useMemo, useRef } from 'react'
 import { toast } from 'react-toastify'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
 import CatalogItem from '@/components/modules/CatalogPage/CatalogItem'
 import ReactPaginate from 'react-paginate'
 import { IQueryParams } from '@/types/catalog'
 import { useRouter } from 'next/router'
-import { IBoilerParts } from '@/types/boilerparts'
 import CatalogFilters from '@/components/modules/CatalogPage/CatalogFilters'
 import { usePopup } from '@/hooks/usePoup'
-import { checkQueryParams } from '@/utils/catalog'
 import FilterSvg from '@/components/elements/FilterSvg/FilterSvg'
 
 const CatalogPage = ({ query }: { query: IQueryParams }) => {
@@ -37,35 +35,10 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   const filteredBoilerParts = useStore($filteredBoilerParts)
   const boilerParts = useStore($boilerParts)
   const [spinner, setSpinner] = useState(false)
-  const [priceRange, setPriceRange] = useState([1000, 9000])
-  const [isFilterInQuery, setIsFilterInQuery] = useState(false)
+  const [priceRange, setPriceRange] = useState([500000, 10000000])
   const [isPriceRangeChanged, setIsPriceRangeChanged] = useState(false)
   const itemsPerPage = 20
   
-  // Используем правильные данные для подсчета страниц
-  const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
-  const pagesCount = Math.ceil(dataToUse.count / itemsPerPage)
-  
-  // Получаем автомобили для текущей страницы
-  const getCurrentPageItems = () => {
-    // Используем filteredBoilerParts если есть фильтры, иначе boilerParts
-    const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
-    
-    if (!dataToUse?.rows) {
-      console.log('❌ No data available for pagination')
-      return []
-    }
-    
-    const startIndex = currentPage * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-    const pageItems = dataToUse.rows.slice(startIndex, endIndex)
-    
-    console.log(`📄 Page ${currentPage + 1}: showing items ${startIndex}-${endIndex} of ${dataToUse.rows.length} total`)
-    console.log('📋 Page items:', pageItems.length)
-    console.log('🔍 Using data:', filteredBoilerParts?.rows?.length > 0 ? 'filtered' : 'all')
-    
-    return pageItems
-  }
   const isValidOffset =
     query.offset && !isNaN(+query.offset) && +query.offset > 0
   const [currentPage, setCurrentPage] = useState(
@@ -73,9 +46,45 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   )
   const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
   const router = useRouter()
-  const isAnyBoilerManufacturerChecked = boilerManufacturers.some(
-    (item) => item.checked
-  )
+  const { toggleOpen, open, closePopup } = usePopup()
+
+  // Вычисляем выбранные бренды из состояния
+  const selectedBrands = useMemo(() => {
+    return boilerManufacturers
+      .filter((item) => item.checked)
+      .map((item) => item.title)
+  }, [boilerManufacturers])
+
+  // Вычисляем выбранные типы топлива из состояния
+  const selectedFuelTypes = useMemo(() => {
+    return partsManufacturers
+      .filter((item) => item.checked)
+      .map((item) => item.title)
+  }, [partsManufacturers])
+
+  // Вычисляем есть ли активные фильтры
+  const hasActiveFilters = useMemo(() => {
+    return selectedBrands.length > 0 || selectedFuelTypes.length > 0 || isPriceRangeChanged
+  }, [selectedBrands, selectedFuelTypes, isPriceRangeChanged])
+
+  // Используем правильные данные для подсчета страниц
+  const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
+  const pagesCount = Math.ceil(dataToUse.count / itemsPerPage)
+  
+  // Получаем автомобили для текущей страницы
+  const getCurrentPageItems = () => {
+    const dataToUse = filteredBoilerParts?.rows?.length > 0 ? filteredBoilerParts : boilerParts
+    
+    if (!dataToUse?.rows || dataToUse.rows.length === 0) {
+      return []
+    }
+    
+    const startIndex = currentPage * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    return dataToUse.rows.slice(startIndex, endIndex)
+  }
+
+  const isAnyBoilerManufacturerChecked = selectedBrands.length > 0
   const isAnyPartsManufacturerChecked = partsManufacturers.some(
     (item) => item.checked
   )
@@ -84,73 +93,82 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
     isAnyBoilerManufacturerChecked ||
     isAnyPartsManufacturerChecked
   )
-  const { toggleOpen, open, closePopup } = usePopup()
 
-  // const resetPagination = useCallback(
-  //   (data: IBoilerParts) => {
-  //     setCurrentPage(0)
-  //     setBoilerParts(data)
-  //   },
-  //   [setCurrentPage, setBoilerParts]
-  // )
-
-  const resetPagination = useCallback((data: IBoilerParts) => {
-    setCurrentPage(0)
-    setBoilerParts(data)
-  }, [])
-
-  const loadBoilerParts = useCallback(async () => {
+  // Основная функция загрузки данных с фильтрами
+  const loadCarsWithFilters = useCallback(async () => {
     setSpinner(true)
 
     try {
-      const offset = isValidOffset ? +query.offset - 1 : 0
-      
-      // Проверяем есть ли фильтры в URL
-      const hasFilters = router.query.boiler || router.query.parts || router.query.priceFrom || router.query.priceTo
-      
-      if (hasFilters) {
-        console.log('🔍 Found filters in URL, applying them...')
-        
-        let boilerArray: string[] = []
-        const priceStart = router.query.priceFrom ? Number(router.query.priceFrom) : undefined
-        const priceEnd = router.query.priceTo ? Number(router.query.priceTo) : undefined
+      const priceStart = isPriceRangeChanged ? Math.ceil(priceRange[0]) : undefined
+      const priceEnd = isPriceRangeChanged ? Math.ceil(priceRange[1]) : undefined
 
-        // Парсим выбранные бренды
-        if (router.query.boiler) {
-          try {
-            boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
-            console.log('🏷️ Filtering by brands:', boilerArray)
-          } catch (e) {
-            console.error('Error parsing boiler filter:', e)
-          }
-        }
+      console.log('🔄 loadCarsWithFilters called', {
+        selectedBrands,
+        priceStart,
+        priceEnd,
+        hasActiveFilters
+      })
 
-        // Если выбраны бренды, делаем несколько запросов
-        if (boilerArray.length > 0) {
+      if (hasActiveFilters) {
+        // Есть активные фильтры - применяем их
+        if (selectedBrands.length > 0) {
+          console.log(`🚀 Making ${selectedBrands.length} requests for brands:`, selectedBrands)
+          
           const allResults = await Promise.all(
-            boilerArray.map(brand => 
-              getFilteredCarsFx({
+            selectedBrands.map(async (brand) => {
+              console.log(`📡 Requesting cars for brand: "${brand}"`)
+              const result = await getFilteredCarsFx({
                 brand: brand,
+                fuel: selectedFuelTypes.length > 0 ? selectedFuelTypes : undefined,
                 priceStart,
                 priceEnd,
                 limit: 100,
                 page: 1
               })
-            )
+              console.log(`✅ Got ${result.rows?.length || 0} cars for brand "${brand}"`)
+              return result
+            })
           )
           
           // Объединяем и удаляем дубликаты
           const combinedRows = allResults.flatMap(result => result.rows || [])
-          const uniqueRows = Array.from(new Map(combinedRows.map(item => [item.id, item])).values())
+          
+          // Если выбраны типы топлива, фильтруем на клиенте
+          let filteredRows = combinedRows
+          if (selectedFuelTypes.length > 0) {
+            filteredRows = combinedRows.filter((item) => 
+              selectedFuelTypes.includes(item.fuel)
+            )
+          }
+          
+          const uniqueRows = Array.from(new Map(filteredRows.map(item => [item.id, item])).values())
           const result = {
             count: uniqueRows.length,
             rows: uniqueRows
           }
-          console.log('📊 Combined filtered result:', result)
+          console.log('📊 Combined filtered result:', {
+            totalRows: result.rows.length,
+            brands: selectedBrands,
+            fuelTypes: selectedFuelTypes
+          })
           setFilteredBoilerParts(result)
           setBoilerParts(result)
-        } else if (priceStart || priceEnd) {
+        } else if (selectedFuelTypes.length > 0) {
+          // Только фильтр по типу топлива
+          console.log('⛽ Filtering by fuel type only:', selectedFuelTypes)
+          const result = await getFilteredCarsFx({
+            fuel: selectedFuelTypes,
+            priceStart,
+            priceEnd,
+            limit: 100,
+            page: 1
+          })
+          console.log('📊 Filtered result:', result)
+          setFilteredBoilerParts(result)
+          setBoilerParts(result)
+        } else if (isPriceRangeChanged) {
           // Только фильтр по цене
+          console.log('💰 Filtering by price only:', { priceStart, priceEnd })
           const result = await getFilteredCarsFx({
             priceStart,
             priceEnd,
@@ -161,89 +179,97 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           setFilteredBoilerParts(result)
           setBoilerParts(result)
         }
-        
-        // Обновляем состояние фильтров в UI
-        if (router.query.boiler) {
-          try {
-            const boilerArray = JSON.parse(decodeURIComponent(String(router.query.boiler)))
-            setBoilerManufacturers(
-              boilerManufacturers.map(item => ({
-                ...item,
-                checked: boilerArray.includes(item.title)
-              }))
-            )
-          } catch (e) {
-            console.error('Error updating boiler manufacturers:', e)
-          }
-        }
-        
-        if (router.query.priceFrom && router.query.priceTo) {
-          setPriceRange([Number(router.query.priceFrom), Number(router.query.priceTo)])
-          setIsPriceRangeChanged(true)
-        }
-        
-        setIsFilterInQuery(true)
-      } else if (!isFilterInQuery) {
-        // Загружаем все автомобили только если нет активных фильтров
+      } else {
+        // Нет активных фильтров - загружаем все машины
+        console.log('📋 No active filters, loading all cars...')
         const result = await getBoilerPartsFx('/cars/search?limit=100')
-        console.log('📋 All cars result:', result)
+        console.log('📋 All cars result:', { count: result.count, rows: result.rows?.length })
         setBoilerParts(result)
-        setFilteredBoilerParts({ count: 0, rows: [] }) // Очищаем фильтры
+        setFilteredBoilerParts({ count: 0, rows: [] })
       }
 
-      setCurrentPage(offset)
+      setCurrentPage(0) // Сбрасываем на первую страницу при изменении фильтров
     } catch (error) {
+      console.error('❌ Error in loadCarsWithFilters:', error)
       toast.error((error as Error).message)
     } finally {
       setSpinner(false)
     }
-  }, [router, query.offset, isValidOffset, isFilterInQuery])
+  }, [selectedBrands, selectedFuelTypes, priceRange, isPriceRangeChanged, hasActiveFilters])
 
+  // Автоматически загружаем данные при изменении фильтров с debounce
+  const debounceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  
   useEffect(() => {
-    loadBoilerParts()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    query.offset,
-    router.query.boiler,
-    router.query.parts,
-    router.query.priceFrom,
-    router.query.priceTo,
-  ])
-
-  const handlePageChange = async ({ selected }: { selected: number }) => {
-    try {
-      setSpinner(true)
-      
-      // Обновляем URL с новой страницей
-      router.push(
-        {
-          query: {
-            ...router.query,
-            offset: selected + 1,
-          },
-        },
-        undefined,
-        { shallow: true }
-      )
-
-      setCurrentPage(selected)
-      
-      // Пагинация теперь происходит на клиенте
-      // Данные уже загружены в boilerParts, просто обновляем отображение
-      
-    } catch (error) {
-      toast.error((error as Error).message)
-    } finally {
-      setTimeout(() => setSpinner(false), 1000)
+    // Очищаем предыдущий таймер
+    if (debounceTimerRef.current) {
+      clearTimeout(debounceTimerRef.current)
     }
+
+    // Устанавливаем новый таймер
+    debounceTimerRef.current = setTimeout(() => {
+      console.log('🔄 Filters changed, loading cars...', {
+        selectedBrands,
+        isPriceRangeChanged,
+        hasActiveFilters
+      })
+      loadCarsWithFilters()
+    }, 300) // Debounce 300ms как в car-client
+
+    // Очистка при размонтировании
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current)
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedBrands.length, selectedBrands.join(','), selectedFuelTypes.length, selectedFuelTypes.join(','), isPriceRangeChanged, priceRange[0], priceRange[1]])
+
+  // Загружаем данные при первой загрузке страницы
+  useEffect(() => {
+    if (!hasActiveFilters && boilerParts.rows?.length === 0) {
+      console.log('📋 Initial load - no filters, loading all cars...')
+      loadCarsWithFilters()
+    }
+  }, [])
+
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected)
+    // Обновляем URL для истории браузера (но не как источник данных)
+    router.push(
+      {
+        query: {
+          ...router.query,
+          offset: selected + 1,
+        },
+      },
+      undefined,
+      { shallow: true }
+    )
   }
 
   const resetFilters = async () => {
     try {
       setSpinner(true)
       console.log('🔄 Resetting filters...')
+      
+      // Сбрасываем состояние фильтров
+      setBoilerManufacturers(
+        boilerManufacturers.map((item) => ({ ...item, checked: false }))
+      )
+      setPartsManufacturers(
+        partsManufacturers.map((item) => ({ ...item, checked: false }))
+      )
+      setPriceRange([500000, 10000000])
+      setIsPriceRangeChanged(false)
+      
+      // Загружаем все машины
       const data = await getBoilerPartsFx('/cars/search?limit=100')
       console.log('📊 Reset data received:', data)
+      setBoilerParts(data)
+      setFilteredBoilerParts({ count: 0, rows: [] })
+      
+      // Обновляем URL
       router.push(
         {
           query: { offset: 1 },
@@ -251,17 +277,8 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
         undefined,
         { shallow: true }
       )
-      setBoilerManufacturers(
-        boilerManufacturers.map((item) => ({ ...item, checked: false }))
-      )
-      setPartsManufacturers(
-        partsManufacturers.map((item) => ({ ...item, checked: false }))
-      )
-      setBoilerParts(data)
-      setFilteredBoilerParts({ count: 0, rows: [] }) // Очищаем фильтры
-      setPriceRange([1000, 9000])
-      setIsPriceRangeChanged(false)
-      setIsFilterInQuery(false)
+      
+      setCurrentPage(0)
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
@@ -270,10 +287,10 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
   }
 
   return (
-    <section className={styles.catalog}>
+    <section className={styles.catalog} aria-labelledby="catalog-heading">
       <div className={`container ${styles.catalog__container}`}>
-        <h2 className={`${styles.catalog__title} ${darkModeClass}`}>
-          Витрина автомобилей
+        <h2 id="catalog-heading" className={`${styles.catalog__title} ${darkModeClass}`}>
+          Каталог автомобилей из Канады
         </h2>
         <div className={`${styles.catalog__top} ${darkModeClass}`}>
           <AnimatePresence>
@@ -288,7 +305,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
           <AnimatePresence>
             {isAnyPartsManufacturerChecked && (
               <ManufacturersBlock
-                title="Страна"
+                title="Тип топлива"
                 event={updatePartsManufacturer}
                 manufacturersList={partsManufacturers}
               />
@@ -326,7 +343,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               resetFilters={resetFilters}
               isPriceRangeChanged={isPriceRangeChanged}
               currentPage={currentPage}
-              setIsFilterInQuery={setIsFilterInQuery}
+              setIsFilterInQuery={() => {}}
               closePopup={closePopup}
               filtersMobileOpen={open}
             />
@@ -347,7 +364,7 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
               <ul className={styles.catalog__list}>
                 {getCurrentPageItems().length > 0 ? (
                   getCurrentPageItems()
-                    .filter((item) => Number(item.bestseller) !== 1) // Приводим к числу
+                    .filter((item) => Number(item.bestseller) !== 1)
                     .map((item) => <CatalogItem item={item} key={item.id} />)
                 ) : (
                   <span>Список товаров пуст...</span>
@@ -375,3 +392,4 @@ const CatalogPage = ({ query }: { query: IQueryParams }) => {
 }
 
 export default CatalogPage
+

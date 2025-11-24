@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './CarImage.module.scss'
 
 interface CarImageProps {
@@ -12,10 +12,15 @@ const CarImage = ({
   src, 
   alt, 
   className = '', 
-  fallbackText = 'Фото удалено по просьбе владельца' 
+  fallbackText = 'Упс... что то пошло не так. но мы уже работаем над этим' 
 }: CarImageProps) => {
   const [imageError, setImageError] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    setImageError(false)
+    setImageLoaded(false)
+  }, [src])
 
   // Проверяем, есть ли валидное изображение
   const hasValidImage = src && 

@@ -1,0 +1,28 @@
+# Правила для всех роботов
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /_next/
+Disallow: /*/cart
+Disallow: /*/order
+
+# Правила для Яндекса
+User-agent: Yandex
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Crawl-delay: 0.5
+
+# Правила для Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /api/
+
+# Host (для Яндекса)
+Host: https://auto-c-cars.ru
+
+# Sitemaps
+Sitemap: https://auto-c-cars.ru/sitemap.xml
+Sitemap: https://auto-c-cars.ru/server-sitemap.xml

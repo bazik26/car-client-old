@@ -277,6 +277,46 @@
     }
   }
 
+  &__phoneborder {
+    width: 1px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0 24px;
+
+    @media (max-width: 950px) {
+      display: none;
+    }
+  }
+
+  &__phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #fafbfc;
+    white-space: nowrap;
+
+    svg {
+      color: #ffc540;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 950px) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__phoneLink {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ffc540;
+    }
+  }
+
   &__bottom {
     padding-top: 17px;
     padding-bottom: 14px;
