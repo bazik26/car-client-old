@@ -118,11 +118,11 @@ const PartPage = () => {
                     <span>VIN: </span>{'*'.repeat(17)}
                   </h4>
                 )}
-                {boilerPart.Drive !== null && (
-                  <h4 className={styles.part__info__text}>
-                    <span>Трансмиссия: </span>{boilerPart.Drive}
-                  </h4>
-                )}
+                {/*{boilerPart.Drive !== null && (*/}
+                {/*  <h4 className={styles.part__info__text}>*/}
+                {/*    <span>Трансмиссия: </span>{boilerPart.Drive}*/}
+                {/*  </h4>*/}
+                {/*)}*/}
                 {boilerPart.createdAt !== null && (
                   <h4 className={styles.part__info__text}>
                     <span>Объявление размещено: </span>
