@@ -94,50 +94,42 @@ const PartPage = () => {
                 </span>
                 {boilerPart.Model !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Модель: </span>
-                    <span itemProp="model">{boilerPart.Model}</span>
+                    Модель: <span itemProp="model">{boilerPart.Model}</span>
                   </h4>
                 )}
                 {boilerPart.Year !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Год: </span>
-                    <span itemProp="productionDate">{boilerPart.Year}</span>
+                    Год: <span itemProp="productionDate">{boilerPart.Year}</span>
                   </h4>
                 )}
                 {boilerPart.Mileage !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Пробег: </span>
-                    <span itemProp="mileageFromOdometer">{boilerPart.Mileage}</span>
+                    Пробег: <span itemProp="mileageFromOdometer">{boilerPart.Mileage}</span>
                   </h4>
                 )}
                 {boilerPart.Engine !== null && (
                   <h4 className={styles.part__info__text}>
-                    <span>Двигатель: </span>
-                    <span itemProp="vehicleEngine">{boilerPart.Engine}</span>
+                    Двигатель: <span itemProp="vehicleEngine">{boilerPart.Engine}</span>
                   </h4>
                 )}
                 {boilerPart.fuel && (
                   <h4 className={styles.part__info__text}>
-                    <span>Топливо: </span>
-                    <span itemProp="fuelType">{boilerPart.fuel}</span>
+                    Топливо: <span itemProp="fuelType">{boilerPart.fuel}</span>
                   </h4>
                 )}
                 {boilerPart.gearbox && (
                   <h4 className={styles.part__info__text}>
-                    <span>КПП: </span>
-                    <span itemProp="vehicleTransmission">{boilerPart.gearbox}</span>
+                    КПП: <span itemProp="vehicleTransmission">{boilerPart.gearbox}</span>
                   </h4>
                 )}
                 {boilerPart.drive && (
                   <h4 className={styles.part__info__text}>
-                    <span>Привод: </span>
-                    <span itemProp="driveWheelConfiguration">{boilerPart.drive}</span>
+                    Привод: <span itemProp="driveWheelConfiguration">{boilerPart.drive}</span>
                   </h4>
                 )}
                 {boilerPart.powerValue && (
                   <h4 className={styles.part__info__text}>
-                    <span>Мощность: </span>
-                    <span itemProp="vehicleEngine">{boilerPart.powerValue} {boilerPart.powerType}</span>
+                    Мощность: <span itemProp="vehicleEngine">{boilerPart.powerValue} {boilerPart.powerType}</span>
                   </h4>
                 )}
                 {(boilerPart.vin || boilerPart.vendor_code) && boilerPart.vendor_code !== '???' && (
