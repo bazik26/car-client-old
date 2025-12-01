@@ -25,36 +25,26 @@ export const getSoldCarsFx = createEffect(async (url: string) => {
     console.log('🚨🚨🚨 GET SOLD CARS FX CALLED 🚨🚨🚨')
     console.log('🔍 getSoldCarsFx called with URL:', url)
     
-    // Используем поиск для получения всех автомобилей, затем фильтруем проданные
-    const searchParams = {
-      limit: 100
-    }
-    
-    const { data } = await api.post('/cars/search', searchParams)
+    // Используем специальный endpoint для проданных машин
+    // API сам фильтрует isSold = true на стороне сервера
+    const { data } = await api.get('/cars/sold?limit=100')
     console.log('📡 API Response for sold cars:', data)
-    console.log('📊 Total cars from API:', data.cars ? data.cars.length : 'No cars field')
+    console.log('📊 Total sold cars from API:', Array.isArray(data) ? data.length : 'Not an array')
 
-    // Если данные приходят в новом формате (массив ICar), фильтруем проданные
-    if (data.cars && Array.isArray(data.cars)) {
-      // Фильтруем только проданные автомобили
-      // API может возвращать isSold как boolean (true/false) или как число (1/0)
-      const soldCars = data.cars.filter((car: ICar) => {
-        const isSold = Boolean(car.isSold) // Преобразуем в boolean: 1 -> true, 0 -> false
-        console.log(`🚗 Car ${car.brand} ${car.model}: isSold=${car.isSold} (converted: ${isSold})`)
-        return isSold
-      })
-      console.log('🚗 Found sold cars:', soldCars.length)
-      console.log('🚗 Sold cars details:', soldCars.map((car: ICar) => `${car.brand} ${car.model} (isSold: ${car.isSold})`))
+    // API возвращает массив проданных машин напрямую
+    if (Array.isArray(data) && data.length > 0) {
+      console.log('🚗 Found sold cars:', data.length)
+      console.log('🚗 First 5 sold cars:', data.slice(0, 5).map((car: ICar) => `${car.brand} ${car.model} (isSold: ${car.isSold})`))
       
-      const mappedSoldCars = soldCars.map(mapCarToBoilerPart)
+      const mappedSoldCars = data.map(mapCarToBoilerPart)
       console.log('🔄 Mapped sold cars:', mappedSoldCars.length)
       return mappedSoldCars
     }
 
-    console.log('⚠️ No cars field found, returning empty array')
+    console.log('⚠️ No sold cars found, returning empty array')
     return []
   } catch (error) {
-    console.error('Error in getSoldCarsFx:', error)
+    console.error('❌ Error in getSoldCarsFx:', error)
     toast.error('Ошибка при загрузке проданных автомобилей')
     return []
   }
