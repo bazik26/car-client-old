@@ -36,10 +36,11 @@ export const getSoldCarsFx = createEffect(async (url: string) => {
 
     // Если данные приходят в новом формате (массив ICar), фильтруем проданные
     if (data.cars && Array.isArray(data.cars)) {
-      // Фильтруем только проданные автомобили (только isSold: true)
+      // Фильтруем только проданные автомобили
+      // API может возвращать isSold как boolean (true/false) или как число (1/0)
       const soldCars = data.cars.filter((car: ICar) => {
-        const isSold = car.isSold === true
-        console.log(`🚗 Car ${car.brand} ${car.model}: isSold=${car.isSold}`)
+        const isSold = Boolean(car.isSold) // Преобразуем в boolean: 1 -> true, 0 -> false
+        console.log(`🚗 Car ${car.brand} ${car.model}: isSold=${car.isSold} (converted: ${isSold})`)
         return isSold
       })
       console.log('🚗 Found sold cars:', soldCars.length)
