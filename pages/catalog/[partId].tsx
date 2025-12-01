@@ -18,11 +18,13 @@ function CatalogPartPage({
   query,
   metaTitle,
   metaDescription,
+  metaKeywords,
   jsonLd,
 }: {
   query: IQueryParams
   metaTitle: string
   metaDescription: string
+  metaKeywords: string
   jsonLd?: string
 }) {
   const { shouldLoadContent } = useRedirectByUserCheck()
@@ -79,7 +81,7 @@ function CatalogPartPage({
         
         {/* Основные SEO мета-теги */}
         <meta name="description" content={metaDescription} />
-        <meta name="keywords" content="купить авто, автомобили, продажа авто, автопригон, канадские автомобили, авто из США, авто из Кореи" />
+        <meta name="keywords" content={metaKeywords} />
         <meta name="author" content="Auto-c" />
         <meta name="robots" content="index, follow" />
         <meta name="language" content="Russian" />
@@ -190,11 +192,51 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
 
+    // Формируем богатое SEO описание с переменными
+    const specs = []
+    if (productionYear) specs.push(`${productionYear} г.`)
+    if (mileageFromOdometer) specs.push(`пробег ${Math.round(mileageFromOdometer).toLocaleString('ru-RU')} км`)
+    if (data.Engine || data.engine) specs.push(`двигатель ${data.Engine || data.engine}л`)
+    if (data.fuel) specs.push(data.fuel.toLowerCase())
+    if (data.Transmission || data.gearbox) specs.push((data.Transmission || data.gearbox).toLowerCase())
+    if (data.Drive || data.drive) specs.push((data.Drive || data.drive).toLowerCase())
+    if (priceValue) specs.push(`${priceValue.toLocaleString('ru-RU')} руб`)
+    
+    const specsText = specs.length > 0 ? ` ${specs.join(', ')}` : ''
+    const statusText = (data.sale || data.in_stock === 0) ? ' [ПРОДАНО]' : ' в наличии'
+    
+    const richMetaDescription = `${data.name}${specsText}${statusText}. Купить автомобиль из Европы под ключ с доставкой в РФ. Проверенное авто с документами. Консультация и помощь в оформлении. Auto-c-cars.ru`
+
+    // Формируем уникальные keywords для каждой машины
+    const keywordParts = [
+      'купить',
+      data.brand || brandName,
+      data.Model,
+      productionYear,
+      'автомобиль',
+      'авто из Европы',
+      data.fuel,
+      data.Transmission || data.gearbox,
+      data.Drive || data.drive,
+      'автопригон',
+      'пригон авто',
+      'авто под ключ',
+      'проверенное авто',
+      data.brand ? `${data.brand} с пробегом` : null,
+      mileageFromOdometer ? `пробег ${Math.round(mileageFromOdometer)} км` : null,
+      (data.sale || data.in_stock === 0) ? 'продано' : 'в наличии',
+      'доставка авто',
+      'растаможка авто'
+    ].filter(Boolean)
+    
+    const metaKeywords = keywordParts.join(', ')
+
     return {
       props: {
         query,
-        metaTitle: `Auto-c – ${data.name}`,
-        metaDescription: `Купить ${data.name} по отличной цене. Подробности, характеристики и условия доставки на сайте Auto-c.`,
+        metaTitle: `${data.name}${productionYear ? ` ${productionYear} г.` : ''}${mileageFromOdometer ? ` • ${Math.round(mileageFromOdometer).toLocaleString('ru-RU')} км` : ''} – Auto-c`,
+        metaDescription: richMetaDescription,
+        metaKeywords: metaKeywords,
         jsonLd: JSON.stringify(jsonLd),
       },
     }
