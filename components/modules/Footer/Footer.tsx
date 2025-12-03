@@ -37,7 +37,6 @@ const Footer = () => {
             <Link href="/dashboard" legacyBehavior>
               <a className={styles.footer__logo}>
                 <img src="/img/d4u9bd1htusd1k9cj1hqvzhd99cqogb2.png" />
-                <span>Auto-c Import</span>
               </a>
             </Link>
             <p className={styles.footer__description}>
