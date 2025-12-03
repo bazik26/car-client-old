@@ -36,7 +36,7 @@ const Footer = () => {
           <div className={styles.footer__brand}>
             <Link href="/dashboard" legacyBehavior>
               <a className={styles.footer__logo}>
-                <img src="/img/d4u9bd1htusd1k9cj1hqvzhd99cqogb2.png" alt="Auto-c Import" />
+                <img src="/img/d4u9bd1htusd1k9cj1hqvzhd99cqogb2.png" />
                 <span>Auto-c Import</span>
               </a>
             </Link>
@@ -98,11 +98,6 @@ const Footer = () => {
               <MarkerSvg />
               <span>183039, Мурманская область, г. Мурманск, ул. Академика Книповича, д. 23, офис 119</span>
             </div>
-            <div className={styles.footer__contactItem}>
-              <MarkerSvg />
-              <span>620026, Свердловская область, г. Екатеринбург, ул. Белинского, д. 83, офис 416</span>
-            </div>
-            <p className={styles.footer__schedule}>Работаем ежедневно с 09:00 до 18:00</p>
           </div>
         </div>
 
